@@ -1,5 +1,5 @@
 package seongyunism.controller;
 
-public class LoginController {
+public class MemberController {
 
 }

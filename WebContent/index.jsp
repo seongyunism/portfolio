@@ -1,4 +1,6 @@
+<%@ page import="seongyunism.model.BoardDAO" %>
 <%@ page import="seongyunism.model.domain.Board"%>
+<%@ page import="seongyunism.model.domain.BoardCategory"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.sql.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -30,8 +32,7 @@
 		$("#content div.innerContent div.grid figure").click(function() {
 			if(!postClick) {				
 
-				var action = "post?action=postView";
-//				var action = "page/ajaxGetPost.jsp";
+				var action = "board?action=postView";
 				var postNo = "postNo=1";
 				
 				$.ajax({
@@ -99,7 +100,7 @@
 	}	
 	</script>
 	<link rel="stylesheet" type="text/css" href="css/boxComponent.css" />
-	<link rel="stylesheet" type="text/css" href="http://portfolio.890313.com/include/css/applyCharacter.css" />
+	<link rel="stylesheet" type="text/css" href="http://portfolio.890313.com/include/css/applyCharacter_8080.css" />
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:400,800,300" />
 	<style>
 	html, body {width:100%; height:100%; margin:0px; padding:0px;}
@@ -155,9 +156,9 @@
 	#blackPlate div.innerContent {position:absolute; top:50%; left:50%; background:rgba(0, 0, 0, 0.85); box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3);}
 	#blackPlate div.innerContent div.top {width:100%;}
 	#blackPlate div.innerContent div.top div.button {height:48px;}
-	#blackPlate div.innerContent div.top div.button div.modify {width:72px; height:48px; float:right; font-size:1.1em; text-align:center; line-height:48px; color:#888888;}
+	#blackPlate div.innerContent div.top div.button div.modify {width:72px; height:48px; float:right; font-family:NanumGothic; font-size:1.1em; text-align:center; line-height:48px; color:#888888;}
 	#blackPlate div.innerContent div.top div.button div.modify:hover {color:#eeeeee; background:rgba(255, 255, 255, 0.05);}
-	#blackPlate div.innerContent div.top div.button div.delete {width:72px; height:48px; float:right; font-size:1.1em; text-align:center; line-height:48px; color:#888888;}		
+	#blackPlate div.innerContent div.top div.button div.delete {width:72px; height:48px; float:right; font-family:Nanumgothic; font-size:1.1em; text-align:center; line-height:48px; color:#888888;}		
 	#blackPlate div.innerContent div.top div.button div.delete:hover {color:#eeeeee; background:rgba(255, 255, 255, 0.05);}
 	#blackPlate div.innerContent div.top div.button div.close {width:48px; height:48px; float:right; text-align:center; line-height:48px;}
 	#blackPlate div.innerContent div.top div.button div.close:hover {background:rgba(255, 255, 255, 0.05);}
@@ -185,11 +186,12 @@
     #content div.title {text-align:center; }
     #content div.title a {}
     #content div.title img.title {border:0px; outline:0px;}
-    #content div.innerContent {background:rgba(0, 0, 0, 0.1); box-shadow:0px 0px 5px 1px rgba(0, 0, 0, 0.1);}
-    #content div.innerContent div.subTitle {font-family:Helvetica; font-size:1.5em; font-weight:100; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); height:40px; line-height:40px; background:rgba(0, 0, 0, 0.05); padding-left:10px;}
-	#content div.innerContent div.grid {width:100%; list-style:none; margin:0px; overflow:hidden;}
-	#content div.innerContent div.grid figure {position:relative; font-family: 'Raleway', Arial, sans-serif; text-align:center; box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.15); padding:0px; display:inline-block; overflow:hidden; z-index:1; cursor:pointer; overflow: hidden;}
-	#content div.innerContent div.grid figure img {position:absolute; left:50%; top:50%; width:auto; height:100%; -webkit-transform:translate(-50%,-50%); -ms-transform:translate(-50%,-50%); transform:translate(-50%,-50%);}
+    #content div.innerContent {}
+    #content div.subContent {box-shadow:0px 0px 5px 1px rgba(0, 0, 0, 0.1);}
+    #content div.innerContent div.subContent div.subTitle {font-family:NanumGothic, Helvetica; font-size:1.5em; font-weight:100; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); height:40px; line-height:40px; background:rgba(0, 0, 0, 0.15); padding-left:10px;}
+	#content div.innerContent div.subContent div.grid {width:100%; list-style:none; margin:0px; overflow:hidden; margin-bottom:15px; background:rgba(0, 0, 0, 0.1);}
+	#content div.innerContent div.subContent div.grid figure {position:relative; font-family: 'Raleway', Arial, sans-serif; text-align:center; box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.15); padding:0px; display:inline-block; overflow:hidden; z-index:1; cursor:pointer; overflow: hidden;}
+	#content div.innerContent div.subContent div.grid figure img {position:absolute; left:50%; top:50%; width:auto; height:100%; -webkit-transform:translate(-50%,-50%); -ms-transform:translate(-50%,-50%); transform:translate(-50%,-50%);}
 
     #leftMenu {display:none;}
     #leftMenu a{font-weight:bold; color:#333; background:rgba(0, 0, 0, 0.1); border:none; padding:5px 10px;}
@@ -209,7 +211,7 @@
 </head>
 
 <body>
-
+	
 	<div id="blackPlate">
 		<div class="innerContent">
 			<div class="top">
@@ -274,150 +276,40 @@
     <div id="content">
     	<div class="title"><a href="#leftMenu" class="menu"><img class="title" /></a></div>
     	<div class="innerContent">
-    		<div class="subTitle">PUBLICATION</div>
-			<div class="grid">
-			
-				<figure class="effect-sarah">
-					<img src="img/cover/001.jpg" alt="img01"/>
-					<figcaption>
-						<h2>Grand Mint Festival 2013</h2>
-						<p>Olympic Park, SEOUL (2013.10.20)</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<!--
-				<figure class="effect-sadie">
-					<img src="img/test/2.jpg" alt="img02"/>
-					<figcaption>
-						<h2>Holy <span>Sadie</span></h2>
-						<p>Sadie never took her eyes off me. <br>She had a dark soul.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-honey">
-					<img src="img/test/7.jpg" alt="img07"/>
-					<figcaption>
-						<h2>Dreamy <span>Honey</span> <i>Now</i></h2>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-					
-				<figure class="effect-layla">
-					<img src="img/test/4.jpg" alt="img04"/>
-					<figcaption>
-						<h2>Crazy <span>Layla</span></h2>
-						<p>When Layla appears, she brings an eternal summer along.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-zoe">
-					<img src="img/test/14.jpg" alt="img14"/>
-					<figcaption>
-						<h2>Creative <span>Zoe</span></h2>
-						<span class="icon-heart"></span>
-						<span class="icon-eye"></span>
-						<span class="icon-paper-clip"></span>
-						<p>Zoe never had the patience of her sisters. She deliberately punched the bear in his face.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-oscar">
-					<img src="img/test/8.jpg" alt="img08"/>
-					<figcaption>
-						<h2>Warm <span>Oscar</span></h2>
-						<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-marley">
-					<img src="img/test/9.jpg" alt="img09"/>
-					<figcaption>
-						<h2>Sweet <span>Marley</span></h2>
-						<p>Marley tried to convince her but she was not interested.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-ruby">
-					<img src="img/test/10.jpg" alt="img10"/>
-					<figcaption>
-						<h2>Glowing <span>Ruby</span></h2>
-						<p>Ruby did not need any help. Everybody knew that.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-roxy">
-					<img src="img/test/3.jpg" alt="img03"/>
-					<figcaption>
-						<h2>Charming <span>Roxy</span></h2>
-						<p>Roxy was my best friend..</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-bubba">
-					<img src="img/test/6.jpg" alt="img06"/>
-					<figcaption>
-						<h2>Fresh <span>Bubba</span></h2>
-						<p>Bubba likes to appear out of thin air.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-romeo">
-					<img src="img/test/5.jpg" alt="img05"/>
-					<figcaption>
-						<h2>Wild <span>Romeo</span></h2>
-						<p>Romeo never knows what he wants. He seemed to be very cross about something.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-dexter">
-					<img src="img/test/12.jpg" alt="img12"/>
-					<figcaption>
-						<h2>Strange <span>Dexter</span></h2>
-						<p>Dexter had his own strange way. You could watch him training ants.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-sarah">
-					<img src="img/test/13.jpg" alt="img13"/>
-					<figcaption>
-						<h2>Free <span>Sarah</span></h2>
-						<p>Sarah likes to watch clouds. She's quite depressed.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-chico">
-					<img src="img/test/15.jpg" alt="img15"/>
-					<figcaption>
-						<h2>Silly <span>Chico</span></h2>
-						<p>Chico's main fear was missing the morning bus.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				
-				<figure class="effect-milo">
-					<img src="img/test/11.jpg" alt="img11"/>
-					<figcaption>
-						<h2>Faithful <span>Milo</span></h2>
-						<p>Milo went to the woods. He took a fun ride and never came back.</p>
-						<a href="#">View more</a>
-					</figcaption>			
-				</figure>
-				-->
-				
-				
+   			<div class="subContent">
+	    		<div class="subTitle"><%=BoardDAO.getCategoryName(1).getPfCategoryNameKor()%> | <%=BoardDAO.getCategoryName(1).getPfCategoryName()%></div>
+				<div class="grid">
+					<c:forEach begin="1" end="${BoardDAO.getList(1)}" var="post">
+						<figure class="effect-sarah">
+							<img src="img/cover/001.jpg" alt="img01"/>
+							<figcaption>
+								<h2>Grand Mint Festival 2013</h2>
+								<p>Olympic Park, SEOUL (2013.10.20)</p>
+								<a href="#">View more</a>
+							</figcaption>			
+						</figure>
+					</c:forEach>
+				</div>
 			</div>
+
+   			<div class="subContent">
+	    		<div class="subTitle"><%=BoardDAO.getCategoryName(2).getPfCategoryNameKor()%> | <%=BoardDAO.getCategoryName(2).getPfCategoryName()%></div>
+				<div class="grid">
+					<c:forEach begin="1" end="${BoardDAO.getList(1)}" var="post">
+						<figure class="effect-sarah">
+							<img src="img/cover/002.jpg" alt="img01"/>
+							<figcaption>
+								<h2>SOCSOC CAMP UCC</h2>
+								<p>Yeongdong Elementary School (2015.01.20)</p>
+								<a href="#">View more</a>
+							</figcaption>			
+						</figure>
+					</c:forEach>
+				</div>		
+			</div>
+			
+   			<div class="subContent">
+   			</div>
     	</div>
     </div>
 

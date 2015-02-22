@@ -6,12 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import seongyunism.model.domain.Board;
+import seongyunism.model.domain.BoardCategory;
 import seongyunism.util.DBUtil;
 
 public class BoardDAO {
 
-	// [index.jsp][콘텐츠 영역] 
-	public static Board getPost(int postNo) throws SQLException {
+	// [index.jsp][콘텐츠 영역] 포스트 가져오기
+	public static Board getPost(int inputPostNo) throws SQLException {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -22,7 +23,7 @@ public class BoardDAO {
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement("SELECT * FROM pf_post WHERE pfNo=?");
-			pstmt.setInt(1, postNo);
+			pstmt.setInt(1, inputPostNo);
 			rset = pstmt.executeQuery();	
 			
 			if (rset.next()) {
@@ -70,4 +71,80 @@ public class BoardDAO {
 		return thisPost;
 	}
 
+	// [index.jsp][콘텐츠 영역] 해당 카테고리 포스트 개수 가져오기
+	public static int getList(int inputProjectCategory) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int postCount = 0;;
+		
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("SELECT count(*) FROM pf_post WHERE pfProjectCategory=?");
+			pstmt.setInt(1, inputProjectCategory);
+			rset = pstmt.executeQuery();
+			
+			rset.next();
+			postCount = rset.getInt(1);
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw se;
+			
+		} finally {
+			try {
+				DBUtil.close(con, pstmt, rset);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+		
+		return postCount;
+	}
+	
+	public static BoardCategory getCategoryName(int inputProjectCategory) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		BoardCategory thisCategory = null;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM pf_post_category WHERE pfNo=?");
+			pstmt.setInt(1, inputProjectCategory);
+			rset = pstmt.executeQuery();
+				
+			if (rset.next()) {
+				
+				thisCategory = new BoardCategory(
+					rset.getInt(1),		 // int pfNo
+					rset.getString(2),	// String pfCategoryName;
+					rset.getString(3)  // String pfCategoryNameKor
+				);
+
+			} else {
+//				throw new RecordNotFoundException();
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw se;
+			
+		} finally {
+			try {
+				DBUtil.close(con, pstmt, rset);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+
+		return thisCategory;
+	}
+	
+	
+	
 }
