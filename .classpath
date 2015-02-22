@@ -13,5 +13,9 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="E:/CLOUD/GoogleDrive/2015.02. 개인 포트폴리오 제작 프로젝트/Workspace/portfolio/WebContent/WEB-INF/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="E:/CLOUD/GoogleDrive/2015.02. 개인 포트폴리오 제작 프로젝트/Workspace/portfolio/WebContent/WEB-INF/lib/json_simple-1.1.jar"/>
+	<classpathentry kind="lib" path="E:/CLOUD/GoogleDrive/2015.02. 개인 포트폴리오 제작 프로젝트/Workspace/portfolio/WebContent/WEB-INF/lib/mysql-connector-java-5.1.33-bin.jar"/>
+	<classpathentry kind="lib" path="E:/CLOUD/GoogleDrive/2015.02. 개인 포트폴리오 제작 프로젝트/Workspace/portfolio/WebContent/WEB-INF/lib/standard.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

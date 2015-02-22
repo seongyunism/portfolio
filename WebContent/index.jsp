@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@ page import="seongyunism.controller.BoardController" %>
 <%@ page import="seongyunism.model.BoardDAO" %>
 <%@ page import="seongyunism.model.domain.Board"%>
 <%@ page import="seongyunism.model.domain.BoardCategory"%>
@@ -33,7 +35,7 @@
 			if(!postClick) {				
 
 				var action = "board?action=postView";
-				var postNo = "postNo=1";
+				var postNo = "postNo=" + $(this).attr("name");
 				
 				$.ajax({
 					type : "POST",
@@ -190,7 +192,7 @@
     #content div.subContent {box-shadow:0px 0px 5px 1px rgba(0, 0, 0, 0.1);}
     #content div.innerContent div.subContent div.subTitle {font-family:NanumGothic, Helvetica; font-size:1.5em; font-weight:100; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); height:40px; line-height:40px; background:rgba(0, 0, 0, 0.15); padding-left:10px;}
 	#content div.innerContent div.subContent div.grid {width:100%; list-style:none; margin:0px; overflow:hidden; margin-bottom:15px; background:rgba(0, 0, 0, 0.1);}
-	#content div.innerContent div.subContent div.grid figure {position:relative; font-family: 'Raleway', Arial, sans-serif; text-align:center; box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.15); padding:0px; display:inline-block; overflow:hidden; z-index:1; cursor:pointer; overflow: hidden;}
+	#content div.innerContent div.subContent div.grid figure {position:relative; font-family: 'Raleway', Arial, NanumGothic, sans-serif; text-align:center; box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.15); padding:0px; display:inline-block; overflow:hidden; z-index:1; cursor:pointer; overflow: hidden;}
 	#content div.innerContent div.subContent div.grid figure img {position:absolute; left:50%; top:50%; width:auto; height:100%; -webkit-transform:translate(-50%,-50%); -ms-transform:translate(-50%,-50%); transform:translate(-50%,-50%);}
 
     #leftMenu {display:none;}
@@ -211,7 +213,7 @@
 </head>
 
 <body>
-	
+
 	<div id="blackPlate">
 		<div class="innerContent">
 			<div class="top">
@@ -279,32 +281,33 @@
    			<div class="subContent">
 	    		<div class="subTitle"><%=BoardDAO.getCategoryName(1).getPfCategoryNameKor()%> | <%=BoardDAO.getCategoryName(1).getPfCategoryName()%></div>
 				<div class="grid">
-					<c:forEach begin="1" end="${BoardDAO.getList(1)}" var="post">
-						<figure class="effect-sarah">
-							<img src="img/cover/001.jpg" alt="img01"/>
+
+					<% ArrayList<Board> postList = BoardDAO.getList(1); for(int i=0; i<postList.size(); i++) { %>
+						<figure class="effect-sarah" name="<%=postList.get(i).getPfNo()%>">
+							<img src="<%=postList.get(i).getPfPostThumbnailAddr() %>" />
 							<figcaption>
-								<h2>Grand Mint Festival 2013</h2>
-								<p>Olympic Park, SEOUL (2013.10.20)</p>
+								<h2><%=postList.get(i).getPfProjectTitle() %></h2>
+								<p><%=postList.get(i).getPfProjectSubTitle() %></p>
 								<a href="#">View more</a>
 							</figcaption>			
 						</figure>
-					</c:forEach>
+					<% } %>
 				</div>
 			</div>
 
    			<div class="subContent">
 	    		<div class="subTitle"><%=BoardDAO.getCategoryName(2).getPfCategoryNameKor()%> | <%=BoardDAO.getCategoryName(2).getPfCategoryName()%></div>
 				<div class="grid">
-					<c:forEach begin="1" end="${BoardDAO.getList(1)}" var="post">
-						<figure class="effect-sarah">
-							<img src="img/cover/002.jpg" alt="img01"/>
+					<% ArrayList<Board> postList2 = BoardDAO.getList(2); for(int i=0; i<postList.size(); i++) { %>
+						<figure class="effect-bubba" name="<%=postList2.get(i).getPfNo()%>">
+							<img src="<%=postList2.get(i).getPfPostThumbnailAddr() %>" />
 							<figcaption>
-								<h2>SOCSOC CAMP UCC</h2>
-								<p>Yeongdong Elementary School (2015.01.20)</p>
+								<h2><%=postList2.get(i).getPfProjectTitle() %></h2>
+								<p><%=postList2.get(i).getPfProjectSubTitle() %></p>
 								<a href="#">View more</a>
 							</figcaption>			
 						</figure>
-					</c:forEach>
+					<% } %>
 				</div>		
 			</div>
 			

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import seongyunism.model.domain.Board;
 import seongyunism.model.domain.BoardCategory;
@@ -72,13 +73,13 @@ public class BoardDAO {
 	}
 
 	// [index.jsp][콘텐츠 영역] 해당 카테고리 포스트 개수 가져오기
-	public static int getList(int inputProjectCategory) throws SQLException {
+	public static int getListCount(int inputProjectCategory) throws SQLException {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		int postCount = 0;;
+		int postCount = 0;
 		
 		try {
 			con = DBUtil.getConnection();
@@ -144,7 +145,46 @@ public class BoardDAO {
 
 		return thisCategory;
 	}
-	
-	
+
+	public static ArrayList<Board> getList(int inputProjectCategory) throws SQLException {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Board thisPost = null;
+		ArrayList<Board> thisList = new ArrayList<Board>();
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM pf_post WHERE pfProjectCategory=? ORDER BY pfProjectDate DESC");
+			pstmt.setInt(1, inputProjectCategory);
+			rset = pstmt.executeQuery();
+				
+			while (rset.next()) {
+				
+				thisPost = new Board(rset.getInt(1), rset.getInt(2), rset.getString(3), rset.getString(4), rset.getString(5),
+						rset.getString(6), rset.getString(7), rset.getInt(8), rset.getString(9), rset.getString(10), rset.getString(11),
+						 rset.getString(12), rset.getString(13), rset.getString(14), rset.getString(15), rset.getString(16),
+						 rset.getString(17), rset.getInt(18), rset.getInt(19), rset.getInt(20), rset.getInt(21)
+				);
+				
+				thisList.add(thisPost);
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw se;
+
+		} finally {
+			try {
+				DBUtil.close(con, pstmt, rset);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+
+		return thisList;
+	}
 	
 }

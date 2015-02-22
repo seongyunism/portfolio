@@ -2,6 +2,7 @@ package seongyunism.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import org.json.simple.JSONObject;
 
 import seongyunism.model.BoardDAO;
 import seongyunism.model.domain.Board;
+import seongyunism.util.DBUtil;
 
 public class BoardController extends HttpServlet {
 
@@ -32,15 +34,15 @@ public class BoardController extends HttpServlet {
 		if (action.equals("postView")) {
 			postView(req, res);
 		} else if(action.equals("postList")) {
-			postList(req, res);
+			postListCount(req, res);
 		}
 	}
 	
-	private void postList(HttpServletRequest req, HttpServletResponse res) {
+	public void postListCount(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
 		try {
 			int inputProjectCategory = (req.getParameter("projectCategory") != null) ? Integer.parseInt(req.getParameter("projectCategory")) : 0;
-			int postCount = BoardDAO.getList(inputProjectCategory);
+			int postCount = BoardDAO.getListCount(inputProjectCategory);
 			
 			res.getWriter().write(postCount);
 					
@@ -50,6 +52,24 @@ public class BoardController extends HttpServlet {
 		
 	}
 
+	public ArrayList<Board> postList(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
+		ArrayList<Board> postList = new ArrayList<Board>();
+
+		try {
+			int inputProjectCategory = (req.getParameter("projectCategory") != null) ? Integer.parseInt(req.getParameter("projectCategory")) : 0;
+			
+			postList = BoardDAO.getList(inputProjectCategory);
+			
+		} catch (SQLException e) {
+			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
+		}
+		
+		return postList;
+		
+	}
+	
+	
 	public void postView(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		
 		req.setCharacterEncoding("utf8");
