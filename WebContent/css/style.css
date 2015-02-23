@@ -1,0 +1,115 @@
+@CHARSET "UTF-8";
+
+html, body {width:100%; height:100%; margin:0px; padding:0px;}
+
+body {background:url('../img/background.jpg'); background-attachment:fixed; background-repeat:no-repeat; background-position:center; background-size:cover; -webkit-font-smoothing:antialiased; -webkit-text-size-adjust:none; overflow-x:hidden;}
+
+a, h1, h2, h3, h4 {margin:0px; padding:0px;}
+
+/* 브라우저 크기가 1440px 이하일 경우 */
+@media screen and (max-width:1440px) {
+	#blackPlate div.innerContent {width:1310px; height:737px; margin:-368.5px 0px 0px -655px;}
+	#blackPlate div.innerContent div.top {height:237px;}
+	#blackPlate div.innerContent div.top div.button {height:48px;}
+	#blackPlate div.innerContent div.top div.title {height:91px; font-size:2em; line-height:45px;}
+	#blackPlate div.innerContent div.top div.subTitle {height:50px; font-size:1.3em; line-height:50px;}
+	#blackPlate div.innerContent div.top div.margin {height:48px;}
+	#blackPlate div.innerContent div.left {width:500px; height:500px;}
+	#blackPlate div.innerContent div.left div.fotorama {width:452px;}
+	#blackPlate div.innerContent div.left div.fotorama img {width:452px;}
+	#blackPlate div.innerContent div.right {width:810px;}
+	#blackPlate div.innerContent div.right div.subject, #blackPlate div.innerContent div.right div.period, #blackPlate div.innerContent div.right div.purpose,
+		#blackPlate div.innerContent div.right div.collabo, #blackPlate div.innerContent div.right div.language {height:34px; font-size:1.2em; line-height:34px;}
+	#blackPlate div.innerContent div.right div.column {height:34px; font-size:0.8em; line-height:34px;}
+	
+	#pageslide {width:340px;}
+
+	#content {width:1180px;}
+	#content div.title {height:210px;}
+	#content div.innerContent div.grid {padding:16px 0px 0px 16px;}
+	#content div.innerContent div.grid figure {width:372px; height:400px; margin:0px 11px 11px 0px; }
+		
+	#leftMenu div.profileImage img {width:300px;}
+	#leftMenu div.profileImage div.button div.login div.loginBtn {width:300px;}
+}
+
+/* 브라우저 크기가 1440px 초과할 경우 */
+@media screen and (min-width:1441px) { 
+	#blackPlate div.innerContent {width:1748px; height:983px; margin:-491.5px 0px 0px -874px;}
+	#blackPlate div.innerContent div.top {height:283px;}
+	#blackPlate div.innerContent div.top div.button {height:48px;}
+	#blackPlate div.innerContent div.top div.title {height:121px; font-size:3em;}
+	#blackPlate div.innerContent div.top div.subTitle {height:66px; font-size:1.5em; line-height:66px;}
+	#blackPlate div.innerContent div.top div.margin {height:48px;}
+	#blackPlate div.innerContent div.left {width:1024px;}
+	#blackPlate div.innerContent div.left div.fotorama {width:976px;}
+	#blackPlate div.innerContent div.left div.fotorama img {width:976px; height:652px;}
+	#blackPlate div.innerContent div.right {width:724px;}
+	#blackPlate div.innerContent div.right div.subject, #blackPlate div.innerContent div.right div.period, #blackPlate div.innerContent div.right div.purpose,
+		#blackPlate div.innerContent div.right div.collabo, #blackPlate div.innerContent div.right div.language {height:45px; font-size:1.2em; line-height:45px;}
+	#blackPlate div.innerContent div.right div.column {height:45px; font-size:0.9em; line-height:45px;}
+
+	#pageslide {width:453px;}
+
+	#content {width:1574px;}
+	#content div.title {height:280px;}
+	#content div.innerContent div.grid {padding:20px 0px 0px 20px;}
+	#content div.innerContent div.grid figure {width:498px; height:400px; margin:0px 15px 15px 0px; }
+		
+	#leftMenu div.profileImage img {width:413px;}
+	#leftMenu div.profileImage div.button {width:413px;}		
+}
+
+#blackPlate {position:fixed; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:10; display:none;}
+#blackPlate div.innerContent {position:absolute; top:50%; left:50%; background:rgba(0, 0, 0, 0.90); box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3);}
+#blackPlate div.innerContent div.top {width:100%;}
+#blackPlate div.innerContent div.top div.button {height:48px;}
+#blackPlate div.innerContent div.top div.button div.modify {width:72px; height:48px; float:right; font-family:NanumGothic; font-size:1.1em; text-align:center; line-height:48px; color:#888888; cursor:pointer;}
+#blackPlate div.innerContent div.top div.button div.modify:hover {color:#eeeeee; background:rgba(255, 255, 255, 0.05);}
+#blackPlate div.innerContent div.top div.button div.delete {width:72px; height:48px; float:right; font-family:Nanumgothic; font-size:1.1em; text-align:center; line-height:48px; color:#888888; cursor:pointer;}		
+#blackPlate div.innerContent div.top div.button div.delete:hover {color:#eeeeee; background:rgba(255, 255, 255, 0.05);}
+#blackPlate div.innerContent div.top div.button div.close {width:48px; height:48px; float:right; text-align:center; line-height:48px; cursor:pointer;}
+#blackPlate div.innerContent div.top div.button div.close:hover {background:rgba(255, 255, 255, 0.05);}
+#blackPlate div.innerContent div.top div.button div.close img {width:28px; height:28px; margin:10px;}
+#blackPlate div.innerContent div.top div.title {clear:both; font-family:MyriadPro, NanumGothic; font-weight:bold; color:#eeeeee; padding-left:48px;}
+#blackPlate div.innerContent div.top div.subTitle {clear:both; font-family:MyriadPro, NanumGothic; color:#eeeeee; padding-left:48px; background:rgba(255, 255, 255, 0.02);}
+#blackPlate div.innerContent div.top div.margin {clear:both;}
+#blackPlate div.innerContent div.left {clear:both; float:left;}
+#blackPlate div.innerContent div.left div.fotorama {padding-left:48px;}
+#blackPlate div.innerContent div.left div.fotorama img {}
+#blackPlate div.innerContent div.right {float:right; padding:0px 10px 0px 10px;}	
+#blackPlate div.innerContent div.right div.subject, #blackPlate div.innerContent div.right div.period, #blackPlate div.innerContent div.right div.purpose,
+	#blackPlate div.innerContent div.right div.collabo, #blackPlate div.innerContent div.right div.language {font-family:NanumGothic;  color:#ffffff; border-bottom:1px solid #1a1a1a;}
+#blackPlate div.innerContent div.right div.memo {}
+#blackPlate div.innerContent div.right div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center;}	
+#blackPlate div.innerContent div.right div.data {float:left;}
+	
+#pageslide{position:fixed; top:0px; height:100%; color:#ffffff; background:rgba(255, 255, 255, 0.3); padding:20px; display:none; z-index:999999; -webkit-box-shadow:0px 0px 6px 3px rgba(0, 0, 0, 0.1); -moz-box-shadow:0px 0px 6px 3px rgba(0, 0, 0, 0.1); box-shadow:0px 0px 6px 3px rgba(0, 0, 0, 0.1);}
+
+#content {padding:0px; margin:auto; margin-bottom:50px;}
+#content div.title {text-align:center; }
+#content div.title a {}
+#content div.title img.title {border:0px; outline:0px;}
+#content div.innerContent {}
+#content div.subContent {box-shadow:0px 0px 5px 1px rgba(0, 0, 0, 0.1);}
+#content div.innerContent div.subContent div.subTitle {font-family:Helvetica, NanumGothic; font-size:1.5em; font-weight:100; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); height:40px; line-height:40px; background:rgba(0, 0, 0, 0.15); padding-left:10px;}
+#content div.innerContent div.subContent div.grid {width:100%; list-style:none; margin:0px; overflow:hidden; margin-bottom:15px; background:rgba(0, 0, 0, 0.1);}
+#content div.innerContent div.subContent div.grid figure {position:relative; font-family: 'Raleway', Arial, NanumGothic, sans-serif; text-align:center; box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.15); padding:0px; display:inline-block; overflow:hidden; z-index:1; cursor:pointer; overflow: hidden;}
+#content div.innerContent div.subContent div.grid figure img {position:absolute; left:50%; top:50%; width:auto; height:100%; -webkit-transform:translate(-50%,-50%); -ms-transform:translate(-50%,-50%); transform:translate(-50%,-50%);}
+
+#leftMenu {display:none;}
+#leftMenu a{font-weight:bold; color:#333; background:rgba(0, 0, 0, 0.1); border:none; padding:5px 10px;}
+#leftMenu a:hover{background:#aaa;}
+#leftMenu div.title {font-family:Helvetica; font-size:1.2em; font-weight:600; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#000000; margin:0px 0px 20px 0px; padding:0px;}
+#leftMenu div.profileImage {line-height:0px;}
+#leftMenu div.profileImage img {box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3); cursor:pointer;}
+#leftMenu div.profileImage div.button {clear:both;}
+#leftMenu div.profileImage div.button div.login {display:none;}
+#leftMenu div.profileImage div.button div.login div.loginBtn {height:40px; font-family:NanumGothic; font-size:0.9em; text-align:center; line-height:40px; color:#333333; background:rgba(255, 255, 255, 0.4); box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.05); cursor:pointer;}	
+#leftMenu div.profileImage div.button div.logged {display:none;}	
+#leftMenu div.profileImage div.button div.logged div.logoutBtn {height:40px; float:left; line-height:40px;}
+#leftMenu div.profileImage div.button div.logged div.newPostBtn {height:40px; float:left; line-height:40px;}	
+#leftMenu div.name {height:30px; clear:both; font-family:Helvetica; font-size:1.4em; font-weight:100; letter-spacing:-1px; text-align:right; color:#000000; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); padding-top:20px;}
+				
+
+

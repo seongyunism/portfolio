@@ -22,12 +22,10 @@ public class BoardController extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-
 		process(req, res);
 	}
 	
 	public void process(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-
 		req.setCharacterEncoding("utf-8");
 		String action = req.getParameter("action");
 		
@@ -38,6 +36,7 @@ public class BoardController extends HttpServlet {
 		}
 	}
 	
+	// 카테고리가 일치하는 포스트 개수 구하기
 	public void postListCount(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
 		try {
@@ -52,24 +51,7 @@ public class BoardController extends HttpServlet {
 		
 	}
 
-	public ArrayList<Board> postList(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-
-		ArrayList<Board> postList = new ArrayList<Board>();
-
-		try {
-			int inputProjectCategory = (req.getParameter("projectCategory") != null) ? Integer.parseInt(req.getParameter("projectCategory")) : 0;
-			
-			postList = BoardDAO.getList(inputProjectCategory);
-			
-		} catch (SQLException e) {
-			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
-		}
-		
-		return postList;
-		
-	}
-	
-	
+	// 포스트 리스트에서 포스트 클릭 시 해당 포스트에 해당하는 프로젝트 내용 가져오기
 	public void postView(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		
 		req.setCharacterEncoding("utf8");
@@ -88,6 +70,13 @@ public class BoardController extends HttpServlet {
 			jObject.put("pfProjectPeriod", thisPost.getPfProjectPeriod());
 			jObject.put("pfProjectPurpose", thisPost.getPfProjectPurpose());
 			jObject.put("pfProjectCollabo", thisPost.getPfProjectCollabo());
+			jObject.put("pfProjectLanguage", thisPost.getPfProjectLanguage());
+			jObject.put("pfProjectMovAddr", thisPost.getPfProjectMovAddr());
+			jObject.put("pfProjectMovPreview", thisPost.getPfProjectMovPreview());	
+			jObject.put("pfProjectImgAddr01", thisPost.getPfProjectImgAddr01());
+			jObject.put("pfProjectImgAddr02", thisPost.getPfProjectImgAddr02());
+			jObject.put("pfProjectImgAddr03", thisPost.getPfProjectImgAddr03());
+			jObject.put("pfProjectImgAddr04", thisPost.getPfProjectImgAddr04());
 			
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
@@ -100,8 +89,5 @@ public class BoardController extends HttpServlet {
 		}
 		
 	}
-	
-	
-	
 	
 }

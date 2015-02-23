@@ -2,27 +2,29 @@ package seongyunism.model.domain;
 
 public class Board {
 
-	int pfNo;
-	int pfProjectCategory;
-	String pfProjectTitle;
-	String pfProjectSubTitle;
-	String pfProjectPeriod;
-	String pfProjectPurpose;
-	String pfProjectCollabo;
-	int pfProjectDate;
-	String pfProjectLink;
-	String pfProjectMovAddr;
-	String pfProjectImgAddr01;
-	String pfProjectImgAddr02;
-	String pfProjectImgAddr03;
-	String pfProjectImgAddr04;
-	String pfPostThumbnailAddr;
-	String pfProjectMemo;
-	String pfPostViewMode;
-	int pfPostViews;
-	int pfPostWrittenDate;
-	int pfPostTotalComments;
-	int pfPostTotalLike;
+	int pfNo; // 고유 번호
+	int pfProjectCategory; // 프로젝트 분류
+	String pfProjectTitle; // 프로젝트 타이틀
+	String pfProjectSubTitle; // 프로젝트 서브타이틀
+	String pfProjectPeriod; // 프로젝트 기간
+	String pfProjectPurpose; // 프로젝트 목적
+	String pfProjectCollabo; // 프로젝트 협업자
+	String pfProjectLanguage; // 프로젝트 작성 언어
+	int pfProjectDate; // 프로젝트 배포일자
+	String pfProjectLink; // 관련 링크
+	String pfProjectMovAddr; // 프로젝트 소개 영상 주소
+	String pfProjectMovPreview; // 프로젝트 소개 영상 프리뷰 이미지 주소
+	String pfProjectImgAddr01; // 프로젝트 소개 이미지 주소1
+	String pfProjectImgAddr02; // 프로젝트 소개 이미지 주소2
+	String pfProjectImgAddr03; // 프로젝트 소개 이미지 주소3
+	String pfProjectImgAddr04; // 프로젝트 소개 이미지 주소4
+	String pfPostThumbnailAddr; // 포스트 썸네일 이미지 주소
+	String pfProjectMemo; // 프로젝트 설명
+	String pfPostViewMode; // 화면 출력 여부 (0:일반, 1:화면에 보이는 비밀글, 2: 화면에 안보이는 비밀글)
+	int pfPostViews; // 포스트 클릭 횟수
+	int pfPostWrittenDate; // 포스트 작성 날짜
+	int pfPostTotalComments; // 포스트 댓글 수
+	int pfPostTotalLike; // 포스트 좋아요 수
 	
 	public int getPfNo() {
 		return pfNo;
@@ -66,6 +68,12 @@ public class Board {
 	public void setPfProjectCollabo(String pfProjectCollabo) {
 		this.pfProjectCollabo = pfProjectCollabo;
 	}
+	public String getPfProjectLanguage() {
+		return pfProjectLanguage;
+	}
+	public void setPfProjectLanguage(String pfProjectLanguage) {
+		this.pfProjectLanguage = pfProjectLanguage;
+	}
 	public int getPfProjectDate() {
 		return pfProjectDate;
 	}
@@ -83,6 +91,12 @@ public class Board {
 	}
 	public void setPfProjectMovAddr(String pfProjectMovAddr) {
 		this.pfProjectMovAddr = pfProjectMovAddr;
+	}
+	public String getPfProjectMovPreview() {
+		return pfProjectMovPreview;
+	}
+	public void setPfProjectMovPreview(String pfProjectMovPreview) {
+		this.pfProjectMovPreview = pfProjectMovPreview;
 	}
 	public String getPfProjectImgAddr01() {
 		return pfProjectImgAddr01;
@@ -154,7 +168,8 @@ public class Board {
 	public Board(int pfNo, int pfProjectCategory, String pfProjectTitle,
 			String pfProjectSubTitle, String pfProjectPeriod,
 			String pfProjectPurpose, String pfProjectCollabo,
-			int pfProjectDate, String pfProjectLink, String pfProjectMovAddr,
+			String pfProjectLanguage, int pfProjectDate, String pfProjectLink,
+			String pfProjectMovAddr, String pfProjectMovPreview,
 			String pfProjectImgAddr01, String pfProjectImgAddr02,
 			String pfProjectImgAddr03, String pfProjectImgAddr04,
 			String pfPostThumbnailAddr, String pfProjectMemo,
@@ -168,9 +183,11 @@ public class Board {
 		this.pfProjectPeriod = pfProjectPeriod;
 		this.pfProjectPurpose = pfProjectPurpose;
 		this.pfProjectCollabo = pfProjectCollabo;
+		this.pfProjectLanguage = pfProjectLanguage;
 		this.pfProjectDate = pfProjectDate;
 		this.pfProjectLink = pfProjectLink;
 		this.pfProjectMovAddr = pfProjectMovAddr;
+		this.pfProjectMovPreview = pfProjectMovPreview;
 		this.pfProjectImgAddr01 = pfProjectImgAddr01;
 		this.pfProjectImgAddr02 = pfProjectImgAddr02;
 		this.pfProjectImgAddr03 = pfProjectImgAddr03;
