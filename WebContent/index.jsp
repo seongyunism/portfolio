@@ -44,7 +44,7 @@
 					data : postNo,
 					dataType : "json",
 					success: function(response) {
-						$("#blackPlate div.innerContent div.top div.title").html("<br />" + response.pfProjectTitle.replace("\n",""));
+						$("#blackPlate div.innerContent div.top div.title").html(response.pfProjectTitle.replace("\n",""));
 						$("#blackPlate div.innerContent div.top div.subTitle").text(response.pfProjectSubTitle.replace("\n",""));
 						$("#blackPlate div.innerContent div.right div.subject div.data").html(response.pfProjectTitle.replace("\n",""));	
 						$("#blackPlate div.innerContent div.right div.period div.data").html(response.pfProjectPeriod.replace("\n",""));	
@@ -80,12 +80,14 @@
 					}
 				});
 				
+				$("body").css("overflow-y", "hidden");
 				$("#blackPlate").slideDown(500);
 				postClick = true;
 
 				return false;
 			} else {
 				$("#blackPlate").slideUp(500);
+				$("body").css("overflow-y", "auto");
 				$("#blackPlate div.innerContent div.left").html("<div class=\"fotorama\" data-auto=\"false\"></div>");
 				postClick = false;
 			}
@@ -94,6 +96,7 @@
 		// [블랙판 영역] 닫기 버튼 클릭 시 이벤트 처리
 		$("#blackPlate div.innerContent div.top div.button div.close").click(function() {
 			$("#blackPlate").slideUp(500);
+			$("body").css("overflow-y", "auto");
 			$("#blackPlate div.innerContent div.left").html("<div class=\"fotorama\" data-auto=\"false\"></div>");
 			postClick = false;
 		});
@@ -135,7 +138,7 @@
 					<div class="delete">삭제</div>
 					<div class="modify">수정</div>
 				</div>
-				<div class="title"><br /></div>
+				<div class="title"></div>
 				<div class="subTitle"></div>
 				<div class="margin"></div>
 			</div>
@@ -163,13 +166,19 @@
 					<div class="column">개발 언어</div>
 					<div class="data"></div>
 				</div>
-				<div class="memo"></div>
+				<div class="memo">
+					<div class="column">메모</div>
+					<div class="data"></div>
+				</div>
 			</div>	
 		</div>
 	</div>
 
     <div id="leftMenu">
-        <div class="title">PELSONAL PORTFOLIO</div>
+        <div class="title">
+        	<div class="text">PELSONAL PORTFOLIO</div>
+        	<div class="button"><a href="javascript:$.pageslide.close()">CLOSE</a></div>
+        </div>
         <div class="profileImage">
         	<img src="img/menu_profileImage.jpg" />
         	<div class="button">
@@ -180,12 +189,33 @@
 	        		<div class="logoutBtn">로그아웃</div>
 	        		<div class="newPostBtn">새글작성</div>
 	        	</div>
-        	</div>
+        	</div>	
         </div>
   
-  		<div class="name">Seong Gyun, Jeon (1989)</div>
+  		<div class="name">Seong Gyun, <span style="font-weight:bold;">Jeon</span> <span style="font-size:0.7em; color:#666666;">(1989.03.13)</span></div>
   
-        <!--<a href="javascript:$.pageslide.close()">Close</a>-->
+  		<div class="summary">&nbsp;&nbsp;&nbsp;I have been currently working as an <span style="font-weight:Bold;">System Engineer</span> of Daou Technology since May in 2014. At the same time, I have been studying as an <span style="font-weight:Bold;">Senior Student</span> in Software Engineering at Dankook University.</div>
+  
+  		<div class="spec">
+  			<h3>Main Career</h3>
+  			<h4>+ 2010.06 - 2010.12 | Computer Security Team, Bae, Kim & Lee</h4>
+			<h4>+ 2011.01 - 2012.10 | Criminal Investigaion Group, R.O.K Army</h4>
+			<h4>+ 2012.12 - 2013.10 | System Operating Team, XLGames</h4>
+			<h4>+ 2014.05 - 2015.02 | Technology Support Team, Daou Tech <span class="present">(present)</span></h4>
+
+			<h3 style="margin-top:10px;">Technical Capability</h3>
+			<h4>+ System : C, C++, JAVA</h4>
+			<h4>+ Backend : Redhat Linux, Windows Server<!-- , OpenStack, Docker, Hadoop--></h4>
+			<h4>+ Frontend : HTML5, CSS3, PHP5, JSP, Javascript, jQuery, AJAX, JSON</h4>
+			<h4>+ Graphic : After Effect CS6, Photoshop CS6, 3ds Max 2009</h4>
+			<h4>+ Office: Access, Excel, PowerPoint, Word</h4>
+			
+			<h3 style="margin-top:10px;">Contact</h3>
+			<h4>+ Official E-mail :&nbsp;&nbsp;<a href="mailto:goodjsg@naver.com">goodjsg [at] naver.com</a></h4>
+			<h4>+ Homepage :&nbsp;&nbsp;<a href="http://890313.com" target="_blank">http://890313.com</a></h4>
+
+  		</div>
+
     </div>
 
     <div id="content">
@@ -201,7 +231,7 @@
 							<figcaption>
 								<h2><%=postList.get(i).getPfProjectTitle() %></h2>
 								<p><%=postList.get(i).getPfProjectSubTitle() %></p>
-								<a href="#">View more</a>
+								<a href="<%=postList.get(i).getPfNo()%>">View more</a>
 							</figcaption>			
 						</figure>
 					<% } %>
@@ -217,7 +247,7 @@
 							<figcaption>
 								<h2><%=postList2.get(i).getPfProjectTitle() %></h2>
 								<p><%=postList2.get(i).getPfProjectSubTitle() %></p>
-								<a href="#">View more</a>
+								<a href="<%=postList2.get(i).getPfNo()%>">View more</a>
 							</figcaption>			
 						</figure>
 					<% } %>

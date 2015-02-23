@@ -67,6 +67,7 @@
 
 .grid figure h2 {
 	word-spacing: -0.15em;
+	text-shadow:1px 1px 1px rgba(0, 0, 0, 0.7);
 	
 	font-weight: 300;
 }
@@ -78,6 +79,7 @@
 .grid figure h2,
 .grid figure p {
 	margin: 0;
+	text-shadow:1px 1px 1px rgba(0, 0, 0, 0.7);
 }
 
 .grid figure p {
