@@ -9,6 +9,10 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 
 /* 브라우저 크기가 1440px 이하일 경우 */
 @media screen and (max-width:1440px) {
+	
+	.grid figure h2 {font-size:1.1em;}
+	.grid figure p {font-size:0.5em;}
+	
 	#blackPlate div.innerContent {width:1310px; height:737px; margin:-368.5px 0px 0px -655px;}
 	#blackPlate div.innerContent div.top {height:237px;}
 	#blackPlate div.innerContent div.top div.button {height:48px;}
@@ -20,7 +24,7 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 	#blackPlate div.innerContent div.left div.fotorama img {width:710px;}
 	#blackPlate div.innerContent div.right {width:600px;}
 	#blackPlate div.innerContent div.right div.subject, #blackPlate div.innerContent div.right div.period, #blackPlate div.innerContent div.right div.purpose,
-		#blackPlate div.innerContent div.right div.collabo, #blackPlate div.innerContent div.right div.language {height:34px; font-size:1.2em; line-height:34px;}
+		#blackPlate div.innerContent div.right div.collabo, #blackPlate div.innerContent div.right div.language {height:34px; font-size:1.1em; line-height:34px;}
 	#blackPlate div.innerContent div.right div.column {height:34px; font-size:0.8em; line-height:34px;}
 	
 	#pageslide {width:340px;}
@@ -30,12 +34,21 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 	#content div.innerContent div.grid {padding:16px 0px 0px 16px;}
 	#content div.innerContent div.grid figure {width:372px; height:400px; margin:0px 11px 11px 0px; }
 		
+	#leftMenu div.title div.text {font-size:1em;}
+	#leftMenu div.title div.button {line-height:17px;}
 	#leftMenu div.profileImage img {width:300px;}
 	#leftMenu div.profileImage div.button div.login div.loginBtn {width:300px;}
+	#leftMenu div.summary {font-size:0.8em; line-height:1.8em;}
+	#leftMenu div.spec h3 {font-size:1em; line-height:2em; }
+	#leftMenu div.spec h4 {font-size:0.69em; line-height:2.1em;}	
 }
 
 /* 브라우저 크기가 1440px 초과할 경우 */
-@media screen and (min-width:1441px) { 
+@media screen and (min-width:1441px) {
+
+	.grid figure h2 {font-size:1.5em}
+	.grid figure p {font-size:0.7em;}
+	
 	#blackPlate div.innerContent {width:1748px; height:983px; margin:-491.5px 0px 0px -874px;}
 	#blackPlate div.innerContent div.top {height:283px;}
 	#blackPlate div.innerContent div.top div.button {height:48px;}
@@ -56,9 +69,14 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 	#content div.title {height:280px;}
 	#content div.innerContent div.grid {padding:20px 0px 0px 20px;}
 	#content div.innerContent div.grid figure {width:498px; height:400px; margin:0px 15px 15px 0px; }
-		
+	
+	#leftMenu div.title div.text {font-size:1.4em; }
+	#leftMenu div.title div.button {line-height:25px;}
 	#leftMenu div.profileImage img {width:413px;}
-	#leftMenu div.profileImage div.button {width:413px;}		
+	#leftMenu div.profileImage div.button {width:413px;}
+	#leftMenu div.summary {font-size:0.9em; line-height:1.8em; }
+	#leftMenu div.spec h3 {font-size:1.2em; line-height:2em;}
+	#leftMenu div.spec h4 {font-size:0.9em; line-height:2.1em;}	
 }
 
 #blackPlate {position:fixed; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:10; display:none;}
@@ -102,8 +120,8 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 #leftMenu a{font-weight:bold; color:#333; background:rgba(0, 0, 0, 0.1); border:none; padding:5px 10px;}
 #leftMenu a:hover{background:#aaa;}
 #leftMenu div.title {padding:0px;}
-#leftMenu div.title div.text {height:40px; float:left; font-family:Helvetica; font-size:1.4em; font-weight:600; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#000000;}
-#leftMenu div.title div.button {height:40px; float:right; line-height:25px;}
+#leftMenu div.title div.text {height:40px; float:left; font-family:Helvetica; font-weight:600; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#000000;}
+#leftMenu div.title div.button {height:40px; float:right;}
 #leftMenu div.title div.button a {height:20px; font-family:Helvetica; font-size:1em; text-decoration:none; background:rgba(255, 255, 255, 0.1); }
 #leftMenu div.title div.button a:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.3); }
 #leftMenu div.profileImage {line-height:0px;}
@@ -115,10 +133,10 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 #leftMenu div.profileImage div.button div.logged div.logoutBtn {height:40px; float:left; line-height:40px;}
 #leftMenu div.profileImage div.button div.logged div.newPostBtn {height:40px; float:left; line-height:40px;}	
 #leftMenu div.name {height:30px; clear:both; font-family:Helvetica; font-size:1.4em; font-weight:100; letter-spacing:-1px; text-align:right; color:#000000; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); margin-top:20px;}
-#leftMenu div.summary {font-family:NanumGothic; font-size:0.9em; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); line-height:1.8em; color:#333333; margin-top:5px;}
+#leftMenu div.summary {font-family:NanumGothic; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#333333; margin-top:5px;}
 #leftMenu div.spec {margin-top:20px;}
-#leftMenu div.spec h3 {font-family:Helvetica; font-size:1.2em; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); line-height:2em; color:#333333;}
-#leftMenu div.spec h4 {font-family:tahoma; font-size:0.9em; font-weight:100; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.45); letter-spacing:-1px; line-height:2.1em; color:#444444; padding-left:15px;}
+#leftMenu div.spec h3 {font-family:Helvetica; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#333333;}
+#leftMenu div.spec h4 {font-family:tahoma; font-weight:100; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.45); letter-spacing:-1px; color:#444444; padding-left:15px;}
 #leftMenu div.spec h4 a {text-decoration:none;}
 #leftMenu div.spec h4 a:hover {text-decoration:underline;}
 #leftMenu div.spec h4 span.present {color:#777777;}
