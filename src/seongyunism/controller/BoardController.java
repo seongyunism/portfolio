@@ -71,6 +71,7 @@ public class BoardController extends HttpServlet {
 			jObject.put("pfProjectPurpose", thisPost.getPfProjectPurpose());
 			jObject.put("pfProjectCollabo", thisPost.getPfProjectCollabo());
 			jObject.put("pfProjectLanguage", thisPost.getPfProjectLanguage());
+			jObject.put("pfProjectLink", thisPost.getPfProjectLink());
 			jObject.put("pfProjectMovAddr", thisPost.getPfProjectMovAddr());
 			jObject.put("pfProjectMovPreview", thisPost.getPfProjectMovPreview());	
 			jObject.put("pfProjectImgAddr01", thisPost.getPfProjectImgAddr01());
@@ -81,7 +82,7 @@ public class BoardController extends HttpServlet {
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 
-			System.out.println(jObject.toString());
+//			System.out.println(jObject.toString());
 			res.getWriter().write(jObject.toString());
 
 		} catch (SQLException e) {

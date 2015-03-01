@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@ page import="seongyunism.controller.BoardController" %>
+<%@ page import="seongyunism.model.MemberDAO" %>
 <%@ page import="seongyunism.model.BoardDAO" %>
 <%@ page import="seongyunism.model.domain.Board"%>
 <%@ page import="seongyunism.model.domain.BoardCategory"%>
@@ -19,8 +19,9 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.5.2/fotorama.js"></script>
 	<script>
 	var postClick = false;
+	var topMenuClick = false;
+	var topMenuJoinTextClick = false;
 	var leftMenuClick = false;
-	var profileImageClick = false;
 	var memberLoginCheck = false;
 	
 	$(document).ready(function() {
@@ -45,12 +46,16 @@
 					dataType : "json",
 					success: function(response) {
 						$("#blackPlate div.innerContent div.top div.title").html(response.pfProjectTitle.replace("\n",""));
-						$("#blackPlate div.innerContent div.top div.subTitle").text(response.pfProjectSubTitle.replace("\n",""));
-						$("#blackPlate div.innerContent div.right div.subject div.data").html(response.pfProjectTitle.replace("\n",""));	
+						$("#blackPlate div.innerContent div.top div.subTitle").html(response.pfProjectSubTitle.replace("\n",""));
+						$("#blackPlate div.innerContent div.right div.subject div.data").html(response.pfProjectTitle.replace("\n",""));
 						$("#blackPlate div.innerContent div.right div.period div.data").html(response.pfProjectPeriod.replace("\n",""));	
 						$("#blackPlate div.innerContent div.right div.purpose div.data").html(response.pfProjectPurpose.replace("\n",""));	
 						$("#blackPlate div.innerContent div.right div.collabo div.data").html(response.pfProjectCollabo.replace("\n",""));	
 						$("#blackPlate div.innerContent div.right div.language div.data").html(response.pfProjectLanguage.replace("\n",""));
+						
+						if(response.pfProjectLink != "") {
+							$("#blackPlate div.innerContent div.right div.subject div.link").html("<a href='" + response.pfProjectLink.replace("\n","") + "' target='_blank'>프로젝트 들어가기</a>");						
+						}
 						
 						if(response.pfProjectMovAddr != "") {
 							$("#blackPlate div.innerContent div.left div.fotorama").append("<a class='mov' href='" + response.pfProjectMovAddr.replace("\n","") + "'><img class='movPreview' src='" + response.pfProjectMovPreview.replace("\n","") + "' /></a>")
@@ -82,50 +87,31 @@
 				
 				$("body").css("overflow-y", "hidden");
 				$("#blackPlate").slideDown(500);
+				$("#topMenu").fadeOut(500);
 				postClick = true;
 
 				return false;
 			} else {
-				$("#blackPlate").slideUp(500);
-				$("body").css("overflow-y", "auto");
-				$("#blackPlate div.innerContent div.left").html("<div class=\"fotorama\" data-auto=\"false\"></div>");
-				postClick = false;
+				blackplateClose();
 			}
 		});
-		
-		// [블랙판 영역] 닫기 버튼 클릭 시 이벤트 처리
-		$("#blackPlate div.innerContent div.top div.button div.close").click(function() {
-			$("#blackPlate").slideUp(500);
-			$("body").css("overflow-y", "auto");
-			$("#blackPlate div.innerContent div.left").html("<div class=\"fotorama\" data-auto=\"false\"></div>");
-			postClick = false;
-		});
-		
-		// [사이드바 영역] 프로필 사진 클릭 시 이벤트 처리
-		$("#leftMenu div.profileImage img").click(function() {
-			if(!profileImageClick) {
-				if(!memberLoginCheck) {
-					$("#leftMenu div.profileImage div.button div.login").show();
-				} else {
-					$("#leftMenu div.profileImage div.button div.logged").show();					
-				}
-				profileImageClick = true;
+			
+		// [상단 메뉴 영역] 로그인 버튼 클릭 시 이벤트 처리
+		$("#topMenu div.topButton span.loginText").click(function() {
+			if(!topMenuClick) {
+				topMenuSlider(true);
 			} else {
-				if(!memberLoginCheck) {
-					$("#leftMenu div.profileImage div.button div.login").hide();
-				} else {
-					$("#leftMenu div.profileImage div.button div.logged").hide();					
-				}
-				profileImageClick = false;			
+				topMenuSlider(false);
 			}
 		});
 	});
+
 	</script>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/boxComponent.css" />
 	<link rel="stylesheet" type="text/css" href="http://portfolio.890313.com/include/css/applyCharacter_8080.css" />
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:400,800,300" />
-	<link rel="stylesheet" style="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.5.2/fotorama.css" />
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.5.2/fotorama.css" />
 </head>
 
 <body>
@@ -134,7 +120,7 @@
 		<div class="innerContent">
 			<div class="top">
 				<div class="button">
-					<div class="close"><img src="img/btnClose.png" /></div>
+					<div class="close" onclick="blackplateClose()"><img src="img/btnClose.png" /></div>
 					<div class="delete">삭제</div>
 					<div class="modify">수정</div>
 				</div>
@@ -149,6 +135,7 @@
 				<div class="subject">
 					<div class="column">프로젝트명</div>
 					<div class="data"></div>
+					<div class="link"></div>
 				</div>
 				<div class="period">
 					<div class="column">프로젝트기간</div>
@@ -174,6 +161,28 @@
 		</div>
 	</div>
 
+	<div id="topMenu">
+		<div class="topBar">
+			<form method="post">
+				<div class="loginForm">
+					<div class="loginEmail"><input type="text" name="inputMemberEmail" class="inputMemberEmail" placeholder="이메일 주소" /></div>
+					<div class="loginPassword"><input type="password" name="inputMemberPassword" class="inputMemberPassword" placeholder="비밀번호" /></div>
+					<div class="loginBtn"><input type="button" class="inputLoginBtn" value="로그인하기" onclick="loginMember()" /></div>
+				</div>
+				<div class="joinForm">
+					<div class="joinEmail"><input type="text" name="inputMemberEmail" class="inputMemberEmail" placeholder="이메일 주소" /></div>
+					<div class="joinPassword"><input type="password" name="inputMemberPassword" class="inputMemberPassword" placeholder="비밀번호" /></div>
+					<div class="joinName"><input type="text" name="inputMemberName" class="inputMemberName" placeholder="이름 혹은 별명" /></div>
+					<div class="joinBtn"><input type="button" class="inputJoinBtn" value="회원가입하기" onclick="joinMember()" /></div>
+				</div>
+			</form>
+		</div>
+		<div class="topButton">
+			<c:if test="${empty sessionScope.pfMemberNo}"><span class="joinText" onclick="joinTextClick()">회원가입</span><span class="loginText">로그인</span></c:if>
+			<c:if test="${not empty sessionScope.pfMemberNo}"><span class="logoutText" onclick="logoutMember()">로그아웃</span></c:if>
+		</div>
+	</div>
+
     <div id="leftMenu">
         <div class="title">
         	<div class="text">PELSONAL PORTFOLIO</div>
@@ -181,15 +190,6 @@
         </div>
         <div class="profileImage">
         	<img src="img/menu_profileImage.jpg" />
-        	<div class="button">
-        		<div class="login">
-	        		<div class="loginBtn">로그인</div>
-	        	</div>
-	        	<div class="logged">
-	        		<div class="logoutBtn">로그아웃</div>
-	        		<div class="newPostBtn">새글작성</div>
-	        	</div>
-        	</div>	
         </div>
   
   		<div class="name">Seong Gyun, <span style="font-weight:bold;">Jeon</span> <span style="font-size:0.7em; color:#666666;">(1989.03.13)</span></div>
@@ -231,7 +231,7 @@
 							<figcaption>
 								<h2><%=postList.get(i).getPfProjectTitle() %></h2>
 								<p><%=postList.get(i).getPfProjectSubTitle() %></p>
-								<a href="<%=postList.get(i).getPfNo()%>">View more</a>
+								<a href="">View more</a>
 							</figcaption>			
 						</figure>
 					<% } %>
@@ -247,7 +247,7 @@
 							<figcaption>
 								<h2><%=postList2.get(i).getPfProjectTitle() %></h2>
 								<p><%=postList2.get(i).getPfProjectSubTitle() %></p>
-								<a href="<%=postList2.get(i).getPfNo()%>">View more</a>
+								<a href="">View more</a>
 							</figcaption>			
 						</figure>
 					<% } %>

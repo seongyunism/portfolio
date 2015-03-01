@@ -5,7 +5,11 @@ html, body {width:100%; height:100%; margin:0px; padding:0px;}
 html {overflow:hidden;}
 body {background:url('../img/background.jpg'); background-attachment:fixed; background-repeat:no-repeat; background-position:center; background-size:cover; -webkit-font-smoothing:antialiased; -webkit-text-size-adjust:none; overflow-x:hidden;}
 
-a, h1, h2, h3, h4 {margin:0px; padding:0px;}
+body::-webkit-scrollbar {width:6px;}
+body::-webkit-scrollbar-thumb {background-color:#EEEEEE;}
+body::-webkit-scrollbar-track-piece {background-color:#444444;}
+
+a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 
 /* 브라우저 크기가 1440px 이하일 경우 */
 @media screen and (max-width:1440px) {
@@ -37,7 +41,6 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 	#leftMenu div.title div.text {font-size:1em;}
 	#leftMenu div.title div.button {line-height:17px;}
 	#leftMenu div.profileImage img {width:300px;}
-	#leftMenu div.profileImage div.button div.login div.loginBtn {width:300px;}
 	#leftMenu div.summary {font-size:0.8em; line-height:1.8em;}
 	#leftMenu div.spec h3 {font-size:1em; line-height:2em; }
 	#leftMenu div.spec h4 {font-size:0.69em; line-height:2.1em;}	
@@ -73,7 +76,6 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 	#leftMenu div.title div.text {font-size:1.4em; }
 	#leftMenu div.title div.button {line-height:25px;}
 	#leftMenu div.profileImage img {width:413px;}
-	#leftMenu div.profileImage div.button {width:413px;}
 	#leftMenu div.summary {font-size:0.9em; line-height:1.8em; }
 	#leftMenu div.spec h3 {font-size:1.2em; line-height:2em;}
 	#leftMenu div.spec h4 {font-size:0.9em; line-height:2.1em;}	
@@ -99,11 +101,64 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 #blackPlate div.innerContent div.right {float:right; padding:0px 10px 0px 10px;}	
 #blackPlate div.innerContent div.right div.subject, #blackPlate div.innerContent div.right div.period, #blackPlate div.innerContent div.right div.purpose,
 	#blackPlate div.innerContent div.right div.collabo, #blackPlate div.innerContent div.right div.language {font-family:NanumGothic;  color:#ffffff; border-bottom:1px solid #1a1a1a;}
+#blackPlate div.innerContent div.right div.subject div.link {float:right; padding-right:20px;}
+#blackPlate div.innerContent div.right div.subject div.link a {font-size:0.8em; color:#ffa800; text-decoration:none;}
+#blackPlate div.innerContent div.right div.subject div.link a:hover {text-decoration:underline;}
 #blackPlate div.innerContent div.right div.memo {}
 #blackPlate div.innerContent div.right div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center;}	
 #blackPlate div.innerContent div.right div.data {float:left;}
-	
-#pageslide{position:fixed; top:0px; height:100%; color:#ffffff; background:rgba(255, 255, 255, 0.3); padding:20px; display:none; z-index:999999; -webkit-box-shadow:0px 0px 6px 3px rgba(0, 0, 0, 0.1); -moz-box-shadow:0px 0px 6px 3px rgba(0, 0, 0, 0.1); box-shadow:0px 0px 6px 3px rgba(0, 0, 0, 0.1);}
+
+#topMenu {position:absolute; top:-58px; left:0px; width:100%; height:88px; z-index:11;}	
+#topMenu div.topBar {width:100%; height:50px; background:rgba(0, 0, 0, 0.8); box-shadow:0px 0px 8px rgba(0,0,0, 0.8); }
+#topMenu div.topBar div.loginForm {width:460px; height:50px; float:right; margin-right:25px;}
+#topMenu div.topBar div.loginForm div.loginEmail {width:170px; height:50px; float:left; margin-right:10px;}
+#topMenu div.topBar div.loginForm div.loginEmail input.inputMemberEmail {width:100%; height:30px; font-family:NanumGothic; font-size:1em; text-align:center; border:0px; border-radius:4px; background:rgba(255, 255, 255, 0.9); margin-top:10px;}
+#topMenu div.topBar div.loginForm div.loginEmail input.inputMemberEmail:focus {font-weight:bold; background:rgba(255, 255, 255, 1);}
+#topMenu div.topBar div.loginForm div.loginPassword {width:170px; height:50px; float:left; margin-right:10px;}
+#topMenu div.topBar div.loginForm div.loginPassword input.inputMemberPassword {width:100%; height:30px; font-family:NanumGothic; font-size:1em; text-align:center; border:0px; border-radius:4px; background:rgba(255, 255, 255, 0.9);margin-top:10px;}
+#topMenu div.topBar div.loginForm div.loginPassword input.inputMemberPassword:focus {font-weight:bold; background:rgba(255, 255, 255, 1);}
+#topMenu div.topBar div.loginForm div.loginBtn {width:100px; height:50px; float:left;}
+#topMenu div.topBar div.loginForm div.loginBtn input.inputLoginBtn {width:100%; height:30px; font-family:NanumGothic; font-size:1em; border:0px; border-radius:4px; background-color:#ec5d73; margin-top:10px; cursor:pointer;}
+#topMenu div.topBar div.joinForm {width:640px; height:50px; float:right; margin-right:25px; display:none;}
+#topMenu div.topBar div.joinForm div.joinEmail {width:170px; height:50px; float:left; margin-right:10px;}
+#topMenu div.topBar div.joinForm div.joinEmail input.inputMemberEmail {width:100%; height:30px; font-family:NanumGothic; font-size:1em; text-align:center; border:0px; border-radius:4px; background:rgba(255, 255, 255, 0.9); margin-top:10px;}
+#topMenu div.topBar div.joinForm div.joinEmail input.inputMemberEmail:focus {font-weight:bold; background:rgba(255, 255, 255, 1);}
+#topMenu div.topBar div.joinForm div.joinPassword {width:170px; height:50px; float:left; margin-right:10px;}
+#topMenu div.topBar div.joinForm div.joinPassword input.inputMemberPassword {width:100%; height:30px; font-family:NanumGothic; font-size:1em; text-align:center; border:0px; border-radius:4px; background:rgba(255, 255, 255, 0.9);margin-top:10px;}
+#topMenu div.topBar div.joinForm div.joinPassword input.inputMemberPassword:focus {font-weight:bold; background:rgba(255, 255, 255, 1);}
+#topMenu div.topBar div.joinForm div.joinName {width:170px; height:50px; float:left; margin-right:10px;}
+#topMenu div.topBar div.joinForm div.joinName input.inputMemberName {width:100%; height:30px; font-family:NanumGothic; font-size:1em; text-align:center; border:0px; border-radius:4px; background:rgba(255, 255, 255, 0.9); margin-top:10px;}
+#topMenu div.topBar div.joinForm div.joinName input.inputMemberName:focus {font-weight:bold; background:rgba(255, 255, 255, 1);}
+#topMenu div.topBar div.joinForm div.joinBtn {width:100px; height:50px; float:left;}
+#topMenu div.topBar div.joinForm div.joinBtn input.inputJoinBtn {width:100%; height:30px; font-family:NanumGothic; font-size:1em; border:0px; border-radius:4px; background-color:#0072bc; margin-top:10px; cursor:pointer;}
+
+
+#topMenu div.topButton {width:100%; height:15px; text-align:right; padding-top:23px;}
+#topMenu div.topButton span.loginText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:50px; padding:5px 10px 5px 10px; cursor:pointer;}
+#topMenu div.topButton span.loginText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
+#topMenu div.topButton span.joinText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:10px; padding:5px 10px 5px 10px; cursor:pointer; display:none;}
+#topMenu div.topButton span.joinText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
+#topMenu div.topButton span.logoutText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:50px; padding:5px 10px 5px 10px; cursor:pointer;}
+#topMenu div.topButton span.logoutText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
+
+#leftMenu {display:none;}
+#leftMenu a{font-weight:bold; color:#333; background:rgba(0, 0, 0, 0.1); border:none; padding:5px 10px;}
+#leftMenu a:hover{background:#aaa;}
+#leftMenu div.title {padding:0px;}
+#leftMenu div.title div.text {height:40px; float:left; font-family:Helvetica; font-weight:600; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#000000;}
+#leftMenu div.title div.button {height:40px; float:right;}
+#leftMenu div.title div.button a {height:20px; font-family:Helvetica; font-size:1em; text-decoration:none; background:rgba(255, 255, 255, 0.1); }
+#leftMenu div.title div.button a:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.3); }
+#leftMenu div.profileImage {line-height:0px;}
+#leftMenu div.profileImage img {box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3);}
+#leftMenu div.name {height:30px; clear:both; font-family:Helvetica; font-size:1.4em; font-weight:100; letter-spacing:-1px; text-align:right; color:#000000; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); margin-top:20px;}
+#leftMenu div.summary {font-family:NanumGothic; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#333333; margin-top:5px;}
+#leftMenu div.spec {margin-top:20px;}
+#leftMenu div.spec h3 {font-family:Helvetica; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#333333;}
+#leftMenu div.spec h4 {font-family:tahoma; font-weight:100; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.45); letter-spacing:-1px; color:#444444; padding-left:15px;}
+#leftMenu div.spec h4 a {text-decoration:none;}
+#leftMenu div.spec h4 a:hover {text-decoration:underline;}
+#leftMenu div.spec h4 span.present {color:#777777;}
 
 #content {padding:0px; margin:auto; margin-bottom:50px;}
 #content div.title {text-align:center; }
@@ -116,30 +171,7 @@ a, h1, h2, h3, h4 {margin:0px; padding:0px;}
 #content div.innerContent div.subContent div.grid figure {position:relative; font-family: 'Raleway', Arial, NanumGothic, sans-serif; text-align:center; box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.15); padding:0px; display:inline-block; overflow:hidden; z-index:1; cursor:pointer; overflow: hidden;}
 #content div.innerContent div.subContent div.grid figure img {position:absolute; left:50%; top:50%; width:auto; height:100%; -webkit-transform:translate(-50%,-50%); -ms-transform:translate(-50%,-50%); transform:translate(-50%,-50%);}
 
-#leftMenu {display:none;}
-#leftMenu a{font-weight:bold; color:#333; background:rgba(0, 0, 0, 0.1); border:none; padding:5px 10px;}
-#leftMenu a:hover{background:#aaa;}
-#leftMenu div.title {padding:0px;}
-#leftMenu div.title div.text {height:40px; float:left; font-family:Helvetica; font-weight:600; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#000000;}
-#leftMenu div.title div.button {height:40px; float:right;}
-#leftMenu div.title div.button a {height:20px; font-family:Helvetica; font-size:1em; text-decoration:none; background:rgba(255, 255, 255, 0.1); }
-#leftMenu div.title div.button a:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.3); }
-#leftMenu div.profileImage {line-height:0px;}
-#leftMenu div.profileImage img {box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3); cursor:pointer;}
-#leftMenu div.profileImage div.button {clear:both;}
-#leftMenu div.profileImage div.button div.login {display:none;}
-#leftMenu div.profileImage div.button div.login div.loginBtn {height:40px; font-family:NanumGothic; font-size:0.9em; text-align:center; line-height:40px; color:#333333; background:rgba(255, 255, 255, 0.4); box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.05); cursor:pointer;}	
-#leftMenu div.profileImage div.button div.logged {display:none;}	
-#leftMenu div.profileImage div.button div.logged div.logoutBtn {height:40px; float:left; line-height:40px;}
-#leftMenu div.profileImage div.button div.logged div.newPostBtn {height:40px; float:left; line-height:40px;}	
-#leftMenu div.name {height:30px; clear:both; font-family:Helvetica; font-size:1.4em; font-weight:100; letter-spacing:-1px; text-align:right; color:#000000; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); margin-top:20px;}
-#leftMenu div.summary {font-family:NanumGothic; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#333333; margin-top:5px;}
-#leftMenu div.spec {margin-top:20px;}
-#leftMenu div.spec h3 {font-family:Helvetica; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.5); color:#333333;}
-#leftMenu div.spec h4 {font-family:tahoma; font-weight:100; text-shadow:1px 1px 0px rgba(255, 255, 255, 0.45); letter-spacing:-1px; color:#444444; padding-left:15px;}
-#leftMenu div.spec h4 a {text-decoration:none;}
-#leftMenu div.spec h4 a:hover {text-decoration:underline;}
-#leftMenu div.spec h4 span.present {color:#777777;}
+#pageslide{position:fixed; top:0px; height:100%; color:#ffffff; background:rgba(255, 255, 255, 0.3); padding:20px; display:none; z-index:999999; -webkit-box-shadow:0px 0px 6px 3px rgba(0, 0, 0, 0.1); -moz-box-shadow:0px 0px 6px 3px rgba(0, 0, 0, 0.1); box-shadow:0px 0px 6px 3px rgba(0, 0, 0, 0.1);}
 
 				
 
