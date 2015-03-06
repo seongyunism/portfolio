@@ -16,20 +16,33 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 	
 	.grid figure h2 {font-size:1.1em;}
 	.grid figure p {font-size:0.5em;}
+
+	#writePlate div.innerContent {width:1310px; height:737px; margin:-368.5px 0px 0px -655px;}
+	#writePlate div.innerContent div.top {height:237px;}
+	#writePlate div.innerContent div.top div.button {height:48px;}
+	#writePlate div.innerContent div.top div.title {height:91px; line-height:2em;}
+	#writePlate div.innerContent div.top div.title input.inputProjectTitle {height:91px; font-size:3em; }
+	#writePlate div.innerContent div.top div.subTitle {height:50px; font-size:1.3em; line-height:50px;}
+	#writePlate div.innerContent div.top div.margin {height:48px;}
+	#writePlate div.innerContent div.left {width:710px;}
+	#writePlate div.innerContent div.right {width:600px;}
+	#writePlate div.innerContent div.right div.link, #writePlate div.innerContent div.right div.period, #writePlate div.innerContent div.right div.purpose,
+		#writePlate div.innerContent div.right div.collabo, #writePlate div.innerContent div.right div.language {height:34px; font-size:1.1em; line-height:34px;}
+	#writePlate div.innerContent div.right div.column {height:34px; font-size:0.8em; line-height:34px;}
 	
-	#blackPlate div.innerContent {width:1310px; height:737px; margin:-368.5px 0px 0px -655px;}
-	#blackPlate div.innerContent div.top {height:237px;}
-	#blackPlate div.innerContent div.top div.button {height:48px;}
-	#blackPlate div.innerContent div.top div.title {height:91px; font-size:3em; line-height:2em;}
-	#blackPlate div.innerContent div.top div.subTitle {height:50px; font-size:1.3em; line-height:50px;}
-	#blackPlate div.innerContent div.top div.margin {height:48px;}
-	#blackPlate div.innerContent div.left {width:710px;}
-	#blackPlate div.innerContent div.left div.fotorama {width:710px;}
-	#blackPlate div.innerContent div.left div.fotorama img {width:710px;}
-	#blackPlate div.innerContent div.right {width:600px;}
-	#blackPlate div.innerContent div.right div.subject, #blackPlate div.innerContent div.right div.period, #blackPlate div.innerContent div.right div.purpose,
-		#blackPlate div.innerContent div.right div.collabo, #blackPlate div.innerContent div.right div.language {height:34px; font-size:1.1em; line-height:34px;}
-	#blackPlate div.innerContent div.right div.column {height:34px; font-size:0.8em; line-height:34px;}
+	#viewPlate div.innerContent {width:1310px; height:737px; margin:-368.5px 0px 0px -655px;}
+	#viewPlate div.innerContent div.top {height:237px;}
+	#viewPlate div.innerContent div.top div.button {height:48px;}
+	#viewPlate div.innerContent div.top div.title {height:91px; font-size:3em; line-height:2em;}
+	#viewPlate div.innerContent div.top div.subTitle {height:50px; font-size:1.3em; line-height:50px;}
+	#viewPlate div.innerContent div.top div.margin {height:48px;}
+	#viewPlate div.innerContent div.left {width:710px;}
+	#viewPlate div.innerContent div.left div.fotorama {width:710px;}
+	#viewPlate div.innerContent div.left div.fotorama img {width:710px;}
+	#viewPlate div.innerContent div.right {width:600px;}
+	#viewPlate div.innerContent div.right div.subject, #viewPlate div.innerContent div.right div.period, #viewPlate div.innerContent div.right div.purpose,
+		#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language {height:34px; font-size:1.1em; line-height:34px;}
+	#viewPlate div.innerContent div.right div.column {height:34px; font-size:0.8em; line-height:34px;}
 	
 	#pageslide {width:340px;}
 
@@ -51,20 +64,32 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 
 	.grid figure h2 {font-size:1.5em}
 	.grid figure p {font-size:0.7em;}
+
+	#writePlate div.innerContent {width:1748px; height:983px; margin:-491.5px 0px 0px -874px;}
+	#writePlate div.innerContent div.top {height:283px;}
+	#writePlate div.innerContent div.top div.button {height:48px;}
+	#writePlate div.innerContent div.top div.title {height:121px; font-size:3.75em; line-height:2.3em;}
+	#writePlate div.innerContent div.top div.subTitle {height:66px; font-size:1.5em; line-height:66px;}
+	#writePlate div.innerContent div.top div.margin {height:48px;}
+	#writePlate div.innerContent div.left {width:1024px;}
+	#writePlate div.innerContent div.right {width:724px;}
+	#writePlate div.innerContent div.right div.link, #writePlate div.innerContent div.right div.period, #writePlate div.innerContent div.right div.purpose,
+		#writePlate div.innerContent div.right div.collabo, #writePlate div.innerContent div.right div.language {height:45px; font-size:1.2em; line-height:45px;}
+	#writePlate div.innerContent div.right div.column {height:45px; font-size:0.9em; line-height:45px;}
 	
-	#blackPlate div.innerContent {width:1748px; height:983px; margin:-491.5px 0px 0px -874px;}
-	#blackPlate div.innerContent div.top {height:283px;}
-	#blackPlate div.innerContent div.top div.button {height:48px;}
-	#blackPlate div.innerContent div.top div.title {height:121px; font-size:3.75em; line-height:2.3em;}
-	#blackPlate div.innerContent div.top div.subTitle {height:66px; font-size:1.5em; line-height:66px;}
-	#blackPlate div.innerContent div.top div.margin {height:48px;}
-	#blackPlate div.innerContent div.left {width:1024px;}
-	#blackPlate div.innerContent div.left div.fotorama {width:1000px;}
-	#blackPlate div.innerContent div.left div.fotorama img {width:1000px; height:668px;}
-	#blackPlate div.innerContent div.right {width:724px;}
-	#blackPlate div.innerContent div.right div.subject, #blackPlate div.innerContent div.right div.period, #blackPlate div.innerContent div.right div.purpose,
-		#blackPlate div.innerContent div.right div.collabo, #blackPlate div.innerContent div.right div.language {height:45px; font-size:1.2em; line-height:45px;}
-	#blackPlate div.innerContent div.right div.column {height:45px; font-size:0.9em; line-height:45px;}
+	#viewPlate div.innerContent {width:1748px; height:983px; margin:-491.5px 0px 0px -874px;}
+	#viewPlate div.innerContent div.top {height:283px;}
+	#viewPlate div.innerContent div.top div.button {height:48px;}
+	#viewPlate div.innerContent div.top div.title {height:121px; font-size:3.75em; line-height:2.3em;}
+	#viewPlate div.innerContent div.top div.subTitle {height:66px; font-size:1.5em; line-height:66px;}
+	#viewPlate div.innerContent div.top div.margin {height:48px;}
+	#viewPlate div.innerContent div.left {width:1024px;}
+	#viewPlate div.innerContent div.left div.fotorama {width:1000px;}
+	#viewPlate div.innerContent div.left div.fotorama img {width:1000px; height:668px;}
+	#viewPlate div.innerContent div.right {width:724px;}
+	#viewPlate div.innerContent div.right div.subject, #viewPlate div.innerContent div.right div.period, #viewPlate div.innerContent div.right div.purpose,
+		#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language {height:45px; font-size:1.2em; line-height:45px;}
+	#viewPlate div.innerContent div.right div.column {height:45px; font-size:0.9em; line-height:45px;}
 
 	#pageslide {width:453px;}
 
@@ -81,32 +106,52 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 	#leftMenu div.spec h4 {font-size:0.9em; line-height:2.1em;}	
 }
 
-#blackPlate {position:fixed; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:10; display:none;}
-#blackPlate div.innerContent {position:absolute; top:50%; left:50%; background:rgba(0, 0, 0, 0.90); box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3);}
-#blackPlate div.innerContent div.top {width:100%;}
-#blackPlate div.innerContent div.top div.button {height:48px;}
-#blackPlate div.innerContent div.top div.button div.modify {width:72px; height:48px; float:right; font-family:NanumGothic; font-size:1.1em; text-align:center; line-height:48px; color:#888888; cursor:pointer;}
-#blackPlate div.innerContent div.top div.button div.modify:hover {color:#eeeeee; background:rgba(255, 255, 255, 0.05);}
-#blackPlate div.innerContent div.top div.button div.delete {width:72px; height:48px; float:right; font-family:Nanumgothic; font-size:1.1em; text-align:center; line-height:48px; color:#888888; cursor:pointer;}		
-#blackPlate div.innerContent div.top div.button div.delete:hover {color:#eeeeee; background:rgba(255, 255, 255, 0.05);}
-#blackPlate div.innerContent div.top div.button div.close {width:48px; height:48px; float:right; text-align:center; line-height:48px; cursor:pointer;}
-#blackPlate div.innerContent div.top div.button div.close:hover {background:rgba(255, 255, 255, 0.05);}
-#blackPlate div.innerContent div.top div.button div.close img {width:28px; height:28px; margin:10px;}
-#blackPlate div.innerContent div.top div.title {clear:both; font-family:MyriadPro, NanumGothic; font-weight:bold; color:#eeeeee; padding-left:48px;}
-#blackPlate div.innerContent div.top div.subTitle {clear:both; font-family:MyriadPro, NanumGothic; color:#eeeeee; padding-left:48px; background:rgba(255, 255, 255, 0.05);}
-#blackPlate div.innerContent div.top div.margin {clear:both;}
-#blackPlate div.innerContent div.left {clear:both; float:left;}
-#blackPlate div.innerContent div.left div.fotorama {padding-left:48px;}
-#blackPlate div.innerContent div.left div.fotorama img {}
-#blackPlate div.innerContent div.right {float:right; padding:0px 10px 0px 10px;}	
-#blackPlate div.innerContent div.right div.subject, #blackPlate div.innerContent div.right div.period, #blackPlate div.innerContent div.right div.purpose,
-	#blackPlate div.innerContent div.right div.collabo, #blackPlate div.innerContent div.right div.language {font-family:NanumGothic;  color:#ffffff; border-bottom:1px solid #1a1a1a;}
-#blackPlate div.innerContent div.right div.subject div.link {float:right; padding-right:20px;}
-#blackPlate div.innerContent div.right div.subject div.link a {font-size:0.8em; color:#ffa800; text-decoration:none;}
-#blackPlate div.innerContent div.right div.subject div.link a:hover {text-decoration:underline;}
-#blackPlate div.innerContent div.right div.memo {}
-#blackPlate div.innerContent div.right div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center;}	
-#blackPlate div.innerContent div.right div.data {float:left;}
+#writePlate {position:fixed; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:10; display:none;}
+#writePlate div.innerContent {position:absolute; top:50%; left:50%; background:rgba(0, 0, 0, 0.90); box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3);}
+#writePlate div.innerContent div.top {width:100%;}
+#writePlate div.innerContent div.top div.button {height:48px;}
+#writePlate div.innerContent div.top div.button div.close {width:48px; height:48px; float:right; text-align:center; line-height:48px; cursor:pointer;}
+#writePlate div.innerContent div.top div.button div.close:hover {background:rgba(255, 255, 255, 0.05);}
+#writePlate div.innerContent div.top div.button div.close img {width:28px; height:28px; margin:10px;}
+#writePlate div.innerContent div.top div.title {clear:both; padding-left:48px;}
+#writePlate div.innerContent div.top div.title input.inputProjectTitle {font-family:MyriadPro, NanumGothic; font-weight:bold; color:#eeeeee; }
+
+#writePlate div.innerContent div.top div.subTitle {clear:both; font-family:MyriadPro, NanumGothic; color:#eeeeee; padding-left:48px; background:rgba(255, 255, 255, 0.05);}
+#writePlate div.innerContent div.top div.margin {clear:both;}
+#writePlate div.innerContent div.left {clear:both; float:left;}
+#writePlate div.innerContent div.right {float:right; padding:0px 10px 0px 10px;}	
+#writePlate div.innerContent div.right div.link, #writePlate div.innerContent div.right div.period, #writePlate div.innerContent div.right div.purpose,
+	#writePlate div.innerContent div.right div.collabo, #writePlate div.innerContent div.right div.language {font-family:NanumGothic;  color:#ffffff; border-bottom:1px solid #1a1a1a;}
+#writePlate div.innerContent div.right div.memo {}
+#writePlate div.innerContent div.right div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center;}	
+#writePlate div.innerContent div.right div.data {float:left;}
+
+#viewPlate {position:fixed; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:10; display:none;}
+#viewPlate div.innerContent {position:absolute; top:50%; left:50%; background:rgba(0, 0, 0, 0.90); box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3);}
+#viewPlate div.innerContent div.top {width:100%;}
+#viewPlate div.innerContent div.top div.button {height:48px;}
+#viewPlate div.innerContent div.top div.button div.modify {width:72px; height:48px; float:right; font-family:NanumGothic; font-size:1.1em; text-align:center; line-height:48px; color:#888888; cursor:pointer;}
+#viewPlate div.innerContent div.top div.button div.modify:hover {color:#eeeeee; background:rgba(255, 255, 255, 0.05);}
+#viewPlate div.innerContent div.top div.button div.delete {width:72px; height:48px; float:right; font-family:Nanumgothic; font-size:1.1em; text-align:center; line-height:48px; color:#888888; cursor:pointer;}		
+#viewPlate div.innerContent div.top div.button div.delete:hover {color:#eeeeee; background:rgba(255, 255, 255, 0.05);}
+#viewPlate div.innerContent div.top div.button div.close {width:48px; height:48px; float:right; text-align:center; line-height:48px; cursor:pointer;}
+#viewPlate div.innerContent div.top div.button div.close:hover {background:rgba(255, 255, 255, 0.05);}
+#viewPlate div.innerContent div.top div.button div.close img {width:28px; height:28px; margin:10px;}
+#viewPlate div.innerContent div.top div.title {clear:both; font-family:MyriadPro, NanumGothic; font-weight:bold; color:#eeeeee; padding-left:48px;}
+#viewPlate div.innerContent div.top div.subTitle {clear:both; font-family:MyriadPro, NanumGothic; color:#eeeeee; padding-left:48px; background:rgba(255, 255, 255, 0.05);}
+#viewPlate div.innerContent div.top div.margin {clear:both;}
+#viewPlate div.innerContent div.left {clear:both; float:left;}
+#viewPlate div.innerContent div.left div.fotorama {padding-left:48px;}
+#viewPlate div.innerContent div.left div.fotorama img {}
+#viewPlate div.innerContent div.right {float:right; padding:0px 10px 0px 10px;}	
+#viewPlate div.innerContent div.right div.subject, #viewPlate div.innerContent div.right div.period, #viewPlate div.innerContent div.right div.purpose,
+	#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language {font-family:NanumGothic;  color:#ffffff; border-bottom:1px solid #1a1a1a;}
+#viewPlate div.innerContent div.right div.subject div.link {float:right; padding-right:20px;}
+#viewPlate div.innerContent div.right div.subject div.link a {font-size:0.8em; color:#ffa800; text-decoration:none;}
+#viewPlate div.innerContent div.right div.subject div.link a:hover {text-decoration:underline;}
+#viewPlate div.innerContent div.right div.memo {}
+#viewPlate div.innerContent div.right div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center;}	
+#viewPlate div.innerContent div.right div.data {float:left;}
 
 #topMenu {position:absolute; top:-58px; left:0px; width:100%; height:88px; z-index:11;}	
 #topMenu div.topBar {width:100%; height:50px; background:rgba(0, 0, 0, 0.8); box-shadow:0px 0px 8px rgba(0,0,0, 0.8); }
@@ -131,13 +176,13 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 #topMenu div.topBar div.joinForm div.joinName input.inputMemberName:focus {font-weight:bold; background:rgba(255, 255, 255, 1);}
 #topMenu div.topBar div.joinForm div.joinBtn {width:100px; height:50px; float:left;}
 #topMenu div.topBar div.joinForm div.joinBtn input.inputJoinBtn {width:100%; height:30px; font-family:NanumGothic; font-size:1em; border:0px; border-radius:4px; background-color:#0072bc; margin-top:10px; cursor:pointer;}
-
-
 #topMenu div.topButton {width:100%; height:15px; text-align:right; padding-top:23px;}
-#topMenu div.topButton span.loginText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:50px; padding:5px 10px 5px 10px; cursor:pointer;}
-#topMenu div.topButton span.loginText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
 #topMenu div.topButton span.joinText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:10px; padding:5px 10px 5px 10px; cursor:pointer; display:none;}
 #topMenu div.topButton span.joinText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
+#topMenu div.topButton span.loginText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:50px; padding:5px 10px 5px 10px; cursor:pointer;}
+#topMenu div.topButton span.loginText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
+#topMenu div.topButton span.writeText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:10px; padding:5px 10px 5px 10px; cursor:pointer;}
+#topMenu div.topButton span.writeText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
 #topMenu div.topButton span.logoutText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:50px; padding:5px 10px 5px 10px; cursor:pointer;}
 #topMenu div.topButton span.logoutText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
 

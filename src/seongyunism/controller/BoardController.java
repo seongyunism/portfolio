@@ -29,33 +29,20 @@ public class BoardController extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		String action = req.getParameter("action");
 		
-		if (action.equals("postView")) {
-			postView(req, res);
-		} else if(action.equals("postList")) {
-			postListCount(req, res);
+		if (action.equals("viewPost")) {
+			viewPost(req, res);
+		} else if(action.equals("listPostCount")) {
+			listPostCount(req, res);
+		} else if(action.equals("listPost")) {
+			listPost(req, res);
 		}
 	}
 	
-	// 카테고리가 일치하는 포스트 개수 구하기
-	public void postListCount(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-
-		try {
-			int inputProjectCategory = (req.getParameter("projectCategory") != null) ? Integer.parseInt(req.getParameter("projectCategory")) : 0;
-			int postCount = BoardDAO.getListCount(inputProjectCategory);
-			
-			res.getWriter().write(postCount);
-					
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-
 	// 포스트 리스트에서 포스트 클릭 시 해당 포스트에 해당하는 프로젝트 내용 가져오기
-	public void postView(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+	public void viewPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		
 		req.setCharacterEncoding("utf8");
-
+		
 		try {
 			int inputBoardPostNo = (req.getParameter("postNo") != null) ? Integer.parseInt(req.getParameter("postNo")) : 0;
 			Board thisPost = BoardDAO.getPost(inputBoardPostNo);
@@ -81,14 +68,47 @@ public class BoardController extends HttpServlet {
 			
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
-
+			
 //			System.out.println(jObject.toString());
 			res.getWriter().write(jObject.toString());
-
+			
 		} catch (SQLException e) {
 			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
 		}
 		
 	}
+	
+	// 카테고리가 일치하는 포스트 개수 구하기
+	public void listPostCount(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
+		try {
+			int inputProjectCategory = (req.getParameter("projectCategory") != null) ? Integer.parseInt(req.getParameter("projectCategory")) : 0;
+			int postCount = BoardDAO.getListCount(inputProjectCategory);
+			
+			res.getWriter().write(postCount);
+					
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	// 카테고리가 일치하는 포스트 리스트 가져오기
+	public void listPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		
+		try {
+			ArrayList<Board> list = new ArrayList<Board>();
+			list = BoardDAO.getList(2);
+			
+			req.setAttribute("list", list);
+			res.getWriter().write("OK");
+			
+		} catch (SQLException e) {
+			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
+		}
+	}
+	
+	
+	
 	
 }

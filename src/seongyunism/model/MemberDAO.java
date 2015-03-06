@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import seongyunism.model.domain.Member;
+import seongyunism.util.Check;
 import seongyunism.util.DBUtil;
 
 public class MemberDAO {
@@ -17,9 +18,17 @@ public class MemberDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+
+		boolean isEmail = false;
 		int duplicatedCheck = 0;
 			
 		try {
+			isEmail = Check.isEmail(inputMemberEmail);
+
+			if(!isEmail) {
+				return 3; // Fail (Not Email)
+			}
+			
 			con = DBUtil.getConnection();
 			
 			// 1. 이메일 중복 체크

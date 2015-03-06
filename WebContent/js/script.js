@@ -37,6 +37,15 @@ function joinTextClick() {
 	}
 }
 
+//[상단메뉴 영역] 로그인 버튼 클릭 시 이벤트 처리
+function loginTextClick() {
+	if(!topMenuClick) {
+		topMenuSlider(true);
+	} else {
+		topMenuSlider(false);
+	}
+}
+
 // [상단메뉴 영역] 로그인 모드 중 서버로 전송 버튼 클릭 시 이벤트 처리
 function loginMember() {
 
@@ -92,6 +101,8 @@ function joinMember() {
 				location.reload(true);
 			} else if(response == "Duplicate") {
 				alert("중복된 이메일 입니다.");
+			} else if(response == "NotEmail") {
+				alert("잘못된 이메일 입니다.");
 			} else {
 				alert("회원가입에 실패하였습니다.");
 			}
@@ -103,7 +114,13 @@ function joinMember() {
 	return false;
 }
 
-
+// [로그인 영역] 새글작성 버튼 클릭 시 이벤트 처리
+function writeTextClick() {
+	$("body").css("overflow-y", "hidden");
+	$("#writePlate").slideDown(500);
+	$("#topMenu").fadeOut(500);
+	writeClick = true;
+}
 
 // [로그인 영역] 로그아웃 버튼 클릭 시 이벤트 처리
 function logoutMember() {
@@ -121,21 +138,55 @@ function logoutMember() {
 	});
 }
 
-// [블랙판 영역] 닫기 버튼 클릭 시 이벤트 처리
-function blackplateClose() {
+function listPost() {
+	$.ajax({
+		type : "POST",
+		url : "board?action=listPost",
+		dataType : "text",
+			success: function(response) {
+				if(response == "OK") {
+
+				}
+			}, error: function(xhr,status,error) {
+				alert(error);
+			}			
+	});
+}
+
+
+//[쓰기판 영역] 닫기 버튼 클릭 시 이벤트 처리
+function writePlateClose() {
 	$("#topMenu").fadeIn(500);
 	$("body").css("overflow-y", "auto");
 	
-	$("#blackPlate").slideUp(500).queue(function() {
-		$("#blackPlate div.innerContent div.top div.title").html("");
-		$("#blackPlate div.innerContent div.top div.subTitle").html("");
-		$("#blackPlate div.innerContent div.right div.subject div.link").html("");
-		$("#blackPlate div.innerContent div.right div.subject div.data").html("");
-		$("#blackPlate div.innerContent div.right div.period div.data").html("");
-		$("#blackPlate div.innerContent div.right div.purpose div.data").html("");
-		$("#blackPlate div.innerContent div.right div.collabo div.data").html("");
-		$("#blackPlate div.innerContent div.right div.language div.data").html("");
-		$("#blackPlate div.innerContent div.left").html("<div class=\"fotorama\" data-auto=\"false\"></div>");
+	$("#writePlate").slideUp(500, function() {
+		$("#writePlate div.innerContent div.top div.title input").val("");
+		$("#writePlate div.innerContent div.top div.subTitle input").val("");
+		$("#writePlate div.innerContent div.right div.link div.data input").val("");
+		$("#writePlate div.innerContent div.right div.period div.data input").val("");
+		$("#writePlate div.innerContent div.right div.purpose div.data input").val("");
+		$("#writePlate div.innerContent div.right div.collabo div.data input").val("");
+		$("#writePlate div.innerContent div.right div.language div.data input").val("");
+	});
+	
+	writeClick = false;
+}
+
+// [보기판 영역] 닫기 버튼 클릭 시 이벤트 처리
+function viewPlateClose() {
+	$("#topMenu").fadeIn(500);
+	$("body").css("overflow-y", "auto");
+	
+	$("#viewPlate").slideUp(500, function() {
+		$("#viewPlate div.innerContent div.top div.title").html("");
+		$("#viewPlate div.innerContent div.top div.subTitle").html("");
+		$("#viewPlate div.innerContent div.right div.subject div.link").html("");
+		$("#viewPlate div.innerContent div.right div.subject div.data").html("");
+		$("#viewPlate div.innerContent div.right div.period div.data").html("");
+		$("#viewPlate div.innerContent div.right div.purpose div.data").html("");
+		$("#viewPlate div.innerContent div.right div.collabo div.data").html("");
+		$("#viewPlate div.innerContent div.right div.language div.data").html("");
+		$("#viewPlate div.innerContent div.left").html("<div class=\"fotorama\" data-auto=\"false\"></div>");
 	});
 	
 	postClick = false;

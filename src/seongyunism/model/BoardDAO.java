@@ -85,7 +85,7 @@ public class BoardDAO {
 		
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("SELECT count(*) FROM pf_post WHERE pfProjectCategory=?");
+			pstmt = con.prepareStatement("SELECT count(*) FROM pf_post WHERE pfProjectCategory=? AND pfPostViewMode<2");
 			pstmt.setInt(1, inputProjectCategory);
 			rset = pstmt.executeQuery();
 			
@@ -159,7 +159,7 @@ public class BoardDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("SELECT * FROM pf_post WHERE pfProjectCategory=? ORDER BY pfProjectDate DESC");
+			pstmt = con.prepareStatement("SELECT * FROM pf_post WHERE pfProjectCategory=? AND pfPostViewMode<2 ORDER BY pfProjectDate DESC");
 			pstmt.setInt(1, inputProjectCategory);
 			rset = pstmt.executeQuery();
 				

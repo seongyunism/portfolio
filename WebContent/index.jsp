@@ -1,4 +1,4 @@
-<%@page import="java.util.ArrayList"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="seongyunism.model.MemberDAO" %>
 <%@ page import="seongyunism.model.BoardDAO" %>
 <%@ page import="seongyunism.model.domain.Board"%>
@@ -19,6 +19,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.5.2/fotorama.js"></script>
 	<script>
 	var postClick = false;
+	var writeClick = false;
 	var topMenuClick = false;
 	var topMenuJoinTextClick = false;
 	var leftMenuClick = false;
@@ -32,11 +33,18 @@
 	$(window).load(function() { });
 	
 	$(function() {
+		// 키보드 ESC 누를 시 이벤트 처리
+		$(document).keyup(function (e) {
+			if(e.keyCode == 27 && postClick == true) {
+				viewPlateClose();
+			}
+		});
+		
 		// [컨텐츠 영역] 포스트박스 클릭 시 이벤츠 처리
 		$("#content div.innerContent div.grid figure").click(function() {
 			if(!postClick) {				
 
-				var action = "board?action=postView";
+				var action = "board?action=viewPost";
 				var postNo = "postNo=" + $(this).attr("name");
 				
 				$.ajax({
@@ -45,39 +53,39 @@
 					data : postNo,
 					dataType : "json",
 					success: function(response) {
-						$("#blackPlate div.innerContent div.top div.title").html(response.pfProjectTitle.replace("\n",""));
-						$("#blackPlate div.innerContent div.top div.subTitle").html(response.pfProjectSubTitle.replace("\n",""));
-						$("#blackPlate div.innerContent div.right div.subject div.data").html(response.pfProjectTitle.replace("\n",""));
-						$("#blackPlate div.innerContent div.right div.period div.data").html(response.pfProjectPeriod.replace("\n",""));	
-						$("#blackPlate div.innerContent div.right div.purpose div.data").html(response.pfProjectPurpose.replace("\n",""));	
-						$("#blackPlate div.innerContent div.right div.collabo div.data").html(response.pfProjectCollabo.replace("\n",""));	
-						$("#blackPlate div.innerContent div.right div.language div.data").html(response.pfProjectLanguage.replace("\n",""));
+						$("#viewPlate div.innerContent div.top div.title").html(response.pfProjectTitle.replace("\n",""));
+						$("#viewPlate div.innerContent div.top div.subTitle").html(response.pfProjectSubTitle.replace("\n",""));
+						$("#viewPlate div.innerContent div.right div.subject div.data").html(response.pfProjectTitle.replace("\n",""));
+						$("#viewPlate div.innerContent div.right div.period div.data").html(response.pfProjectPeriod.replace("\n",""));	
+						$("#viewPlate div.innerContent div.right div.purpose div.data").html(response.pfProjectPurpose.replace("\n",""));	
+						$("#viewPlate div.innerContent div.right div.collabo div.data").html(response.pfProjectCollabo.replace("\n",""));	
+						$("#viewPlate div.innerContent div.right div.language div.data").html(response.pfProjectLanguage.replace("\n",""));
 						
 						if(response.pfProjectLink != "") {
-							$("#blackPlate div.innerContent div.right div.subject div.link").html("<a href='" + response.pfProjectLink.replace("\n","") + "' target='_blank'>프로젝트 들어가기</a>");						
+							$("#viewPlate div.innerContent div.right div.subject div.link").html("<a href='" + response.pfProjectLink.replace("\n","") + "' target='_blank'>프로젝트 들어가기</a>");						
 						}
 						
 						if(response.pfProjectMovAddr != "") {
-							$("#blackPlate div.innerContent div.left div.fotorama").append("<a class='mov' href='" + response.pfProjectMovAddr.replace("\n","") + "'><img class='movPreview' src='" + response.pfProjectMovPreview.replace("\n","") + "' /></a>")
+							$("#viewPlate div.innerContent div.left div.fotorama").append("<a class='mov' href='" + response.pfProjectMovAddr.replace("\n","") + "'><img class='movPreview' src='" + response.pfProjectMovPreview.replace("\n","") + "' /></a>")
 						}
 
 						if(response.pfProjectImgAddr01 != "") {
-							$("#blackPlate div.innerContent div.left div.fotorama").append("<img src='" + response.pfProjectImgAddr01 + "' />");		
+							$("#viewPlate div.innerContent div.left div.fotorama").append("<img src='" + response.pfProjectImgAddr01 + "' />");		
 						}
 						
 						if(response.pfProjectImgAddr02 != "") {
-							$("#blackPlate div.innerContent div.left div.fotorama").append("<img src='" + response.pfProjectImgAddr02 + "' />");		
+							$("#viewPlate div.innerContent div.left div.fotorama").append("<img src='" + response.pfProjectImgAddr02 + "' />");		
 						}				
 
 						if(response.pfProjectImgAddr03 != "") {
-							$("#blackPlate div.innerContent div.left div.fotorama").append("<img src='" + response.pfProjectImgAddr03 + "' />");		
+							$("#viewPlate div.innerContent div.left div.fotorama").append("<img src='" + response.pfProjectImgAddr03 + "' />");		
 						}
 						
 						if(response.pfProjectImgAddr04 != "") {
-							$("#blackPlate div.innerContent div.left div.fotorama").append("<img src='" + response.pfProjectImgAddr04 + "' />");		
+							$("#viewPlate div.innerContent div.left div.fotorama").append("<img src='" + response.pfProjectImgAddr04 + "' />");		
 						}					
 						
-						$("#blackPlate div.innerContent div.left div.fotorama").fotorama();
+						$("#viewPlate div.innerContent div.left div.fotorama").fotorama();
 						
 						
 					}, error: function(xhr,status,error) {
@@ -86,22 +94,13 @@
 				});
 				
 				$("body").css("overflow-y", "hidden");
-				$("#blackPlate").slideDown(500);
+				$("#viewPlate").slideDown(500);
 				$("#topMenu").fadeOut(500);
 				postClick = true;
 
 				return false;
 			} else {
-				blackplateClose();
-			}
-		});
-			
-		// [상단 메뉴 영역] 로그인 버튼 클릭 시 이벤트 처리
-		$("#topMenu div.topButton span.loginText").click(function() {
-			if(!topMenuClick) {
-				topMenuSlider(true);
-			} else {
-				topMenuSlider(false);
+				viewPlateClose();
 			}
 		});
 	});
@@ -116,13 +115,55 @@
 
 <body>
 
-	<div id="blackPlate">
+	<div id="writePlate">
 		<div class="innerContent">
 			<div class="top">
 				<div class="button">
-					<div class="close" onclick="blackplateClose()"><img src="img/btnClose.png" /></div>
-					<div class="delete">삭제</div>
-					<div class="modify">수정</div>
+					<div class="close" onclick="writePlateClose()"><img src="img/btnClose.png" /></div>
+				</div>
+				<div class="title"><input name="inputProjectTitle" class="inputProjectTitle" placeholder="프로젝트 타이틀"/></div>
+				<div class="subTitle"><input name="inputProjectTitle" class="inputProjectTitle" placeholder="프로젝트 서브타이틀"/></div>
+				<div class="margin"></div>
+			</div>
+			<div class="left">
+				<!-- 영상 주소, 이미지 업로드 -->
+			</div>
+			<div class="right">
+				<div class="link">
+					<div class="column">링크주소</div>
+					<div class="data"></div>
+				</div>
+				<div class="period">
+					<div class="column">프로젝트기간</div>
+					<div class="data"></div>
+				</div>
+				<div class="purpose">
+					<div class="column">프로젝트목적</div>
+					<div class="data"></div>
+				</div>
+				<div class="collabo">
+					<div class="column">협업사항</div>
+					<div class="data"></div>
+				</div>
+				<div class="language">
+					<div class="column">개발 언어</div>
+					<div class="data"></div>
+				</div>
+				<div class="memo">
+					<div class="column">메모</div>
+					<div class="data"></div>
+				</div>
+			</div>	
+		</div>
+	</div>
+
+	<div id="viewPlate">
+		<div class="innerContent">
+			<div class="top">
+				<div class="button">
+					<div class="close" onclick="viewPlateClose()"><img src="img/btnClose.png" /></div>
+					<c:if test="${sessionScope.pfMemberAdmin == true}"><div class="delete">삭제</div></c:if>
+					<c:if test="${sessionScope.pfMemberAdmin == true}"><div class="modify">수정</div></c:if>
 				</div>
 				<div class="title"></div>
 				<div class="subTitle"></div>
@@ -178,8 +219,8 @@
 			</form>
 		</div>
 		<div class="topButton">
-			<c:if test="${empty sessionScope.pfMemberNo}"><span class="joinText" onclick="joinTextClick()">회원가입</span><span class="loginText">로그인</span></c:if>
-			<c:if test="${not empty sessionScope.pfMemberNo}"><span class="logoutText" onclick="logoutMember()">로그아웃</span></c:if>
+			<c:if test="${empty sessionScope.pfMemberNo}"><span class="joinText" onclick="joinTextClick()">회원가입</span><span class="loginText" onclick="loginTextClick()">로그인</span></c:if>
+			<c:if test="${not empty sessionScope.pfMemberNo}"><c:if test="${sessionScope.pfMemberAdmin == true}"><span class="writeText" onclick="writeTextClick()">새글작성</span></c:if><span class="logoutText" onclick="logoutMember()">로그아웃</span></c:if>
 		</div>
 	</div>
 
@@ -254,8 +295,25 @@
 				</div>		
 			</div>
 			
+   			<!--
    			<div class="subContent">
+	    		<div class="subTitle"><%=BoardDAO.getCategoryName(2).getPfCategoryNameKor()%> | <%=BoardDAO.getCategoryName(2).getPfCategoryName()%></div>
+				<div class="grid">
+					<c:forEach items="${requestScope.list}" var="list2">
+					<c:out value="${list2.pfNo}" />
+						<figure class="effect-bubba" name="<c:out value='${list.pfNo}' />">
+							<img src="<c:out value='${list2.pfPostThumbnailAddr}' />" />
+							<figcaption>
+								<h2><c:out value="${list2.pfProjectTitle}" /></h2>
+								<p><c:out value="${list2.pfProjectSubTitle}" /></p>
+								<a href="">View more</a>
+							</figcaption>			
+						</figure>
+					</c:forEach>
+				</div>	
    			</div>
+   			-->
+   			
     	</div>
     </div>
 

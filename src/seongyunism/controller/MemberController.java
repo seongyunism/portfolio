@@ -63,6 +63,8 @@ public class MemberController extends HttpServlet {
 				returnJoinCheck = "JoinOK";
 			} else if(checkedMember == 2) {
 				returnJoinCheck = "Duplicate";
+			} else if(checkedMember == 3) {
+				returnJoinCheck = "NotEmail";
 			} else {
 				returnJoinCheck = "Fail";
 			}
