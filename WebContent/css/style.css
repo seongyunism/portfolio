@@ -21,14 +21,31 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 	#writePlate div.innerContent div.top {height:237px;}
 	#writePlate div.innerContent div.top div.button {height:48px;}
 	#writePlate div.innerContent div.top div.title {height:91px; line-height:2em;}
-	#writePlate div.innerContent div.top div.title input.inputProjectTitle {height:91px; font-size:3em; }
-	#writePlate div.innerContent div.top div.subTitle {height:50px; font-size:1.3em; line-height:50px;}
+	#writePlate div.innerContent div.top div.title input.inputProjectTitle {height:91px; font-size:3em;}
+	#writePlate div.innerContent div.top div.subTitle {height:50px; line-height:50px;}
+	#writePlate div.innerContent div.top div.subTitle input.inputProjectSubTitle {height:50px; font-size:1.3em;}
 	#writePlate div.innerContent div.top div.margin {height:48px;}
 	#writePlate div.innerContent div.left {width:710px;}
+	#writePlate div.innerContent div.left div.projectLink, #writePlate div.innerContent div.left div.projectDate, #writePlate div.innerContent div.left div.projectPeriod, 
+		#writePlate div.innerContent div.left div.projectPurpose, #writePlate div.innerContent div.left div.projectCollabo, #writePlate div.innerContent div.left div.projectLanguage,
+		#writePlate div.innerContent div.left div.postThumbnail, #writePlate div.innerContent div.left div.projectMov, #writePlate div.innerContent div.left div.projectMovPreview,
+		#writePlate div.innerContent div.left div.projectImgAddr01, #writePlate div.innerContent div.left div.projectImgAddr02, #writePlate div.innerContent div.left div.projectImgAddr03,
+		#writePlate div.innerContent div.left div.projectImgAddr04 {width:662px; height:34px;}
+	#writePlate div.innerContent div.left div.column {height:34px; font-size:0.8em; line-height:34px;}
+	#writePlate div.innerContent div.left div.data {width:542px}
+	#writePlate div.innerContent div.left div.data input {height:27px; margin-top:3px;}
+	#writePlate div.innerContent div.left div.button {height:27px; line-height:27px; margin-top:3px;}
+	#writePlate div.innerContent div.left div.button input {top:-32px; height:27px;}
 	#writePlate div.innerContent div.right {width:600px;}
-	#writePlate div.innerContent div.right div.link, #writePlate div.innerContent div.right div.period, #writePlate div.innerContent div.right div.purpose,
-		#writePlate div.innerContent div.right div.collabo, #writePlate div.innerContent div.right div.language {height:34px; font-size:1.1em; line-height:34px;}
-	#writePlate div.innerContent div.right div.column {height:34px; font-size:0.8em; line-height:34px;}
+	#writePlate div.innerContent div.right div.postViewMode {width:542px; height:35px; line-height:35px; }
+	#writePlate div.innerContent div.right div.postViewMode div.column {height:34px; font-size:0.8em; line-height:34px;}
+	#writePlate div.innerContent div.right div.postViewMode div.data {height:34px;}
+	#writePlate div.innerContent div.right div.projectMemo {width:542px;}
+	#writePlate div.innerContent div.right div.projectMemo div.column {width:542px; height:28px; font-size:0.8em; line-height:28px; margin-top:3px; margin-bottom:3px;}
+	#writePlate div.innerContent div.right div.projectMemo div.data {width:542px; height:374px;}
+	#writePlate div.innerContent div.right div.projectMemo div.data textarea {width:542px; height:374px; font-size:0.9em; line-height:25px;}
+	#writePlate div.innerContent div.bottom {width:1310px; height:57px;}
+	#writePlate div.innerContent div.bottom input {width:200px; height:35px; font-size:0.9em; margin-top:11px;}
 	
 	#viewPlate div.innerContent {width:1310px; height:737px; margin:-368.5px 0px 0px -655px;}
 	#viewPlate div.innerContent div.top {height:237px;}
@@ -41,9 +58,18 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 	#viewPlate div.innerContent div.left div.fotorama img {width:710px;}
 	#viewPlate div.innerContent div.right {width:600px;}
 	#viewPlate div.innerContent div.right div.subject, #viewPlate div.innerContent div.right div.period, #viewPlate div.innerContent div.right div.purpose,
-		#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language {height:34px; font-size:1.1em; line-height:34px;}
+		#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language {height:34px;}
 	#viewPlate div.innerContent div.right div.column {height:34px; font-size:0.8em; line-height:34px;}
-	
+	#viewPlate div.innerContent div.right div.subject div.link {height:34px; line-height:34px;}
+	#viewPlate div.innerContent div.right div.data {font-size:1.1em; line-height:34px;}
+	#viewPlate div.innerContent div.right div.memo {height:135px;}
+	#viewPlate div.innerContent div.right div.memo div.column {height:135px;}
+	#viewPlate div.innerContent div.right div.memo div.data {width:460px; height:135px; font-size:0.90em; line-height:25px; padding:5px 0px 5px 0px; overflow:auto;}
+	#viewPlate div.innerContent div.right div.memo div.data::-webkit-scrollbar {width:6px;}
+	#viewPlate div.innerContent div.right div.memo div.data::-webkit-scrollbar-thumb {background-color:#EEEEEE;}
+	#viewPlate div.innerContent div.right div.memo div.data::-webkit-scrollbar-track-piece {background-color:#444444;}
+
+
 	#pageslide {width:340px;}
 
 	#content {width:1180px;}
@@ -68,14 +94,27 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 	#writePlate div.innerContent {width:1748px; height:983px; margin:-491.5px 0px 0px -874px;}
 	#writePlate div.innerContent div.top {height:283px;}
 	#writePlate div.innerContent div.top div.button {height:48px;}
-	#writePlate div.innerContent div.top div.title {height:121px; font-size:3.75em; line-height:2.3em;}
-	#writePlate div.innerContent div.top div.subTitle {height:66px; font-size:1.5em; line-height:66px;}
+	#writePlate div.innerContent div.top div.title {height:121px; line-height:2.3em;}
+	#writePlate div.innerContent div.top div.title input.inputProjectTitle {height:121px; font-size:3.75em;}
+	#writePlate div.innerContent div.top div.subTitle {height:66px; line-height:66px;}
+	#writePlate div.innerContent div.top div.subTitle input.inputProjectSubTitle {height:66px; font-size:1.5em;}
 	#writePlate div.innerContent div.top div.margin {height:48px;}
 	#writePlate div.innerContent div.left {width:1024px;}
+	#writePlate div.innerContent div.left div.projectLink, #writePlate div.innerContent div.left div.projectDate, #writePlate div.innerContent div.left div.projectPeriod, 
+		#writePlate div.innerContent div.left div.projectPurpose, #writePlate div.innerContent div.left div.projectCollabo, #writePlate div.innerContent div.left div.projectLanguage,
+		#writePlate div.innerContent div.left div.postThumbnail, #writePlate div.innerContent div.left div.projectMov, #writePlate div.innerContent div.left div.projectMovPreview,
+		#writePlate div.innerContent div.left div.projectImgAddr01, #writePlate div.innerContent div.left div.projectImgAddr02, #writePlate div.innerContent div.left div.projectImgAddr03,
+		#writePlate div.innerContent div.left div.projectImgAddr04 {}
 	#writePlate div.innerContent div.right {width:724px;}
-	#writePlate div.innerContent div.right div.link, #writePlate div.innerContent div.right div.period, #writePlate div.innerContent div.right div.purpose,
-		#writePlate div.innerContent div.right div.collabo, #writePlate div.innerContent div.right div.language {height:45px; font-size:1.2em; line-height:45px;}
-	#writePlate div.innerContent div.right div.column {height:45px; font-size:0.9em; line-height:45px;}
+	#writePlate div.innerContent div.right div.postViewMode {}
+	#writePlate div.innerContent div.right div.postViewMode div.column {height:45px; font-size:0.9em; line-height:45px;}
+	#writePlate div.innerContent div.right div.postViewMode div.data {height:45px;}
+	#writePlate div.innerContent div.right div.projectMemo {}
+	#writePlate div.innerContent div.right div.projectMemo div.column {}
+	#writePlate div.innerContent div.right div.projectMemo div.data {}
+	#writePlate div.innerContent div.right div.projectMemo div.data textarea {}
+	#writePlate div.innerContent div.bottom {}
+	#writePlate div.innerContent div.bottom input {}
 	
 	#viewPlate div.innerContent {width:1748px; height:983px; margin:-491.5px 0px 0px -874px;}
 	#viewPlate div.innerContent div.top {height:283px;}
@@ -88,8 +127,10 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 	#viewPlate div.innerContent div.left div.fotorama img {width:1000px; height:668px;}
 	#viewPlate div.innerContent div.right {width:724px;}
 	#viewPlate div.innerContent div.right div.subject, #viewPlate div.innerContent div.right div.period, #viewPlate div.innerContent div.right div.purpose,
-		#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language {height:45px; font-size:1.2em; line-height:45px;}
+		#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language {height:45px;}
+	#viewPlate div.innerContent div.right div.subject div.link {height:45px; line-height:45px;}
 	#viewPlate div.innerContent div.right div.column {height:45px; font-size:0.9em; line-height:45px;}
+	#viewPlate div.innerContent div.right div.data {height:45px; font-size:1.2em; line-height:45px;}
 
 	#pageslide {width:453px;}
 
@@ -113,18 +154,32 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 #writePlate div.innerContent div.top div.button div.close {width:48px; height:48px; float:right; text-align:center; line-height:48px; cursor:pointer;}
 #writePlate div.innerContent div.top div.button div.close:hover {background:rgba(255, 255, 255, 0.05);}
 #writePlate div.innerContent div.top div.button div.close img {width:28px; height:28px; margin:10px;}
-#writePlate div.innerContent div.top div.title {clear:both; padding-left:48px;}
-#writePlate div.innerContent div.top div.title input.inputProjectTitle {font-family:MyriadPro, NanumGothic; font-weight:bold; color:#eeeeee; }
-
-#writePlate div.innerContent div.top div.subTitle {clear:both; font-family:MyriadPro, NanumGothic; color:#eeeeee; padding-left:48px; background:rgba(255, 255, 255, 0.05);}
+#writePlate div.innerContent div.top div.title {clear:both; padding:0px 48px 0px 48px;;}
+#writePlate div.innerContent div.top div.title input.inputProjectTitle {width:100%; font-family:MyriadPro, NanumGothic; font-weight:bold; color:#eeeeee; background:transparent; border:0px; outline:0px;}
+#writePlate div.innerContent div.top div.subTitle {clear:both; background:rgba(255, 255, 255, 0.05); padding:0px 48px 0px 48px;}
+#writePlate div.innerContent div.top div.subTitle input.inputProjectSubTitle {width:100%; font-family:MyriadPro, NanumGothic; color:#eeeeee; background:transparent; border:0px; outline:0px;}
 #writePlate div.innerContent div.top div.margin {clear:both;}
-#writePlate div.innerContent div.left {clear:both; float:left;}
-#writePlate div.innerContent div.right {float:right; padding:0px 10px 0px 10px;}	
-#writePlate div.innerContent div.right div.link, #writePlate div.innerContent div.right div.period, #writePlate div.innerContent div.right div.purpose,
-	#writePlate div.innerContent div.right div.collabo, #writePlate div.innerContent div.right div.language {font-family:NanumGothic;  color:#ffffff; border-bottom:1px solid #1a1a1a;}
-#writePlate div.innerContent div.right div.memo {}
-#writePlate div.innerContent div.right div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center;}	
-#writePlate div.innerContent div.right div.data {float:left;}
+#writePlate div.innerContent div.left {clear:both; float:left; padding-left:48px;}
+#writePlate div.innerContent div.left div.projectLink, #writePlate div.innerContent div.left div.projectDate, #writePlate div.innerContent div.left div.projectPeriod, 
+		#writePlate div.innerContent div.left div.projectPurpose, #writePlate div.innerContent div.left div.projectCollabo, #writePlate div.innerContent div.left div.projectLanguage,
+		#writePlate div.innerContent div.left div.postThumbnail, #writePlate div.innerContent div.left div.projectMov, #writePlate div.innerContent div.left div.projectMovPreview,
+		#writePlate div.innerContent div.left div.projectImgAddr01, #writePlate div.innerContent div.left div.projectImgAddr02, #writePlate div.innerContent div.left div.projectImgAddr03,
+		#writePlate div.innerContent div.left div.projectImgAddr04 {clear:both; border-bottom:1px solid #1a1a1a;}
+#writePlate div.innerContent div.left div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center; color:#ffffff;}
+#writePlate div.innerContent div.left div.data {float:left;}
+#writePlate div.innerContent div.left div.data input {width:100%; font-family:NanumGothic; font-size:1em; color:#eeeeee; background:rgba(255, 255, 255, 0.05); border:0px; outline:0px; padding-left:10px;}
+#writePlate div.innerContent div.left div.button {width:120px; float:left; font-family:NanumGothic; font-size:0.8em; text-align:center; color:#eeeeee; background:rgba(255, 255, 255, 0.3); cursor:pointer;}
+#writePlate div.innerContent div.left div.button input {position:relative; left:0px; width:120px; margin:0px; padding:0px; outline:0px; opacity:0; cursor:pointer;}
+#writePlate div.innerContent div.right {float:right; padding:0px 48px 0px 10px;}	
+#writePlate div.innerContent div.right div.postViewMode {font-family:NanumGothic; color:#eeeeee; border-top:1px solid #1a1a1a; border-bottom:1px solid #1a1a1a;}
+#writePlate div.innerContent div.right div.postViewMode div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center; color:#ffffff;}	
+#writePlate div.innerContent div.right div.postViewMode div.data {float:left;}
+#writePlate div.innerContent div.right div.projectMemo {clear:both;}
+#writePlate div.innerContent div.right div.projectMemo div.column {font-weight:bold; text-align:center; color:#ffffff;}
+#writePlate div.innerContent div.right div.projectMemo div.data {clear:both;}
+#writePlate div.innerContent div.right div.projectMemo div.data textarea {width:100%; font-family:NanumGothic; color:#ffffff; background:rgba(255, 255, 255, 0.1); border:0px; margin:0px; padding:10px; outline:0px;}
+#writePlate div.innerContent div.bottom {clear:both; text-align:center;}
+#writePlate div.innerContent div.bottom input {font-family:NanumGothic; background:rgba(247, 65, 109, 0.5); text-shadow:1px 1px 1px rgba(0, 0, 0, 0.8); color:#ffffff; border:0px; outline:0px; cursor:pointer;}
 
 #viewPlate {position:fixed; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:10; display:none;}
 #viewPlate div.innerContent {position:absolute; top:50%; left:50%; background:rgba(0, 0, 0, 0.90); box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3);}
@@ -145,13 +200,15 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 #viewPlate div.innerContent div.left div.fotorama img {}
 #viewPlate div.innerContent div.right {float:right; padding:0px 10px 0px 10px;}	
 #viewPlate div.innerContent div.right div.subject, #viewPlate div.innerContent div.right div.period, #viewPlate div.innerContent div.right div.purpose,
-	#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language {font-family:NanumGothic;  color:#ffffff; border-bottom:1px solid #1a1a1a;}
+	#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language, #viewPlate div.innerContent div.right div.memo {clear:both; border-bottom:1px solid #1a1a1a;}
 #viewPlate div.innerContent div.right div.subject div.link {float:right; padding-right:20px;}
 #viewPlate div.innerContent div.right div.subject div.link a {font-size:0.8em; color:#ffa800; text-decoration:none;}
 #viewPlate div.innerContent div.right div.subject div.link a:hover {text-decoration:underline;}
 #viewPlate div.innerContent div.right div.memo {}
-#viewPlate div.innerContent div.right div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center;}	
-#viewPlate div.innerContent div.right div.data {float:left;}
+#viewPlate div.innerContent div.right div.memo div.column {}
+#viewPlate div.innerContent div.right div.memo div.data {}
+#viewPlate div.innerContent div.right div.column {width:120px; float:left; font-family:NanumGothic; font-weight:bold; text-align:center; color:#ffffff;}	
+#viewPlate div.innerContent div.right div.data {float:left; font-family:NanumGothic; color:#ffffff;}
 
 #topMenu {position:absolute; top:-58px; left:0px; width:100%; height:88px; z-index:11;}	
 #topMenu div.topBar {width:100%; height:50px; background:rgba(0, 0, 0, 0.8); box-shadow:0px 0px 8px rgba(0,0,0, 0.8); }

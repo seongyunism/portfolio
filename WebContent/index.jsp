@@ -116,45 +116,94 @@
 <body>
 
 	<div id="writePlate">
-		<div class="innerContent">
-			<div class="top">
-				<div class="button">
-					<div class="close" onclick="writePlateClose()"><img src="img/btnClose.png" /></div>
+		<form action="board?action=writePost" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="mode" value="new" />
+			<input type="hidden" name="postNo" value="2343" />
+			
+			<div class="innerContent">
+				<div class="top">
+					<div class="button">
+						<div class="close" onclick="writePlateClose()"><img src="img/btnClose.png" /></div>
+					</div>
+					<div class="title"><input type="text" name="inputProjectTitle" class="inputProjectTitle" placeholder="프로젝트 타이틀"/></div>
+					<div class="subTitle"><input type="text" name="inputProjectSubTitle" class="inputProjectSubTitle" placeholder="프로젝트 서브타이틀"/></div>
+					<div class="margin"></div>
 				</div>
-				<div class="title"><input name="inputProjectTitle" class="inputProjectTitle" placeholder="프로젝트 타이틀"/></div>
-				<div class="subTitle"><input name="inputProjectTitle" class="inputProjectTitle" placeholder="프로젝트 서브타이틀"/></div>
-				<div class="margin"></div>
+				<div class="left">
+					<div class="projectLink" style="height:35px; border-top:1px solid #1a1a1a;">
+						<div class="column">관련 페이지</div>
+						<div class="data"><input type="text" name="inputProjectLink" class="inputProjectLink" /></div>
+					</div>
+					<div class="projectDate">
+						<div class="column">프로젝트 완료일</div>
+						<div class="data"><input type="text" name="inputProjectDate" class="inputProjectDate" /></div>
+					</div>				
+					<div class="projectPeriod">
+						<div class="column">프로젝트 기간</div>
+						<div class="data"><input type="text" name="inputProjectPeriod" class="inputProjectPeriod" /></div>
+					</div>
+					<div class="projectPurpose">
+						<div class="column">프로젝트 목적</div>
+						<div class="data"><input type="text" name="inputProjectPurpose" class="inputProjectPurpose" /></div>
+					</div>
+					<div class="projectCollabo">
+						<div class="column">협업사항</div>
+						<div class="data"><input type="text" name="inputProjectCollabo" class="inputProjectCollabo" /></div>
+					</div>
+					<div class="projectLanguage">
+						<div class="column">개발 언어</div>
+						<div class="data"><input type="text" name="inputProjectLanguage" class="inputProjectLanguage" /></div>
+					</div>
+					<div class="postThumbnail">
+						<div class="column">커버 이미지</div>
+						<div class="data" style="width:422px;"><input type="text" name="inputPostThumbnailAddr" class="inputPostThumbnailAddr" readonly="readonly" /></div>
+						<div class="button">찾아보기<input type="file" name="inputPostThumbnailAddrFile" class="inputPostThumbnailAddrFile" onchange="uploadBtnClick('inputPostThumbnailAddr')" /></div>
+					</div>
+					<div class="projectMov">
+						<div class="column">영상 주소</div>
+						<div class="data"><input type="text" name="inputProjectMovAddr" class="inputProjectMovAddr" /></div>
+					</div>
+					<div class="projectMovPreview">
+						<div class="column">영상 프리뷰</div>
+						<div class="data" style="width:422px;"><input type="text" name="inputProjectMovPreview" class="inputProjectMovPreview" readonly="readonly" /></div>
+						<div class="button">찾아보기<input type="file" name="inputProjectMovPreviewFile" class="inputProjectMovPreviewFile" onchange="uploadBtnClick('inputProjectMovPreview')" /></div>
+					</div>
+					<div class="projectImgAddr01">
+						<div class="column">이미지 01</div>
+						<div class="data" style="width:422px;"><input type="text" name="inputProjectImgAddr01" class="inputProjectImgAddr01" readonly="readonly" /></div>
+						<div class="button">찾아보기<input type="file" name="inputProjectImgAddr01File" class="inputProjectImgAddr01File" onchange="uploadBtnClick('inputProjectImgAddr01')" /></div>
+					</div>	
+					<div class="projectImgAddr02">
+						<div class="column">이미지 02</div>
+						<div class="data" style="width:422px;"><input type="text" name="inputProjectImgAddr02" class="inputProjectImgAddr02" readonly="readonly" /></div>
+						<div class="button">찾아보기<input type="file" name="inputProjectImgAddr02File" class="inputProjectImgAddr02File" onchange="uploadBtnClick('inputProjectImgAddr02')" /></div>
+					</div>			
+					<div class="projectImgAddr03">
+						<div class="column">이미지 03</div>
+						<div class="data" style="width:422px;"><input type="text" name="inputProjectImgAddr03" class="inputProjectImgAddr03" readonly="readonly" /></div>
+						<div class="button">찾아보기<input type="file" name="inputProjectImgAddr03File" class="inputProjectImgAddr03File" onchange="uploadBtnClick('inputProjectImgAddr03')" /></div>
+					</div>					
+					<div class="projectImgAddr04">
+						<div class="column">이미지 04</div>
+						<div class="data" style="width:422px;"><input type="text" name="inputProjectImgAddr04" class="inputProjectImgAddr04" readonly="readonly" /></div>
+						<div class="button">찾아보기<input type="file" name="inputProjectImgAddr04File" class="inputProjectImgAddr04File" onchange="uploadBtnClick('inputProjectImgAddr04')" /></div>
+					</div>			
+				</div>
+				<div class="right">
+					<div class="postViewMode">
+						<div class="column">화면 출력 여부</div>
+						<div class="data"><input type="radio" name="inputPostViewMode" value="0" checked />&nbsp;공개 모드&nbsp;&nbsp;&nbsp;<input type="radio" name="inputPostViewMode" value="1" />&nbsp;관리자 모드&nbsp;&nbsp;&nbsp;<input type="radio" name="inputPostViewMode" value="2" />&nbsp;비출력</div>
+					</div>
+					<div class="projectMemo">
+						<div class="column">메모</div>
+						<div class="data"><textarea name="inputProjectMemo" class="inputProjectMemo"></textarea></div>
+					</div>
+				</div>
+				<div class="bottom">
+					<input type="submit" value="서버로 전송" />
+				</div>
 			</div>
-			<div class="left">
-				<!-- 영상 주소, 이미지 업로드 -->
-			</div>
-			<div class="right">
-				<div class="link">
-					<div class="column">링크주소</div>
-					<div class="data"></div>
-				</div>
-				<div class="period">
-					<div class="column">프로젝트기간</div>
-					<div class="data"></div>
-				</div>
-				<div class="purpose">
-					<div class="column">프로젝트목적</div>
-					<div class="data"></div>
-				</div>
-				<div class="collabo">
-					<div class="column">협업사항</div>
-					<div class="data"></div>
-				</div>
-				<div class="language">
-					<div class="column">개발 언어</div>
-					<div class="data"></div>
-				</div>
-				<div class="memo">
-					<div class="column">메모</div>
-					<div class="data"></div>
-				</div>
-			</div>	
-		</div>
+		</form>
 	</div>
 
 	<div id="viewPlate">
@@ -174,16 +223,16 @@
 			</div>
 			<div class="right">
 				<div class="subject">
-					<div class="column">프로젝트명</div>
+					<div class="column">프로젝트 타이틀</div>
 					<div class="data"></div>
 					<div class="link"></div>
 				</div>
 				<div class="period">
-					<div class="column">프로젝트기간</div>
+					<div class="column">프로젝트 기간</div>
 					<div class="data"></div>
 				</div>
 				<div class="purpose">
-					<div class="column">프로젝트목적</div>
+					<div class="column">프로젝트 목적</div>
 					<div class="data"></div>
 				</div>
 				<div class="collabo">

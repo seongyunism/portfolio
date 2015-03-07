@@ -35,6 +35,8 @@ public class BoardController extends HttpServlet {
 			listPostCount(req, res);
 		} else if(action.equals("listPost")) {
 			listPost(req, res);
+		} else if(action.equals("writePost")) {
+			writePost(req, res);
 		}
 	}
 	
@@ -44,14 +46,14 @@ public class BoardController extends HttpServlet {
 		req.setCharacterEncoding("utf8");
 		
 		try {
-			int inputBoardPostNo = (req.getParameter("postNo") != null) ? Integer.parseInt(req.getParameter("postNo")) : 0;
-			Board thisPost = BoardDAO.getPost(inputBoardPostNo);
+			int inputPostNo = (req.getParameter("postNo") != null) ? Integer.parseInt(req.getParameter("postNo")) : 0;
+			Board thisPost = BoardDAO.getPost(inputPostNo);
 			
 			// 하나의 정보를 저장할 JSONObject를 설정
 			JSONObject jObject = new JSONObject();
 			
 			// 데이터를 삽입
-			jObject.put("pfNo", inputBoardPostNo);
+			jObject.put("pfNo", inputPostNo);
 			jObject.put("pfProjectTitle", thisPost.getPfProjectTitle());
 			jObject.put("pfProjectSubTitle", thisPost.getPfProjectSubTitle());
 			jObject.put("pfProjectPeriod", thisPost.getPfProjectPeriod());
@@ -108,7 +110,13 @@ public class BoardController extends HttpServlet {
 		}
 	}
 	
+	// 글쓰기
+	public void writePost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		int inputPostNo = (req.getParameter("postNo") != null) ? Integer.parseInt(req.getParameter("postNo")) : 0;
+		
+		System.out.println(inputPostNo);
 	
+	}
 	
 	
 }

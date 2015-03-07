@@ -154,22 +154,28 @@ function listPost() {
 }
 
 
-//[쓰기판 영역] 닫기 버튼 클릭 시 이벤트 처리
+// [쓰기판 영역] 닫기 버튼 클릭 시 이벤트 처리
 function writePlateClose() {
 	$("#topMenu").fadeIn(500);
 	$("body").css("overflow-y", "auto");
 	
 	$("#writePlate").slideUp(500, function() {
-		$("#writePlate div.innerContent div.top div.title input").val("");
-		$("#writePlate div.innerContent div.top div.subTitle input").val("");
-		$("#writePlate div.innerContent div.right div.link div.data input").val("");
-		$("#writePlate div.innerContent div.right div.period div.data input").val("");
-		$("#writePlate div.innerContent div.right div.purpose div.data input").val("");
-		$("#writePlate div.innerContent div.right div.collabo div.data input").val("");
-		$("#writePlate div.innerContent div.right div.language div.data input").val("");
+		$("#writePlate div.innerContent div.top input").val("");
+		$("#writePlate div.innerContent div.left input").val("");
+		$("#writePlate div.innerContent div.right input").val("");
+		$("#writePlate div.innerContent div.right textarea").val("");
 	});
 	
 	writeClick = false;
+}
+
+// [쓰기판 영역] 업로드 버튼 클릭 시 이벤트 처리
+function uploadBtnClick(className) {
+	
+	var file = $("#writePlate div.innerContent div.left div.button input." + className + "File").val();
+	$("#writePlate div.innerContent div.left div.data input." + className).val(file);
+	
+	
 }
 
 // [보기판 영역] 닫기 버튼 클릭 시 이벤트 처리
