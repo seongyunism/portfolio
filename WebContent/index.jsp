@@ -103,6 +103,7 @@
 				viewPlateClose();
 			}
 		});
+
 	});
 
 	</script>
@@ -116,9 +117,9 @@
 <body>
 
 	<div id="writePlate">
-		<form action="board?action=writePost" method="post" enctype="multipart/form-data">
+		<form class="writeForm" action="board?action=writePost" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="mode" value="new" />
-			<input type="hidden" name="postNo" value="2343" />
+			<input type="hidden" name="postNo" value="" />
 			
 			<div class="innerContent">
 				<div class="top">
@@ -130,7 +131,7 @@
 					<div class="margin"></div>
 				</div>
 				<div class="left">
-					<div class="projectLink" style="height:35px; border-top:1px solid #1a1a1a;">
+					<div class="projectLink">
 						<div class="column">관련 페이지</div>
 						<div class="data"><input type="text" name="inputProjectLink" class="inputProjectLink" /></div>
 					</div>
@@ -156,7 +157,7 @@
 					</div>
 					<div class="postThumbnail">
 						<div class="column">커버 이미지</div>
-						<div class="data" style="width:422px;"><input type="text" name="inputPostThumbnailAddr" class="inputPostThumbnailAddr" readonly="readonly" /></div>
+						<div class="data"><input type="text" name="inputPostThumbnailAddr" class="inputPostThumbnailAddr" readonly="readonly" /></div>
 						<div class="button">찾아보기<input type="file" name="inputPostThumbnailAddrFile" class="inputPostThumbnailAddrFile" onchange="uploadBtnClick('inputPostThumbnailAddr')" /></div>
 					</div>
 					<div class="projectMov">
@@ -165,34 +166,38 @@
 					</div>
 					<div class="projectMovPreview">
 						<div class="column">영상 프리뷰</div>
-						<div class="data" style="width:422px;"><input type="text" name="inputProjectMovPreview" class="inputProjectMovPreview" readonly="readonly" /></div>
+						<div class="data"><input type="text" name="inputProjectMovPreview" class="inputProjectMovPreview" readonly="readonly" /></div>
 						<div class="button">찾아보기<input type="file" name="inputProjectMovPreviewFile" class="inputProjectMovPreviewFile" onchange="uploadBtnClick('inputProjectMovPreview')" /></div>
 					</div>
 					<div class="projectImgAddr01">
 						<div class="column">이미지 01</div>
-						<div class="data" style="width:422px;"><input type="text" name="inputProjectImgAddr01" class="inputProjectImgAddr01" readonly="readonly" /></div>
+						<div class="data"><input type="text" name="inputProjectImgAddr01" class="inputProjectImgAddr01" readonly="readonly" /></div>
 						<div class="button">찾아보기<input type="file" name="inputProjectImgAddr01File" class="inputProjectImgAddr01File" onchange="uploadBtnClick('inputProjectImgAddr01')" /></div>
 					</div>	
 					<div class="projectImgAddr02">
 						<div class="column">이미지 02</div>
-						<div class="data" style="width:422px;"><input type="text" name="inputProjectImgAddr02" class="inputProjectImgAddr02" readonly="readonly" /></div>
+						<div class="data"><input type="text" name="inputProjectImgAddr02" class="inputProjectImgAddr02" readonly="readonly" /></div>
 						<div class="button">찾아보기<input type="file" name="inputProjectImgAddr02File" class="inputProjectImgAddr02File" onchange="uploadBtnClick('inputProjectImgAddr02')" /></div>
 					</div>			
 					<div class="projectImgAddr03">
 						<div class="column">이미지 03</div>
-						<div class="data" style="width:422px;"><input type="text" name="inputProjectImgAddr03" class="inputProjectImgAddr03" readonly="readonly" /></div>
+						<div class="data"><input type="text" name="inputProjectImgAddr03" class="inputProjectImgAddr03" readonly="readonly" /></div>
 						<div class="button">찾아보기<input type="file" name="inputProjectImgAddr03File" class="inputProjectImgAddr03File" onchange="uploadBtnClick('inputProjectImgAddr03')" /></div>
 					</div>					
 					<div class="projectImgAddr04">
 						<div class="column">이미지 04</div>
-						<div class="data" style="width:422px;"><input type="text" name="inputProjectImgAddr04" class="inputProjectImgAddr04" readonly="readonly" /></div>
+						<div class="data"><input type="text" name="inputProjectImgAddr04" class="inputProjectImgAddr04" readonly="readonly" /></div>
 						<div class="button">찾아보기<input type="file" name="inputProjectImgAddr04File" class="inputProjectImgAddr04File" onchange="uploadBtnClick('inputProjectImgAddr04')" /></div>
-					</div>			
+					</div>
 				</div>
 				<div class="right">
 					<div class="postViewMode">
 						<div class="column">화면 출력 여부</div>
 						<div class="data"><input type="radio" name="inputPostViewMode" value="0" checked />&nbsp;공개 모드&nbsp;&nbsp;&nbsp;<input type="radio" name="inputPostViewMode" value="1" />&nbsp;관리자 모드&nbsp;&nbsp;&nbsp;<input type="radio" name="inputPostViewMode" value="2" />&nbsp;비출력</div>
+					</div>
+					<div class="projectCategory">
+						<div class="column">카테고리</div>
+						<div class="data"><input type="radio" name="inputProjectCategory" value="1" checked />&nbsp;웹 퍼블리싱&nbsp;&nbsp;&nbsp;<input type="radio" name="inputProjectCategory" value="2" />&nbsp;영상 제작&nbsp;&nbsp;&nbsp;<input type="radio" name="inputProjectCategory" value="3" />&nbsp;북 퍼블리싱</div>
 					</div>
 					<div class="projectMemo">
 						<div class="column">메모</div>
@@ -200,7 +205,7 @@
 					</div>
 				</div>
 				<div class="bottom">
-					<input type="submit" value="서버로 전송" />
+					<input type="button" value="서버로 전송" onclick="writePost()" />
 				</div>
 			</div>
 		</form>

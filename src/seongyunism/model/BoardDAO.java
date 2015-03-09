@@ -48,7 +48,7 @@ public class BoardDAO {
 					rset.getString(16),	// String pfProjectImgAddr04
 					rset.getString(17),	// String pfPostThumbnailAddr
 					rset.getString(18),	// String pfProjectMemo
-					rset.getString(19),	// String pfPostViewMode
+					rset.getInt(19),	// String pfPostViewMode
 					rset.getInt(20),		// int pfPostViews
 					rset.getInt(21),		// int pfPostWrittenDate
 					rset.getInt(22),		// int pfPostTotalComments
@@ -184,7 +184,7 @@ public class BoardDAO {
 						rset.getString(16),	// String pfProjectImgAddr04
 						rset.getString(17),	// String pfPostThumbnailAddr
 						rset.getString(18),	// String pfProjectMemo
-						rset.getString(19),	// String pfPostViewMode
+						rset.getInt(19),	// String pfPostViewMode
 						rset.getInt(20),		// int pfPostViews
 						rset.getInt(21),		// int pfPostWrittenDate
 						rset.getInt(22),		// int pfPostTotalComments
@@ -207,6 +207,40 @@ public class BoardDAO {
 		}
 
 		return thisList;
+	}
+
+	public static int getNextPostNo() throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int nextPostNo = 0;
+		
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("SELECT max(pfNo) FROM pf_post");
+			rset = pstmt.executeQuery();
+			
+			rset.next();
+			nextPostNo = rset.getInt(1);
+			
+			System.out.println(nextPostNo);
+			
+			return nextPostNo;
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw se;
+			
+		} finally {
+			try {
+				DBUtil.close(con, pstmt, rset);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+		
 	}
 	
 }

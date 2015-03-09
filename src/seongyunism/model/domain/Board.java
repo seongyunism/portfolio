@@ -20,7 +20,7 @@ public class Board {
 	String pfProjectImgAddr04; // 프로젝트 소개 이미지 주소4
 	String pfPostThumbnailAddr; // 포스트 썸네일 이미지 주소
 	String pfProjectMemo; // 프로젝트 설명
-	String pfPostViewMode; // 화면 출력 여부 (0:일반, 1:화면에 보이는 비밀글, 2: 화면에 안보이는 비밀글)
+	int pfPostViewMode; // 화면 출력 여부 (0:일반, 1:화면에 보이는 비밀글, 2: 화면에 안보이는 비밀글)
 	int pfPostViews; // 포스트 클릭 횟수
 	int pfPostWrittenDate; // 포스트 작성 날짜
 	int pfPostTotalComments; // 포스트 댓글 수
@@ -134,10 +134,10 @@ public class Board {
 	public void setPfProjectMemo(String pfProjectMemo) {
 		this.pfProjectMemo = pfProjectMemo;
 	}
-	public String getPfPostViewMode() {
+	public int getPfPostViewMode() {
 		return pfPostViewMode;
 	}
-	public void setPfPostViewMode(String pfPostViewMode) {
+	public void setPfPostViewMode(int pfPostViewMode) {
 		this.pfPostViewMode = pfPostViewMode;
 	}
 	public int getPfPostViews() {
@@ -173,7 +173,7 @@ public class Board {
 			String pfProjectImgAddr01, String pfProjectImgAddr02,
 			String pfProjectImgAddr03, String pfProjectImgAddr04,
 			String pfPostThumbnailAddr, String pfProjectMemo,
-			String pfPostViewMode, int pfPostViews, int pfPostWrittenDate,
+			int pfPostViewMode, int pfPostViews, int pfPostWrittenDate,
 			int pfPostTotalComments, int pfPostTotalLike) {
 		super();
 		this.pfNo = pfNo;
