@@ -118,8 +118,8 @@
 
 	<div id="writePlate">
 		<form class="writeForm" action="board?action=writePost" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="mode" value="new" />
-			<input type="hidden" name="postNo" value="" />
+			<input type="hidden" name="inputMode" value="new" />
+			<input type="hidden" name="inputPostNo" value="0" />
 			
 			<div class="innerContent">
 				<div class="top">
@@ -137,11 +137,11 @@
 					</div>
 					<div class="projectDate">
 						<div class="column">프로젝트 완료일</div>
-						<div class="data"><input type="text" name="inputProjectDate" class="inputProjectDate" /></div>
+						<div class="data"><input type="text" name="inputProjectDate" class="inputProjectDate" onkeyPress="if((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;" maxlength=8/></div>
 					</div>				
 					<div class="projectPeriod">
 						<div class="column">프로젝트 기간</div>
-						<div class="data"><input type="text" name="inputProjectPeriod" class="inputProjectPeriod" /></div>
+						<div class="data"><input type="text" name="inputProjectPeriod" class="inputProjectPeriod" maxlength="17" /></div>
 					</div>
 					<div class="projectPurpose">
 						<div class="column">프로젝트 목적</div>
@@ -205,7 +205,7 @@
 					</div>
 				</div>
 				<div class="bottom">
-					<input type="button" value="서버로 전송" onclick="writePost()" />
+					<input type="submit" value="서버로 전송" />
 				</div>
 			</div>
 		</form>

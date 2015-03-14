@@ -2,13 +2,11 @@ package seongyunism.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.oreilly.servlet.multipart.FilePart;
+import com.oreilly.servlet.multipart.MultipartParser;
+import com.oreilly.servlet.multipart.ParamPart;
+import com.oreilly.servlet.multipart.Part;
 
 import seongyunism.model.BoardDAO;
 import seongyunism.model.domain.Board;
 
 
 public class BoardController extends HttpServlet {
-
-	private static final int MEMORY_THRESHOLD = 1024*1024*3; //3MB
-	private static final int MAX_FILE_SIZE    = 1024*1024*40; //40MB
-	private static final int MAX_REQUEST_SIZE = 1024*1024*50; //50MB
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		process(req, res);
@@ -125,68 +122,121 @@ public class BoardController extends HttpServlet {
 	// 글쓰기
 	public void writePost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {		
 		req.setCharacterEncoding("utf8");
-			
-		String result = "";
-		String realFolder = ""; // 웹 애플리케이션 상의 절대 경로
-		String saveFolder = "/temp"; // 파일 업로드 경로 지정
-		String encType = "UTF-8"; // 인코딩 지정
-		int maxSize = 1024 * 1024 * 5; // 업로드될 파일 크기 최대 5MB
+
+		Map<String, String> map = new HashMap<String, String>();
+
+		String filePostNo = "";
+		String reName = "";
 		
-		// 현재 JSP 페이지의 웹 애플리케이션의 절대 경로 구함
-		ServletContext context = getServletContext();
-		realFolder = context.getRealPath(saveFolder);
+		Part part = null;
+		int sizeLimit = 2 * 1024 * 1024 ; // 2메가까지 제한 넘어서면 예외발생
+		
+		boolean queryCheck = false;
 		
 		try {
-			MultipartRequest upload = null;
+			MultipartParser mRequest = new MultipartParser(req, sizeLimit);
+			mRequest.setEncoding("UTF-8");
 			
-			// 파일 업로드를 수행하는 MultipartRequest 인스턴스 생성
-			upload = new MultipartRequest(req, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
-			
-			// type이 file이 아닌 모든 파라미터를 얻어냄
-			Enumeration<?> params = upload.getParameterNames();
-			System.out.println(params.nextElement());
-			System.out.println(params.nextElement());
-			System.out.println(params.nextElement());
-			
-		
-			/*
-			String inputMode = (req.getParameter("inputMode") != null) ? req.getParameter("inputMode") : null;
-			
-			int inputPostNo = (req.getParameter("inputPostNo") != null) ? Integer.parseInt(req.getParameter("inputPostNo")) : 0;
-			int inputProjectCategory = (req.getParameter("inputProjectCategory") != null) ? Integer.parseInt(req.getParameter("inputProjectCategory")) : 0;
-			String inputProjectTitle = (req.getParameter("inputProjectTitle") != null) ? req.getParameter("inputProjectTitle") : null;
-			String inputProjectSubTitle = (req.getParameter("inputProjectSubTitle") != null) ? req.getParameter("inputProjectSubTitle") : null;
-			String inputProjectPeriod = (req.getParameter("inputProjectPeriod") != null) ? req.getParameter("inputProjectPeriod") : null;
-			String inputProjectPurpose = (req.getParameter("inputProjectPurpose") != null) ? req.getParameter("inputProjectPurpose") : null;
-			String inputProjectCollabo = (req.getParameter("inputProjectCollabo") != null) ? req.getParameter("inputProjectCollabo") : null;
-			String inputProjectLanguage = (req.getParameter("inputProjectLanguage") != null) ? req.getParameter("inputProjectLanguage") : null;
-			int inputProjectDate = (req.getParameter("inputProjectDate") != null) ? Integer.parseInt(req.getParameter("inputProjectDate")) : 0;
-			String inputProjectLink = (req.getParameter("inputProjectLink") != null) ? req.getParameter("inputProjectLink") : null;
-			String inputProjectMovAddr = (req.getParameter("inputProjectMovAddr") != null) ? req.getParameter("inputProjectMovAddr") : null;
-			String inputProjectMovPreview = (req.getParameter("inputProjectMovPreview") != null) ? req.getParameter("inputProjectMovPreview") : null;
-			String inputProjectImgAddr01 = (req.getParameter("inputProjectImgAddr01") != null) ? req.getParameter("inputProjectImgAddr01") : null;
-			String inputProjectImgAddr02 = (req.getParameter("inputProjectImgAddr02") != null) ? req.getParameter("inputProjectImgAddr02") : null;
-			String inputProjectImgAddr03 = (req.getParameter("inputProjectImgAddr03") != null) ? req.getParameter("inputProjectImgAddr03") : null;
-			String inputProjectImgAddr04 = (req.getParameter("inputProjectImgAddr04") != null) ? req.getParameter("inputProjectImgAddr04") : null;
-			String inputPostThumbnailAddr = (req.getParameter("inputPostThumbnailAddr") != null) ? req.getParameter("inputPostThumbnailAddr") : null;
-			String inputProjectMemo = (req.getParameter("inputProjectMemo") != null) ? req.getParameter("inputProjectMemo") : null;
-			int inputPostViewMode = (req.getParameter("inputPostViewMode") != null) ? Integer.parseInt(req.getParameter("inputPostViewMode")) : 0;
-			
-			System.out.println(inputMode);
-			
-			if(inputMode.equals("new")) {
-				inputPostNo = BoardDAO.getNextPostNo();
+			while ((part = mRequest.readNextPart()) != null) {
+				String paramName = part.getName();
+
+				// 파일이 아닐때
+				if (part.isParam()) {
+					String paramValue = "";
+					ParamPart paramPart = (ParamPart) part;
+					paramValue = paramPart.getStringValue();
+					
+					if(paramName.equals("inputPostNo")) {
+						if(paramValue.equals("0")) {
+							paramValue = String.valueOf(BoardDAO.getNextPostNo());
+						}
+						
+						filePostNo = String.format("%03d", Integer.parseInt(paramValue));
+						
+						File movfilePath = new File(getServletContext().getRealPath("") + File.separator + "img/slide/movie/" + filePostNo);
+						File imgfilePath = new File(getServletContext().getRealPath("") + File.separator + "img/slide/photo/" + filePostNo);
+						movfilePath.mkdir();
+						imgfilePath.mkdir();
+					} 
+					
+					map.put(paramName, paramValue);
+					
+				// 파일일 때
+				} else if (part.isFile()) {
+
+					FilePart filePart = (FilePart) part;
+					String oriFileName = filePart.getFileName();
+						
+					filePart.setRenamePolicy(new DefaultFileRenamePolicy()); //중복 파일 이름 정의    
+
+					if (oriFileName != null) {
+						String savePath = "";
+						
+						if(paramName.equals("inputPostThumbnailAddrFile")) {
+							savePath = getServletContext().getRealPath("") + File.separator + "img/cover";
+							reName = filePostNo + ".jpg";
+							map.put("inputPostThumbnailAddr", "img/cover/" + filePostNo + ".jpg");
+						} else if(paramName.equals("inputProjectMovPreviewFile")) {
+							savePath = getServletContext().getRealPath("") + File.separator + "img/slide/movie/" + filePostNo;
+							reName = "preview.jpg";
+							map.put("inputProjectMovPreview", "img/slide/movie/" + filePostNo + "/preview.jpg");
+						} else if(paramName.equals("inputProjectImgAddr01File")) {
+							savePath = getServletContext().getRealPath("") + File.separator + "img/slide/photo/" + filePostNo;
+							reName = "001.jpg";
+							map.put("inputProjectImgAddr01", "img/slide/photo/" + filePostNo + "/001.jpg");
+						} else if(paramName.equals("inputProjectImgAddr02File")) {
+							savePath = getServletContext().getRealPath("") + File.separator + "img/slide/photo/" + filePostNo;
+							reName = "002.jpg";
+							map.put("inputProjectImgAddr02", "img/slide/photo/" + filePostNo + "/002.jpg");
+						} else if(paramName.equals("inputProjectImgAddr03File")) {
+							savePath = getServletContext().getRealPath("") + File.separator + "img/slide/photo/" + filePostNo;
+							reName = "003.jpg";
+							map.put("inputProjectImgAddr03", "img/slide/photo/" + filePostNo + "/003.jpg");
+						} else if(paramName.equals("inputProjectImgAddr04File")) {
+							savePath = getServletContext().getRealPath("") + File.separator + "img/slide/photo/" + filePostNo;
+							reName = "004.jpg";
+							map.put("inputProjectImgAddr04", "img/slide/photo/" + filePostNo + "/004.jpg");
+						}
+						
+						File filePath = new File( savePath );
+						long size = filePart.writeTo(filePath);
+
+						// 첨부파일 이름 변경
+						File up1 = new File(savePath + "/" + oriFileName);
+						File up2 = new File(savePath+"/"+ reName);
+
+						if(up1.exists()) {
+							boolean rslt = up1.renameTo(up2);
+						}
+					}
+				}
 			}
-			*/
 			
-			
-			
-			res.getWriter().write("WriteOK");
-			
-//		} catch (SQLException e) {
-//			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
-		} catch (IOException e) {
-			e.printStackTrace();
+			// 모드에 따른 DB 삽입
+			if(map.get("inputMode").equals("new")) {
+				queryCheck = BoardDAO.writePost(Integer.parseInt(map.get("inputPostNo")), Integer.parseInt(map.get("inputProjectCategory")), 
+					map.get("inputProjectTitle"), map.get("inputProjectSubTitle"), map.get("inputProjectPeriod"), map.get("inputProjectPurpose"),
+					map.get("inputProjectCollabo"), map.get("inputProjectLanguage"), Integer.parseInt(map.get("inputProjectDate")),
+					map.get("inputProjectLink"), map.get("inputProjectMovAddr"), map.get("inputProjectMovPreview"), map.get("inputProjectImgAddr01"),
+					map.get("inputProjectImgAddr02"), map.get("inputProjectImgAddr03"), map.get("inputProjectImgAddr04"), map.get("inputPostThumbnailAddr"),
+					map.get("inputProjectMemo"), 0, 0, 0, 0, 0);
+			} else if(map.get("inputMode").equals("update")) {
+				queryCheck = BoardDAO.updatePost(Integer.parseInt(map.get("inputPostNo")), Integer.parseInt(map.get("inputProjectCategory")), 
+					map.get("inputProjectTitle"), map.get("inputProjectSubTitle"), map.get("inputProjectPeriod"), map.get("inputProjectPurpose"),
+					map.get("inputProjectCollabo"), map.get("inputProjectLanguage"), Integer.parseInt(map.get("inputProjectDate")),
+					map.get("inputProjectLink"), map.get("inputProjectMovAddr"), map.get("inputProjectMovPreview"), map.get("inputProjectImgAddr01"),
+					map.get("inputProjectImgAddr02"), map.get("inputProjectImgAddr03"), map.get("inputProjectImgAddr04"), map.get("inputPostThumbnailAddr"),
+					map.get("inputProjectMemo"), Integer.parseInt(map.get("inputPostViewMode")));
+			}
+
+			if(queryCheck) {
+				res.getWriter().write("OK");				
+			} else {
+				res.getWriter().write("Fail");
+			}
+						
+		} catch (SQLException e) {
+			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
 		}
 		
 	}

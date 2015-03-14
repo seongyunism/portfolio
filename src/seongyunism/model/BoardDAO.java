@@ -55,9 +55,9 @@ public class BoardDAO {
 					rset.getInt(23)		// int pfPostTotalLike
 				);
 
-			} else {
-//				throw new RecordNotFoundException();
 			}
+
+			return thisPost;
 			
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -71,7 +71,6 @@ public class BoardDAO {
 			}
 		}
 		
-		return thisPost;
 	}
 
 	// [index.jsp][콘텐츠 영역] 해당 카테고리 포스트 개수 가져오기
@@ -92,6 +91,8 @@ public class BoardDAO {
 			rset.next();
 			postCount = rset.getInt(1);
 			
+			return postCount;
+
 		} catch (SQLException se) {
 			se.printStackTrace();
 			throw se;
@@ -104,7 +105,6 @@ public class BoardDAO {
 			}
 		}
 		
-		return postCount;
 	}
 	
 	public static BoardCategory getCategoryName(int inputProjectCategory) throws SQLException {
@@ -129,9 +129,9 @@ public class BoardDAO {
 					rset.getString(3)  // String pfCategoryNameKor
 				);
 
-			} else {
-//				throw new RecordNotFoundException();
 			}
+
+			return thisCategory;
 
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -145,7 +145,6 @@ public class BoardDAO {
 			}
 		}
 
-		return thisCategory;
 	}
 
 	public static ArrayList<Board> getList(int inputProjectCategory) throws SQLException {
@@ -194,6 +193,8 @@ public class BoardDAO {
 				thisList.add(thisPost);
 			}
 			
+			return thisList;
+
 		} catch (SQLException se) {
 			se.printStackTrace();
 			throw se;
@@ -206,7 +207,6 @@ public class BoardDAO {
 			}
 		}
 
-		return thisList;
 	}
 
 	public static int getNextPostNo() throws SQLException {
@@ -223,9 +223,7 @@ public class BoardDAO {
 			rset = pstmt.executeQuery();
 			
 			rset.next();
-			nextPostNo = rset.getInt(1);
-			
-			System.out.println(nextPostNo);
+			nextPostNo = rset.getInt(1) + 1;
 			
 			return nextPostNo;
 			
@@ -241,6 +239,121 @@ public class BoardDAO {
 			}
 		}
 		
+	}
+
+	public static boolean writePost(int inputPostNo, int inputProjectCategory, String inputProjectTitle, String inputProjectSubTitle,
+		String inputProjectPeriod, String inputProjectPurpose, String inputProjectCollabo, String inputProjectLanguage,
+		int inputProjectDate, String inputProjectLink, String inputProjectMovAddr, String inputProjectMovPreview,
+		String inputProjectImgAddr01, String inputProjectImgAddr02, String inputProjectImgAddr03, String inputProjectImgAddr04,
+		String inputPostThumbnailAddr, String inputProjectMemo, int inputPostViewMode, int inputPostViews, int inputPostWrittenDate,
+		int inputPostTotalComments, int inputPostTotalLike) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("INSERT INTO pf_post(pfNo, pfProjectCategory, pfProjectTitle, pfProjectSubTitle, "
+				+ "pfProjectPeriod, pfProjectPurpose, pfProjectCollabo, pfProjectLanguage, pfProjectDate, pfProjectLink, "
+				+ "pfProjectMovAddr, pfProjectMovPreview, pfProjectImgAddr01, pfProjectImgAddr02, pfProjectImgAddr03, "
+				+ "pfProjectImgAddr04, pfPostThumbnailAddr, pfProjectMemo, pfPostViewMode, pfPostViews, pfPostWrittenDate, "
+				+ "pfPostTotalComments, pfPostTotalLike) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		
+			pstmt.setInt(1, inputPostNo);
+			pstmt.setInt(2, inputProjectCategory);
+			pstmt.setString(3, inputProjectTitle); 
+			pstmt.setString(4, inputProjectSubTitle); 
+			pstmt.setString(5, inputProjectPeriod); 
+			pstmt.setString(6, inputProjectPurpose); 
+			pstmt.setString(7, inputProjectCollabo); 
+			pstmt.setString(8, inputProjectLanguage); 
+			pstmt.setInt(9, inputProjectDate); 
+			pstmt.setString(10, inputProjectLink); 
+			pstmt.setString(11, inputProjectMovAddr); 
+			pstmt.setString(12, inputProjectMovPreview); 
+			pstmt.setString(13, inputProjectImgAddr01); 
+			pstmt.setString(14, inputProjectImgAddr02); 
+			pstmt.setString(15, inputProjectImgAddr03); 
+			pstmt.setString(16, inputProjectImgAddr04); 
+			pstmt.setString(17, inputPostThumbnailAddr); 
+			pstmt.setString(18, inputProjectMemo); 
+			pstmt.setInt(19, inputPostViewMode); 
+			pstmt.setInt(20, inputPostViews);
+			pstmt.setInt(21, inputPostWrittenDate); 
+			pstmt.setInt(22, inputPostTotalComments);
+			pstmt.setInt(23, inputPostTotalLike);
+			pstmt.executeUpdate();
+			
+			System.out.println("BoardDAO - New Post : " + inputPostNo + " : " + inputProjectTitle + "(" + inputProjectSubTitle + ")");
+
+			return true;
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw se;
+			
+		} finally {
+			try {
+				DBUtil.close(con, pstmt, rset);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+		
+	}
+
+	public static boolean updatePost(int inputPostNo, int inputProjectCategory, String inputProjectTitle, String inputProjectSubTitle,
+		String inputProjectPeriod, String inputProjectPurpose, String inputProjectCollabo, String inputProjectLanguage, int inputProjectDate,
+		String inputProjectLink, String inputProjectMovAddr, String inputProjectMovPreview, String inputProjectImgAddr01, String inputProjectImgAddr02,
+		String inputProjectImgAddr03, String inputProjectImgAddr04, String inputPostThumbnailAddr, String inputProjectMemo, int inputPostViewMode) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("UPDATE pf_post SET pfProjectCategory=?, pfProjectTitle=?, pfProjectSubTitle=?, "
+					+ "pfProjectPeriod=?, pfProjectPurpose=?, pfProjectCollabo=?, pfProjectLanguage=?, pfProjectDate=?, pfProjectLink=?, "
+					+ "pfProjectMovAddr=?, pfProjectMovPreview=?, pfProjectImgAddr01=?, pfProjectImgAddr02=?, pfProjectImgAddr03=?, "
+					+ "pfProjectImgAddr04=?, pfPostThumbnailAddr=?, pfProjectMemo=?, pfPostViewMode=? WHERE pfNo=?");
+			
+				pstmt.setInt(1, inputProjectCategory);
+				pstmt.setString(2, inputProjectTitle); 
+				pstmt.setString(3, inputProjectSubTitle); 
+				pstmt.setString(4, inputProjectPeriod); 
+				pstmt.setString(5, inputProjectPurpose); 
+				pstmt.setString(6, inputProjectCollabo); 
+				pstmt.setString(7, inputProjectLanguage); 
+				pstmt.setInt(8, inputProjectDate); 
+				pstmt.setString(9, inputProjectLink); 
+				pstmt.setString(10, inputProjectMovAddr); 
+				pstmt.setString(11, inputProjectMovPreview); 
+				pstmt.setString(12, inputProjectImgAddr01); 
+				pstmt.setString(13, inputProjectImgAddr02); 
+				pstmt.setString(14, inputProjectImgAddr03); 
+				pstmt.setString(15, inputProjectImgAddr04); 
+				pstmt.setString(16, inputPostThumbnailAddr); 
+				pstmt.setString(17, inputProjectMemo); 
+				pstmt.setInt(18, inputPostViewMode);
+				pstmt.setInt(19, inputPostNo);
+				pstmt.executeUpdate();	
+			
+			return true;
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw se;
+			
+		} finally {
+			try {
+				DBUtil.close(con, pstmt, rset);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+				
 	}
 	
 }

@@ -153,99 +153,6 @@ function listPost() {
 	});
 }
 
-function writePost() {
-	
-	var mode = $("#writePlate form.writeForm input[name='mode']").val();
-	var action = "";
-	
-	if(writeClick) {
-		if(mode == "new") { // 새글 작성 시
-			action = "board?action=writePost";
-		} else if(mode == "update") {
-			action = "board?action=updatePost";
-		} else {
-			alert("잘못된 접근입니다.");
-			return;
-		}
-		
-		var postNo = $("#writePlate form.writeForm input[name='postNo']").val();			
-		var postThumbnailAddr = $("#writePlate form.writeForm input[name='inputPostThumbnailAddr']").val();
-		var postViewMode = $("#writePlate form.writeForm input[name='inputPostViewMode']:checked").val();
-		var projectCategory = $("#writePlate form.writeForm input[name='inputProjectCategory']:checked").val();
-		var projectTitle = $("#writePlate form.writeForm input[name='inputProjectTitle']").val();
-		var projectSubTitle = $("#writePlate form.writeForm input[name='inputProjectSubTitle']").val();
-		var projectPeriod = $("#writePlate form.writeForm input[name='inputProjectPeriod']").val();
-		var projectPurpose = $("#writePlate form.writeForm input[name='inputProjectPurpose']").val();
-		var projectCollabo = $("#writePlate form.writeForm input[name='inputProjectCollabo']").val();
-		var projectLanguage = $("#writePlate form.writeForm input[name='inputProjectLanguage']").val();
-		var projectDate = $("#writePlate form.writeForm input[name='inputProjectDate']").val();
-		var projectLink = $("#writePlate form.writeForm input[name='inputProjectLink']").val();
-		var projectMovAddr = $("#writePlate form.writeForm input[name='inputProjectMovAddr']").val();
-		var projectMovPreview = $("#writePlate form.writeForm input[name='inputProjectMovPreview']").val();
-		var projectImgAddr01 = $("#writePlate form.writeForm input[name='inputProjectImgAddr01']").val();
-		var projectImgAddr02 = $("#writePlate form.writeForm input[name='inputProjectImgAddr02']").val();
-		var projectImgAddr03 = $("#writePlate form.writeForm input[name='inputProjectImgAddr03']").val();
-		var projectImgAddr04 = $("#writePlate form.writeForm input[name='inputProjectImgAddr04']").val();
-		var projectMemo = $("#writePlate form.writeForm textarea[name='inputProjectMemo']").val();
-			
-//		var postThumbnailAddrFile = $("#writePlate form.writeForm textarea[name='inputPostThumbnailAddrFile']").files[0];
-//		var projectMovPreviewFile = $("#writePlate form.writeForm textarea[name='inputProjectMovPreviewFile']").files[0];
-//		var projectImgAddr01File = $("#writePlate form.writeForm textarea[name='inputProjectImgAddr01File']").files[0];
-//		var projectImgAddr02File = $("#writePlate form.writeForm textarea[name='inputProjectImgAddr02File']").files[0];
-//		var projectImgAddr03File = $("#writePlate form.writeForm textarea[name='inputProjectImgAddr03File']").files[0];
-//		var projectImgAddr04File = $("#writePlate form.writeForm textarea[name='inputProjectImgAddr04File']").files[0];
-			
-		var form_data = {
-			inputMode : mode,
-					
-			inputPostNo : postNo,
-			inputPostThumbnailAddr : postThumbnailAddr,
-//			inputPostThumbnailAddrFile : postThumbnailAddrFile,
-			inputPostViewMode : postViewMode,
-			inputProjectCategory : projectCategory,
-			inputProjectTitle : projectTitle,
-			inputProjectSubTitle : projectSubTitle,
-			inputProjectPeriod : projectPeriod,
-			inputProjectPurpose : projectPurpose,
-			inputProjectCollabo : projectCollabo,
-			inputProjectLanguage : projectLanguage,
-			inputProjectDate : projectDate,
-			inputProjectLink : projectLink,
-			inputProjectMovAddr : projectMovAddr,
-			inputProjectMovPreview : projectMovPreview,
-//			inputProjectMovPreview : projectMovPreviewFile,
-			inputProjectImgAddr01 : projectImgAddr01,
-//			inputProjectImgAddr01File : projectImgAddr01File,
-			inputProjectImgAddr02 : projectImgAddr02,
-//			inputProjectImgAddr02File : projectImgAddr02File,
-			inputProjectImgAddr03 : projectImgAddr03,
-//			inputProjectImgAddr03File : projectImgAddr03File,
-			inputProjectImgAddr04 : projectImgAddr04,
-//			inputProjectImgAddr04File : projectImgAddr04File,
-			inputProjectMemo : projectMemo
-		};		
-			
-		$.ajax({
-			type : "POST",
-			url : action,
-			data : form_data,
-			contentType: "multipart/form-data",
-			dataType : "text",
-			success: function(response) {
-
-			}, error: function(xhr,status,error) {
-				alert(error);
-			}
-		});
-				
-		return false;
-
-	} else {
-		alert("잘못된 접근입니다.");
-		return;
-	}
-}
-
 // [쓰기판 영역] 닫기 버튼 클릭 시 이벤트 처리
 function writePlateClose() {
 	$("#topMenu").fadeIn(500);
@@ -263,11 +170,8 @@ function writePlateClose() {
 
 // [쓰기판 영역] 업로드 버튼 클릭 시 이벤트 처리
 function uploadBtnClick(className) {
-	
 	var file = $("#writePlate div.innerContent div.left div.button input." + className + "File").val();
-	$("#writePlate div.innerContent div.left div.data input." + className).val(file);
-	
-	
+	$("#writePlate div.innerContent div.left div.data input." + className).val(file.replace("C:\\fakepath\\", ""));
 }
 
 // [보기판 영역] 닫기 버튼 클릭 시 이벤트 처리
