@@ -138,21 +138,6 @@ function logoutMember() {
 	});
 }
 
-function listPost() {
-	$.ajax({
-		type : "POST",
-		url : "board?action=listPost",
-		dataType : "text",
-			success: function(response) {
-				if(response == "OK") {
-
-				}
-			}, error: function(xhr,status,error) {
-				alert(error);
-			}			
-	});
-}
-
 // [쓰기판 영역] 닫기 버튼 클릭 시 이벤트 처리
 function writePlateClose() {
 	$("#topMenu").fadeIn(500);
@@ -172,6 +157,83 @@ function writePlateClose() {
 function uploadBtnClick(className) {
 	var file = $("#writePlate div.innerContent div.left div.button input." + className + "File").val();
 	$("#writePlate div.innerContent div.left div.data input." + className).val(file.replace("C:\\fakepath\\", ""));
+}
+
+// [보기판 영역] 수정 버튼 클릭 시 이벤트 처리
+function viewPlateUpdate() {
+	
+	viewPlateClose();
+	
+	var action = "board?action=viewPost";
+	var postNo = "postNo=" + $("#viewPlate div.innerContent").attr("name");
+		
+	$.ajax({
+		type : "POST",
+		url : action,
+		data : postNo,
+		dataType : "json",
+		success: function(response) {
+			$("#writePlate input[name='inputMode']").val("update");
+			$("#writePlate input[name='inputPostNo']").val(response.pfNo);
+			$("#writePlate div.innerContent input[name='inputProjectTitle']").val(response.pfProjectTitle.replace("\n",""));
+			$("#writePlate div.innerContent input[name='inputProjectSubTitle']").val(response.pfProjectSubTitle.replace("\n",""));
+			$("#writePlate div.innerContent input[name='inputProjectLink']").val(response.pfProjectLink.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectDate']").val(response.pfProjectDate);			
+			$("#writePlate div.innerContent input[name='inputProjectPeriod']").val(response.pfProjectPeriod.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectPurpose']").val(response.pfProjectPurpose.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectCollabo']").val(response.pfProjectCollabo.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectLanguage']").val(response.pfProjectLanguage.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputPostThumbnailAddr']").val(response.pfPostThumbnailAddr.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectMovAddr']").val(response.pfProjectMovAddr.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectMovPreview']").val(response.pfProjectMovPreview.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectImgAddr01']").val(response.pfProjectImgAddr01.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectImgAddr02']").val(response.pfProjectImgAddr02.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectImgAddr03']").val(response.pfProjectImgAddr03.replace("\n",""));			
+			$("#writePlate div.innerContent input[name='inputProjectImgAddr04']").val(response.pfProjectImgAddr04.replace("\n",""));
+			$("#writePlate div.innerContent input[name='inputPostViewMode']:input[value='" + response.pfPostViewMode + "']").attr("checked", true);
+			$("#writePlate div.innerContent input[name='inputProjectCategory']:input[value='" + response.pfProjectCategory + "']").attr("checked", true);
+			$("#writePlate div.innerContent textarea[name='inputProjectMemo']").val(response.pfProjectMemo.replace("\n",""));
+		}, error: function(xhr,status,error) {
+			alert(error);
+		}
+	});
+
+	writeTextClick();
+
+	return false;	
+}
+
+// [보기판 영역] 삭제 버튼 클릭 시 이벤트 처리
+function viewPlateDelete() {
+	
+	check = confirm("정말로 삭제하시겠습니까?");
+
+	if(!check) {
+		return false;
+	} else {
+
+		var action = "board?action=deletePost";
+		var postNo = "postNo=" + $("#viewPlate div.innerContent").attr("name");
+	
+		$.ajax({
+			type : "POST",
+			url : action,
+			data : postNo,
+			dataType : "text",
+			success: function(response) {
+				if(response == "DeleteOK") {
+					alert("성공적으로 삭제되었습니다.");
+					location.reload(true);
+				} else {
+					alert("잘못된 접근입니다.");
+				}
+			}, error: function(xhr,status,error) {
+				alert(error);
+			}
+		});
+	
+		return false;	
+	}
 }
 
 // [보기판 영역] 닫기 버튼 클릭 시 이벤트 처리

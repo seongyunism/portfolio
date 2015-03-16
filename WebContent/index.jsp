@@ -53,6 +53,7 @@
 					data : postNo,
 					dataType : "json",
 					success: function(response) {
+						$("#viewPlate div.innerContent").attr("name", response.pfNo);
 						$("#viewPlate div.innerContent div.top div.title").html(response.pfProjectTitle.replace("\n",""));
 						$("#viewPlate div.innerContent div.top div.subTitle").html(response.pfProjectSubTitle.replace("\n",""));
 						$("#viewPlate div.innerContent div.right div.subject div.data").html(response.pfProjectTitle.replace("\n",""));
@@ -60,6 +61,7 @@
 						$("#viewPlate div.innerContent div.right div.purpose div.data").html(response.pfProjectPurpose.replace("\n",""));	
 						$("#viewPlate div.innerContent div.right div.collabo div.data").html(response.pfProjectCollabo.replace("\n",""));	
 						$("#viewPlate div.innerContent div.right div.language div.data").html(response.pfProjectLanguage.replace("\n",""));
+						$("#viewPlate div.innerContent div.right div.memo div.data").html(response.pfProjectMemo.replace(/\n/g, "<br />"));
 						
 						if(response.pfProjectLink != "") {
 							$("#viewPlate div.innerContent div.right div.subject div.link").html("<a href='" + response.pfProjectLink.replace("\n","") + "' target='_blank'>프로젝트 들어가기</a>");						
@@ -137,7 +139,7 @@
 					</div>
 					<div class="projectDate">
 						<div class="column">프로젝트 완료일</div>
-						<div class="data"><input type="text" name="inputProjectDate" class="inputProjectDate" onkeyPress="if((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;" maxlength=8/></div>
+						<div class="data"><input type="text" name="inputProjectDate" class="inputProjectDate" placeholder="필수 입력 사항 (YYYYMMDD)" onkeyPress="if((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;" maxlength=8/></div>
 					</div>				
 					<div class="projectPeriod">
 						<div class="column">프로젝트 기간</div>
@@ -212,12 +214,12 @@
 	</div>
 
 	<div id="viewPlate">
-		<div class="innerContent">
+		<div class="innerContent" name="">
 			<div class="top">
 				<div class="button">
 					<div class="close" onclick="viewPlateClose()"><img src="img/btnClose.png" /></div>
-					<c:if test="${sessionScope.pfMemberAdmin == true}"><div class="delete">삭제</div></c:if>
-					<c:if test="${sessionScope.pfMemberAdmin == true}"><div class="modify">수정</div></c:if>
+					<c:if test="${sessionScope.pfMemberAdmin == true}"><div class="delete" onclick="viewPlateDelete()">삭제</div></c:if>
+					<c:if test="${sessionScope.pfMemberAdmin == true}"><div class="modify" onclick="viewPlateUpdate()">수정</div></c:if>
 				</div>
 				<div class="title"></div>
 				<div class="subTitle"></div>

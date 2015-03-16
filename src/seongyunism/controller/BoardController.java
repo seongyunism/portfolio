@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,9 +47,11 @@ public class BoardController extends HttpServlet {
 			listPost(req, res);
 		} else if(action.equals("writePost")) {
 			writePost(req, res);
+		} else if(action.equals("deletePost")) {
+			deletePost(req, res);
 		}
 	}
-	
+
 	// 포스트 리스트에서 포스트 클릭 시 해당 포스트에 해당하는 프로젝트 내용 가져오기
 	public void viewPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		
@@ -63,12 +66,14 @@ public class BoardController extends HttpServlet {
 			
 			// 데이터를 삽입
 			jObject.put("pfNo", inputPostNo);
+			jObject.put("pfProjectCategory", thisPost.getPfProjectCategory());
 			jObject.put("pfProjectTitle", thisPost.getPfProjectTitle());
 			jObject.put("pfProjectSubTitle", thisPost.getPfProjectSubTitle());
 			jObject.put("pfProjectPeriod", thisPost.getPfProjectPeriod());
 			jObject.put("pfProjectPurpose", thisPost.getPfProjectPurpose());
 			jObject.put("pfProjectCollabo", thisPost.getPfProjectCollabo());
 			jObject.put("pfProjectLanguage", thisPost.getPfProjectLanguage());
+			jObject.put("pfProjectDate", thisPost.getPfProjectDate());
 			jObject.put("pfProjectLink", thisPost.getPfProjectLink());
 			jObject.put("pfProjectMovAddr", thisPost.getPfProjectMovAddr());
 			jObject.put("pfProjectMovPreview", thisPost.getPfProjectMovPreview());	
@@ -76,6 +81,9 @@ public class BoardController extends HttpServlet {
 			jObject.put("pfProjectImgAddr02", thisPost.getPfProjectImgAddr02());
 			jObject.put("pfProjectImgAddr03", thisPost.getPfProjectImgAddr03());
 			jObject.put("pfProjectImgAddr04", thisPost.getPfProjectImgAddr04());
+			jObject.put("pfPostThumbnailAddr", thisPost.getPfPostThumbnailAddr());
+			jObject.put("pfProjectMemo", thisPost.getPfProjectMemo());
+			jObject.put("pfPostViewMode", thisPost.getPfPostViewMode());
 			
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
@@ -129,7 +137,7 @@ public class BoardController extends HttpServlet {
 		String reName = "";
 		
 		Part part = null;
-		int sizeLimit = 2 * 1024 * 1024 ; // 2메가까지 제한 넘어서면 예외발생
+		int sizeLimit = 20 * 1024 * 1024 ; // 2메가까지 제한 넘어서면 예외발생
 		
 		boolean queryCheck = false;
 		
@@ -230,9 +238,10 @@ public class BoardController extends HttpServlet {
 			}
 
 			if(queryCheck) {
-				res.getWriter().write("OK");				
+				res.sendRedirect("index.jsp");
+//				res.getWriter().write("OK");				
 			} else {
-				res.getWriter().write("Fail");
+//				res.getWriter().write("Fail");
 			}
 						
 		} catch (SQLException e) {
@@ -240,5 +249,29 @@ public class BoardController extends HttpServlet {
 		}
 		
 	}
+	
+	public void deletePost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
+		req.setCharacterEncoding("utf8");
+		
+		boolean queryCheck = false;
+		
+		try {
+			int inputPostNo = (req.getParameter("postNo") != null) ? Integer.parseInt(req.getParameter("postNo")) : 0;
+			
+			queryCheck = BoardDAO.deletePost(inputPostNo);
+			
+			if(queryCheck) {
+				res.getWriter().write("DeleteOK");
+			} else {
+				res.getWriter().write("Fail");
+			}
+			
+		} catch (SQLException e) {
+			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
+		}	
+		
+	}
+	
 	
 }

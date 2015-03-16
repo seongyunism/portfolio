@@ -355,5 +355,38 @@ public class BoardDAO {
 		}
 				
 	}
+
+	public static boolean deletePost(int inputPostNo) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		int deleteQueryCount = 0;
+		
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("DELETE FROM pf_post WHERE pfNo=?");
+			pstmt.setInt(1, inputPostNo);
+			deleteQueryCount = pstmt.executeUpdate();
+
+			if(deleteQueryCount == 1) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw se;
+			
+		} finally {
+			try {
+				DBUtil.close(con, pstmt, rset);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+	}
 	
 }

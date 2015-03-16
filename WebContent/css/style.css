@@ -66,12 +66,12 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 	#viewPlate div.innerContent div.right {width:600px;}
 	#viewPlate div.innerContent div.right div.subject, #viewPlate div.innerContent div.right div.period, #viewPlate div.innerContent div.right div.purpose,
 		#viewPlate div.innerContent div.right div.collabo, #viewPlate div.innerContent div.right div.language {height:34px;}
-	#viewPlate div.innerContent div.right div.column {height:34px; font-size:0.8em; line-height:34px;}
 	#viewPlate div.innerContent div.right div.subject div.link {height:34px; line-height:34px;}
+	#viewPlate div.innerContent div.right div.column {height:34px; font-size:0.8em; line-height:34px;}
 	#viewPlate div.innerContent div.right div.data {font-size:1.1em; line-height:34px;}
-	#viewPlate div.innerContent div.right div.memo {min-height:34px; max-height:135px;}
+	#viewPlate div.innerContent div.right div.memo {height:135px;}
 	#viewPlate div.innerContent div.right div.memo div.column {min-height:34px; max-height:135px;}
-	#viewPlate div.innerContent div.right div.memo div.data {width:460px; min-height:34px; max-height:135px; font-size:0.9em; line-height:25px; padding:5px 0px 5px 0px; overflow:auto;}
+	#viewPlate div.innerContent div.right div.memo div.data {width:460px; height:135px; font-size:0.9em; line-height:25px; padding:5px 0px 5px 0px; overflow:auto;}
 	#viewPlate div.innerContent div.right div.memo div.data::-webkit-scrollbar {width:6px;}
 	#viewPlate div.innerContent div.right div.memo div.data::-webkit-scrollbar-thumb {background-color:#EEEEEE;}
 	#viewPlate div.innerContent div.right div.memo div.data::-webkit-scrollbar-track-piece {background-color:#444444;}
@@ -149,6 +149,16 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 	#viewPlate div.innerContent div.right div.subject div.link {height:45px; line-height:45px;}
 	#viewPlate div.innerContent div.right div.column {height:45px; font-size:0.9em; line-height:45px;}
 	#viewPlate div.innerContent div.right div.data {height:45px; font-size:1.2em; line-height:45px;}
+	#viewPlate div.innerContent div.right div.memo {height:220px;}
+	#viewPlate div.innerContent div.right div.memo div.column {min-height:34px; max-height:220px;}
+	#viewPlate div.innerContent div.right div.memo div.data {width:584px; height:220px; font-size:1em; line-height:30px; padding:5px 0px 5px 0px; overflow:auto;}
+	#viewPlate div.innerContent div.right div.memo div.data::-webkit-scrollbar {width:6px;}
+	#viewPlate div.innerContent div.right div.memo div.data::-webkit-scrollbar-thumb {background-color:#EEEEEE;}
+	#viewPlate div.innerContent div.right div.memo div.data::-webkit-scrollbar-track-piece {background-color:#444444;}
+
+
+
+
 
 	#pageslide {width:453px;}
 
