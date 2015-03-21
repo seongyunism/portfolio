@@ -22,12 +22,15 @@
 	var writeClick = false;
 	var topMenuClick = false;
 	var topMenuJoinTextClick = false;
+	var viewPlateCommentFormOpenBtnClick = false;
 	var leftMenuClick = false;
 	var memberLoginCheck = false;
+	var postTotalCommentsCount = 0;
 	
 	$(document).ready(function() {
 		titleImageInit();
 		$(window).resize(titleImageInit); // 리사이즈될때마다 타이틀 사이즈 재조정
+		loginCheck();
 	});
 
 	$(window).load(function() { });
@@ -87,6 +90,24 @@
 							$("#viewPlate div.innerContent div.left div.fotorama").append("<img src='" + response.pfProjectImgAddr04 + "' />");		
 						}					
 						
+						if(response.pfComments.length > 0) {
+							postTotalCommentsCount = response.pfComments.length;
+							var comments = "";
+							
+							for(i=0; i<response.pfComments.length; i++) {
+								var comment = "<div class='comment'><div class='left'><div class='commentName'>" + response.pfComments[i].pfMemberName
+									+ "</div><div class='commentDate'>(" + response.pfComments[i].pfCommentDate + ")</div></div><div class='right'><div class='commentMemo'>"
+									+ response.pfComments[i].pfCommentMemo.replace(/\n/g, "<br />") + "</div></div></div>";
+								comments += comment;
+							}
+							$("#viewPlate div.innerContent div.right div.comments div.list").show();
+							$("#viewPlate div.innerContent div.right div.comments div.list").html(comments);
+						} else {
+							postTotalCommentsCount = 0;
+							$("#viewPlate div.innerContent div.right div.comments div.list").hide();
+							$("#viewPlate div.innerContent div.right div.comments div.button").css("margin-top", "20px");
+						}
+												
 						$("#viewPlate div.innerContent div.left div.fotorama").fotorama();
 						
 						
@@ -225,7 +246,7 @@
 				<div class="subTitle"></div>
 				<div class="margin"></div>
 			</div>
-			<div class="left">
+			<div class="left" name="slide">
 				<div class="fotorama" data-auto="false"></div>
 			</div>
 			<div class="right">
@@ -253,6 +274,14 @@
 				<div class="memo">
 					<div class="column">메모</div>
 					<div class="data"></div>
+				</div>
+				<div class="comments">
+					<div class="list"></div>
+					<div class="form"><textarea class="memo"></textarea></div>
+					<div class="button">
+						<input type="button" class="commentFormCloseBtn" value="취소" onclick="commentFormOpenBtnClick(false)" />
+						<input type="button" class="commentFormOpenBtn" value="덧글달기" onclick="commentFormOpenBtnClick(true)" />
+					</div>
 				</div>
 			</div>	
 		</div>

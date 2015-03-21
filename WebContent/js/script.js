@@ -37,6 +37,26 @@ function joinTextClick() {
 	}
 }
 
+function loginCheck() {
+	
+	$.ajax({
+		type : "POST",
+		url : "member?action=loginCheck",
+		dataType : "text",
+		success: function(response) {
+			if(response == "Checked") {
+				memberLoginCheck = true;
+			} else if(response == "Fail") {
+				memberLoginCheck = false;
+			}
+		}, error: function(xhr,status,error) {
+			alert(error);
+		}
+	});
+		
+	return false;
+}
+
 //[상단메뉴 영역] 로그인 버튼 클릭 시 이벤트 처리
 function loginTextClick() {
 	if(!topMenuClick) {
@@ -250,8 +270,81 @@ function viewPlateClose() {
 		$("#viewPlate div.innerContent div.right div.purpose div.data").html("");
 		$("#viewPlate div.innerContent div.right div.collabo div.data").html("");
 		$("#viewPlate div.innerContent div.right div.language div.data").html("");
-		$("#viewPlate div.innerContent div.left").html("<div class=\"fotorama\" data-auto=\"false\"></div>");
+		$("#viewPlate div.innerContent div.left[name='slide']").html("<div class=\"fotorama\" data-auto=\"false\"></div>");
+		$("#viewPlate div.innerContent div.right div.comments div.list").html("");
+		commentFormOpenBtnClick(false);
 	});
 	
 	postClick = false;
 }
+
+// [보기판 영역] 덧글달기 버튼 클릭 시 이벤트 처리
+function commentFormOpenBtnClick(value) {
+	if(value== true) {
+		if(!memberLoginCheck) {
+			alert("로그인이 필요합니다.");
+			return;
+		}
+		
+		$("#viewPlate div.innerContent div.right div.comments div.button input.commentFormOpenBtn").val("서버로 전송");	
+		$("#viewPlate div.innerContent div.right div.comments div.button input.commentFormOpenBtn").attr("onclick", "writeComment()");
+		
+		if(postTotalCommentsCount > 0) {
+			$("#viewPlate div.innerContent div.right div.comments div.list").slideUp(500);			
+		}
+		
+		$("#viewPlate div.innerContent div.right div.comments div.button").animate({"margin-top":"1px"}, 500);			
+		$("#viewPlate div.innerContent div.right div.comments div.form").slideDown(500);
+		$("#viewPlate div.innerContent div.right div.comments div.button input.commentFormCloseBtn").slideDown(500);
+		$("#viewPlate div.innerContent div.right div.comments div.form textarea").focus();
+		viewPlateCommentFormOpenBtnClick = true;
+	} else {
+		$("#viewPlate div.innerContent div.right div.comments div.button input.commentFormOpenBtn").val("덧글달기");	
+		$("#viewPlate div.innerContent div.right div.comments div.button input.commentFormOpenBtn").attr("onclick", "commentFormOpenBtnClick(true)");		
+
+		if(postTotalCommentsCount > 0) {
+			$("#viewPlate div.innerContent div.right div.comments div.list").slideDown(500);			
+		}
+		
+		$("#viewPlate div.innerContent div.right div.comments div.button").animate({"margin-top":"20px"}, 500);
+		$("#viewPlate div.innerContent div.right div.comments div.form").slideUp(500);
+		$("#viewPlate div.innerContent div.right div.comments div.button input.commentFormCloseBtn").slideUp(500);	
+		viewPlateCommentFormOpenBtnClick = false;		
+	}
+}
+
+// [보기판 영역] 덧글 서버로 전송 버튼 클릭 시 이벤트 처리
+function writeComment() {
+	
+	var action = "board?action=writeComment";
+	var PostNo = $("#viewPlate div.innerContent").attr("name");
+	var CommentMemo = $("#viewPlate div.innerContent div.right div.comments div.form textarea").val();
+	
+	var form_data = {
+		inputPostNo : PostNo,
+		inputCommentMemo : CommentMemo
+	};
+	
+	$.ajax({
+		type : "POST",
+		url : action,
+		data : form_data,
+		dataType : "text",
+		success: function(response) {
+			if(response == "WriteOK") {
+				location.reload(true);
+			} else if(response == "NotLogin") {
+				alert("로그인이 필요합니다.");
+			} else {
+				alert("덧글 작성에 실패하였습니다.");
+			}
+		}, error: function(xhr,status,error) {
+			alert(error);
+		}
+	});
+		
+	return false;
+}
+
+
+

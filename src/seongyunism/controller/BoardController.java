@@ -12,7 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -22,7 +24,11 @@ import com.oreilly.servlet.multipart.ParamPart;
 import com.oreilly.servlet.multipart.Part;
 
 import seongyunism.model.BoardDAO;
+import seongyunism.model.CommentDAO;
+import seongyunism.model.MemberDAO;
 import seongyunism.model.domain.Board;
+import seongyunism.model.domain.Comment;
+import seongyunism.util.Convertor;
 
 
 public class BoardController extends HttpServlet {
@@ -49,6 +55,8 @@ public class BoardController extends HttpServlet {
 			writePost(req, res);
 		} else if(action.equals("deletePost")) {
 			deletePost(req, res);
+		} else if(action.equals("writeComment")) {
+			writeComment(req, res);
 		}
 	}
 
@@ -60,9 +68,11 @@ public class BoardController extends HttpServlet {
 		try {
 			int inputPostNo = (req.getParameter("postNo") != null) ? Integer.parseInt(req.getParameter("postNo")) : 0;
 			Board thisPost = BoardDAO.getPost(inputPostNo);
+			ArrayList<Comment> commentsOfThisPost = CommentDAO.getComments(inputPostNo);
 			
 			// 하나의 정보를 저장할 JSONObject를 설정
 			JSONObject jObject = new JSONObject();
+			JSONArray jArray = new JSONArray();
 			
 			// 데이터를 삽입
 			jObject.put("pfNo", inputPostNo);
@@ -84,6 +94,17 @@ public class BoardController extends HttpServlet {
 			jObject.put("pfPostThumbnailAddr", thisPost.getPfPostThumbnailAddr());
 			jObject.put("pfProjectMemo", thisPost.getPfProjectMemo());
 			jObject.put("pfPostViewMode", thisPost.getPfPostViewMode());
+
+			for(int i=0; i<commentsOfThisPost.size(); i++) {
+				JSONObject tempComment = new JSONObject();
+				tempComment.put("pfNo", commentsOfThisPost.get(i).getPfNo());
+				tempComment.put("pfMemberName", MemberDAO.getMember(commentsOfThisPost.get(i).getPfMemberNo()).getPfMemberName());
+				tempComment.put("pfCommentDate", Convertor.toConvertTimeFromUnixTime(commentsOfThisPost.get(i).getPfCommentDate()));
+				tempComment.put("pfCommentMemo", commentsOfThisPost.get(i).getPfCommentMemo());
+				jArray.add(tempComment);
+			}
+			
+			jObject.put("pfComments", jArray);
 			
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
@@ -129,6 +150,7 @@ public class BoardController extends HttpServlet {
 	
 	// 글쓰기
 	public void writePost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {		
+	
 		req.setCharacterEncoding("utf8");
 
 		Map<String, String> map = new HashMap<String, String>();
@@ -273,5 +295,44 @@ public class BoardController extends HttpServlet {
 		
 	}
 	
+	public void writeComment(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 	
+		req.setCharacterEncoding("utf8");
+		
+		boolean queryCheck = false;
+		
+		try {
+			HttpSession sessionMember = req.getSession();
+
+			if(sessionMember.getAttribute("pfMemberNo") == null) {
+				res.getWriter().write("NotLogin");
+				return;
+			}
+			
+			int inputPostNo = (req.getParameter("inputPostNo") != null) ? Integer.parseInt(req.getParameter("inputPostNo")) : 0;
+			int inputMemberNo = Integer.parseInt(sessionMember.getAttribute("pfMemberNo").toString());
+			int inputCommentNo = 0;
+			int inputCommentDepth = 0;
+			int inputCommentMode = 0;
+			long inputCommentDate = (System.currentTimeMillis())/1000;
+			int inputCommentTotalLike = 0;
+			String inputCommentMemo = (req.getParameter("inputCommentMemo") != null) ? req.getParameter("inputCommentMemo") : null;
+			
+			// DB 삽입
+			queryCheck = CommentDAO.writeComment(inputPostNo, inputMemberNo, inputCommentNo, inputCommentDepth, inputCommentMode, inputCommentDate, inputCommentTotalLike, inputCommentMemo);
+			
+			// 해당 포스트 totalComment+1 시켜주기
+			
+			
+			if(queryCheck) {
+				res.getWriter().write("WriteOK");
+			} else {
+				res.getWriter().write("Fail");
+			}
+			
+		} catch (SQLException e) {
+			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
+		}	
+
+	}
 }

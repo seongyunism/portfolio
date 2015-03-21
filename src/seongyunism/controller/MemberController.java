@@ -26,12 +26,14 @@ public class MemberController extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		String action = req.getParameter("action");
 		
-		if (action.equals("joinMember")) {
+		if(action.equals("joinMember")) {
 			joinMember(req, res);
 		} else if(action.equals("loginMember")) {
 			loginMember(req, res);
 		} else if(action.equals("logoutMember")) {
 			logoutMember(req, res);
+		} else if(action.equals("loginCheck")) {
+			loginCheck(req, res);
 		}
 	}
 
@@ -137,5 +139,26 @@ public class MemberController extends HttpServlet {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void loginCheck(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
+		int memberNo = 0;
+		
+		try {
+			
+			HttpSession sessionMember = req.getSession();
+			memberNo = (sessionMember.getAttribute("pfMemberNo") != null) ? Integer.parseInt(sessionMember.getAttribute("pfMemberNo").toString()) : 0;
+			
+			if(memberNo > 0) {
+				res.getWriter().write("Checked");
+			} else {
+				res.getWriter().write("Fail");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 }
