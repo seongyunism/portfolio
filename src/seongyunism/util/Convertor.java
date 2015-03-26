@@ -14,4 +14,13 @@ public class Convertor {
 		return sdf.format(date);
 
 	}
+	
+	public static String toConvertTimeFromUnixTime_Guest(long unixTime) {
+		
+		Date date = new Date(unixTime * 1000L); // *1000 is to convert seconds to milliseconds
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd (E) HH:mm"); // the format of your date
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT+9")); // give a timezone reference for formating (see comment at the bottom
+		return sdf.format(date);
+
+	}	
 }

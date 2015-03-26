@@ -3,6 +3,8 @@
 <%@ page import="seongyunism.model.BoardDAO" %>
 <%@ page import="seongyunism.model.domain.Board"%>
 <%@ page import="seongyunism.model.domain.BoardCategory"%>
+<%@ page import="seongyunism.model.domain.Guestbook"%>
+<%@ page import="seongyunism.util.Convertor"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.sql.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -28,9 +30,7 @@
 	var postTotalCommentsCount = 0;
 	
 	$(document).ready(function() {
-		titleImageInit();
-		$(window).resize(titleImageInit); // 리사이즈될때마다 타이틀 사이즈 재조정
-		loginCheck();
+		initialize();
 	});
 
 	$(window).load(function() { });
@@ -306,6 +306,7 @@
 		<div class="topButton">
 			<c:if test="${empty sessionScope.pfMemberNo}"><span class="joinText" onclick="joinTextClick()">회원가입</span><span class="loginText" onclick="loginTextClick()">로그인</span></c:if>
 			<c:if test="${not empty sessionScope.pfMemberNo}"><c:if test="${sessionScope.pfMemberAdmin == true}"><span class="writeText" onclick="writeTextClick()">새글작성</span></c:if><span class="logoutText" onclick="logoutMember()">로그아웃</span></c:if>
+			<span class="guestbookText" onclick="guestbookTextClick()">방명록</span>
 		</div>
 	</div>
 
@@ -343,6 +344,31 @@
   		</div>
 
     </div>
+
+	<div id="rightGuestbook">
+		<div class="title">
+			<div class="margin"></div>
+			<div class="text">당신은 나에게, 나는 당신에게</div>
+			<div class="close"><span class="closeText" onclick="guestbookClose()">닫기</span></div>
+		</div>
+		<form>
+			<div class="form">
+				<div class="name"><input type="text" name="inputGuestMemberName" class="inputGuestMemberName" placeholder="이름 혹은 별명"/></div>
+				<div class="password"><input type="password" name="inputGuestMemberPassword" class="inputGuestMemberPassword" placeholder="비밀번호" 	/></div>
+				<div class="memo"><textarea name="inputGuestPostMemo" class="inputGuestPostMemo"></textarea></div>
+			</div>
+			<div class="button"><input type="button" class="inputGuestSubmitBtn" value="서버로 전송" onclick="guestbookWrite()" /></div>
+		</form>	
+		<div class="list">
+			<% ArrayList<Guestbook> guestbookList = BoardDAO.getListGuestPost(); for(int i=0; i<guestbookList.size(); i++) { %>
+			<div class="guestPost" name="<%=guestbookList.get(i).getPfNo() %>">
+				<div class="memo"><%=guestbookList.get(i).getPfGuestPostMemo() %></div>
+				<div class="bottom"><span class="name"><%=guestbookList.get(i).getPfGuestMemberName() %></span>&nbsp;<span class="at">@</span>&nbsp;<span class="date"><%=Convertor.toConvertTimeFromUnixTime_Guest(guestbookList.get(i).getPfGuestPostDate()) %></span></div>
+			</div>	
+			<% } %>
+		</div>
+	
+	</div>
 
     <div id="content">
     	<div class="title"><a href="#leftMenu" class="menu"><img class="title" /></a></div>
@@ -403,7 +429,7 @@
     </div>
 
     <script src="js/jquery.pageslide.min.js"></script>
-    <script>$(".menu").pageslide({ direction: "right", modal: true });</script>
+    <script>$("#content div.title a.menu").pageslide({ direction: "right", modal: true });</script>
  
 </body>
 </html>

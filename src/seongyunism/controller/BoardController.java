@@ -28,6 +28,7 @@ import seongyunism.model.CommentDAO;
 import seongyunism.model.MemberDAO;
 import seongyunism.model.domain.Board;
 import seongyunism.model.domain.Comment;
+import seongyunism.model.domain.Guestbook;
 import seongyunism.util.Convertor;
 
 
@@ -57,6 +58,10 @@ public class BoardController extends HttpServlet {
 			deletePost(req, res);
 		} else if(action.equals("writeComment")) {
 			writeComment(req, res);
+		} else if(action.equals("listGuestPost")) {
+			listGuestPost(req, res);
+		} else if(action.equals("writeGuestPost")) {
+			writeGuestPost(req, res);
 		}
 	}
 
@@ -335,4 +340,89 @@ public class BoardController extends HttpServlet {
 		}	
 
 	}
+
+	public void listGuestPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
+		req.setCharacterEncoding("utf8");	
+		
+		try {
+			ArrayList<Guestbook> list = new ArrayList<Guestbook>();
+			list = BoardDAO.getListGuestPost();
+			
+			req.setAttribute("list", list);
+			res.getWriter().write("OK");
+			
+		} catch (SQLException e) {
+			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
+		}
+	}
+
+	
+	public void writeGuestPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
+		req.setCharacterEncoding("utf8");
+		
+		String pfRetrunValue = "";
+		boolean queryCheck = false;
+		
+		try {
+			HttpSession sessionMember = req.getSession();
+			
+			int inputMemberNo = (sessionMember.getAttribute("pfMemberNo")) != null ? Integer.parseInt(sessionMember.getAttribute("pfMemberNo").toString()) : 0;
+			String inputGuestMemberName = (req.getParameter("inputGuestMemberName") != null) ? req.getParameter("inputGuestMemberName") : null;
+			String inputGuestMemberPassword = (req.getParameter("inputGuestMemberPassword") != null) ? req.getParameter("inputGuestMemberPassword") : null;
+			String inputGuestPostMemo = (req.getParameter("inputGuestPostMemo") != null) ? req.getParameter("inputGuestPostMemo") : null;
+			long inputGuestPostDate = (System.currentTimeMillis())/1000;
+
+			// 하나의 정보를 저장할 JSONObject를 설정
+			JSONObject jObject = new JSONObject();
+			
+			if(inputMemberNo == 0) {	
+				if(inputGuestMemberName == "") {
+					pfRetrunValue = "EmptyName";
+					jObject.put("pfRetrunValue", pfRetrunValue);
+					res.getWriter().write(jObject.toString());
+					return;
+				}
+				
+				if(inputGuestMemberPassword == "") {
+					pfRetrunValue = "EmptyPassword";
+					jObject.put("pfRetrunValue", pfRetrunValue);
+					res.getWriter().write(jObject.toString());
+					return;
+				}
+			} else {
+				inputGuestMemberName = MemberDAO.getMember(inputMemberNo).getPfMemberName();
+			}
+			
+			if(inputGuestPostMemo == "") {
+				pfRetrunValue = "EmptyMemo";
+				jObject.put("pfRetrunValue", pfRetrunValue);
+				res.getWriter().write(jObject.toString());
+				return;
+			}
+			
+			queryCheck = BoardDAO.writeGuestPost(inputMemberNo, inputGuestMemberName, inputGuestMemberPassword, inputGuestPostDate, inputGuestPostMemo);
+			
+			if(queryCheck) {
+				pfRetrunValue = "WriteOK";
+			} else {
+				pfRetrunValue = "Fail";
+			}
+			
+			jObject.put("pfRetrunValue", pfRetrunValue);
+			jObject.put("pfGuestPostDate", Convertor.toConvertTimeFromUnixTime_Guest(inputGuestPostDate));
+			jObject.put("pfGuestMemberName", inputGuestMemberName);			
+			
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			
+//			System.out.println(jObject.toString());
+			res.getWriter().write(jObject.toString());
+			
+		} catch (SQLException e) {
+			req.setAttribute("errorMsg", "ERROR : 포스트 가져오기 실패! (SQL에러)");
+		}	
+	}
+	
 }

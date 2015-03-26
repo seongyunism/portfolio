@@ -221,7 +221,7 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 #writePlate div.innerContent div.bottom {clear:both; text-align:right;}
 #writePlate div.innerContent div.bottom input {font-family:NanumGothic; background:rgba(247, 65, 109, 0.5); text-shadow:1px 1px 1px rgba(0, 0, 0, 0.8); color:#ffffff; border:0px; outline:0px; cursor:pointer; margin-right:48px;}
 
-#viewPlate {position:fixed; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:10; display:none;}
+#viewPlate {position:fixed; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:12; display:none;}
 #viewPlate div.innerContent {position:absolute; top:50%; left:50%; background:rgba(0, 0, 0, 0.90); box-shadow:0px 0px 3px 1px rgba(0, 0, 0, 0.3);}
 #viewPlate div.innerContent div.top {width:100%;}
 #viewPlate div.innerContent div.top div.button {height:48px;}
@@ -273,7 +273,7 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 #viewPlate div.innerContent div.right div.comments div.button input.commentFormOpenBtn {width:120px; height:30px; font-family:NanumGothic; background:rgba(247, 65, 109, 0.5); text-shadow:1px 1px 1px rgba(0, 0, 0, 0.8); color:#ffffff; border:0px; outline:0px; cursor:pointer; margin-top:1px;}
 #viewPlate div.innerContent div.right div.comments div.button input.commentFormCloseBtn {width:120px; height:30px; font-family:NanumGothic; background:rgba(66, 89, 86, 0.5); text-shadow:1px 1px 1px rgba(0, 0, 0, 0.8); color:#ffffff; border:0px; outline:0px; cursor:pointer; margin-top:1px; margin-right:5px; display:none;}
 
-#topMenu {position:absolute; top:-58px; left:0px; width:100%; height:88px; z-index:11;}	
+#topMenu {position:absolute; top:-58px; left:0px; width:100%; height:88px; z-index:13;}	
 #topMenu div.topBar {width:100%; height:50px; background:rgba(0, 0, 0, 0.8); box-shadow:0px 0px 8px rgba(0,0,0, 0.8); }
 #topMenu div.topBar div.loginForm {width:460px; height:50px; float:right; margin-right:25px;}
 #topMenu div.topBar div.loginForm div.loginEmail {width:170px; height:50px; float:left; margin-right:10px;}
@@ -299,12 +299,14 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 #topMenu div.topButton {width:100%; height:15px; text-align:right; padding-top:23px;}
 #topMenu div.topButton span.joinText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:10px; padding:5px 10px 5px 10px; cursor:pointer; display:none;}
 #topMenu div.topButton span.joinText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
-#topMenu div.topButton span.loginText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:50px; padding:5px 10px 5px 10px; cursor:pointer;}
+#topMenu div.topButton span.loginText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:10px; padding:5px 10px 5px 10px; cursor:pointer;}
 #topMenu div.topButton span.loginText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
 #topMenu div.topButton span.writeText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:10px; padding:5px 10px 5px 10px; cursor:pointer;}
 #topMenu div.topButton span.writeText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
-#topMenu div.topButton span.logoutText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:50px; padding:5px 10px 5px 10px; cursor:pointer;}
+#topMenu div.topButton span.logoutText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:10px; padding:5px 10px 5px 10px; cursor:pointer;}
 #topMenu div.topButton span.logoutText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
+#topMenu div.topButton span.guestbookText {font-family:NanumGothic; font-size:1em; color:#eeeeee; margin-right:50px; padding:5px 10px 5px 10px; cursor:pointer;}
+#topMenu div.topButton span.guestbookText:hover {text-decoration:underline; background:rgba(255, 255, 255, 0.1);}
 
 #leftMenu {display:none;}
 #leftMenu a{font-weight:bold; color:#333; background:rgba(0, 0, 0, 0.1); border:none; padding:5px 10px;}
@@ -324,6 +326,36 @@ a, h1, h2, h3, h4, input {margin:0px; padding:0px;}
 #leftMenu div.spec h4 a {text-decoration:none;}
 #leftMenu div.spec h4 a:hover {text-decoration:underline;}
 #leftMenu div.spec h4 span.present {color:#777777;}
+
+#rightGuestbook {position:fixed; right:-504px; top:0px; width:500px; height:100%; background:rgba(0, 0, 0, 0.8); box-shadow:0px 0px 4px 2px rgba(0, 0, 0, 0.5); z-index:11; overflow:auto; overflow-x:hidden;}
+#rightGuestbook::-webkit-scrollbar {width:6px;}
+#rightGuestbook::-webkit-scrollbar-thumb {background-color:#EEEEEE;}
+#rightGuestbook::-webkit-scrollbar-track-piece {background-color:#444444;}
+#rightGuestbook div.title {height:60px; border-bottom:1px solid rgba(255, 255, 255, 0.075);}
+#rightGuestbook div.title div.margin {width:70px; height:60px; float:left;}
+#rightGuestbook div.title div.text {width:354px; height:60px; float:left; font-family:NanumGothic; font-size:1.2em; font-weight:bold; text-align:center; color:#ffffff; line-height:60px;}
+#rightGuestbook div.title div.close {width:70px; height:60px; float:left; text-align:center; line-height:60px;}
+#rightGuestbook div.title div.close span.closeText {font-family:NanumGothic; font-size:1em; color:#dddddd; cursor:pointer;}
+#rightGuestbook div.title div.close span.closeText:hover {color:#ffffff; text-decoration:underline;}
+#rightGuestbook div.form {clear:both;}
+#rightGuestbook div.form div.name {width:200px; height:50px; float:left; padding:10px 10px 0px 10px;}
+#rightGuestbook div.form div.name input.inputGuestMemberName {width:180px; height:40px; font-family:NanumGothic; font-size:1em; text-align:center; color:#eeeeee; background:rgba(0, 0, 0, 0.5); border:0px; outline:0px;}
+#rightGuestbook div.form div.password {width:294px; height:50px; float:left; padding:10px 10px 0px 0px;}
+#rightGuestbook div.form div.password input.inputGuestMemberPassword {width:284px; height:40px; font-family:NanumGothic; font-size:1em; text-align:center; color:#eeeeee; background:rgba(0, 0, 0, 0.5); border:0px; outline:0px;}
+#rightGuestbook div.form div.memo {width:500px; height:200px; clear:both; padding:10px;}
+#rightGuestbook div.form div.memo textarea.inputGuestPostMemo {width:480px; height:180px; font-family:NanumGothic; font-size:0.9em; color:#eeeeee; line-height:1.6em; background:rgba(0, 0, 0, 0.5); border:0px; outline:0px; padding:10px;}
+#rightGuestbook div.form div.memo textarea.inputGuestPostMemo::-webkit-scrollbar {width:6px;}
+#rightGuestbook div.form div.memo textarea.inputGuestPostMemo::-webkit-scrollbar-thumb {background-color:#EEEEEE;}
+#rightGuestbook div.form div.memo textarea.inputGuestPostMemo::-webkit-scrollbar-track-piece {background-color:#444444;}
+#rightGuestbook div.button {height:40px; text-align:right; padding:0px 10px 0px 0px; border-bottom:1px solid rgba(255, 255, 255, 0.075);}
+#rightGuestbook div.button input.inputGuestSubmitBtn {width:120px; height:30px; font-family:NanumGothic; text-shadow:1px 1px 1px rgba(0, 0, 0, 0.8); color:#ffffff; background:rgba(247, 65, 109, 0.5); border:0px; outline:0px; cursor:pointer;}
+#rightGuestbook div.list {clear:both;}
+#rightGuestbook div.list div.guestPost {border-bottom:1px solid rgba(255, 255, 255, 0.075);}
+#rightGuestbook div.list div.guestPost div.memo {width:500px; min-height:120px; font-family:NanumGothic; font-size:0.9em; color:#ffffff; line-height:25px; padding:15px;}
+#rightGuestbook div.list div.guestPost div.bottom {width:474px; height:30px; clear:both; font-family:NanumGothic; font-size:0.8em; text-align:right; color:#999999; margin-left:10px; line-height:30px; border-top:1px solid rgba(255, 255, 255, 0.05);}
+#rightGuestbook div.list div.guestPost div.bottom span.name {color:#cccccc;}
+#rightGuestbook div.list div.guestPost div.bottom span.at {color:#ffffff;}
+#rightGuestbook div.list div.guestPost div.bottom span.date {color:#aaaaaa;}
 
 #content {padding:0px; margin:auto; margin-bottom:50px;}
 #content div.title {text-align:center; }

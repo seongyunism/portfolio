@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import seongyunism.model.domain.Board;
 import seongyunism.model.domain.BoardCategory;
+import seongyunism.model.domain.Guestbook;
 import seongyunism.util.DBUtil;
 
 public class BoardDAO {
@@ -388,5 +389,86 @@ public class BoardDAO {
 			}
 		}
 	}
+
+	public static ArrayList<Guestbook> getListGuestPost() throws SQLException {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Guestbook thisPost = null;
+		ArrayList<Guestbook> thisList = new ArrayList<Guestbook>();
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM pf_guestbook ORDER BY pfGuestPostDate DESC");
+			rset = pstmt.executeQuery();
+				
+			while (rset.next()) {
+				
+				thisPost = new Guestbook(
+						rset.getInt(1),		// int pfNo
+						rset.getInt(2),		// int pfMemberNo
+						rset.getString(3),	// String pfGuestMemberName
+						rset.getString(4),	// String pfGuestMemberPassword
+						rset.getLong(5),	// long pfGuestPostDate
+						rset.getString(6)	// String pfGuestPoseMemo
+				);
+				
+				thisList.add(thisPost);
+			}
+			
+			return thisList;
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw se;
+
+		} finally {
+			try {
+				DBUtil.close(con, pstmt, rset);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+
+	}
+	
+	public static boolean writeGuestPost(int inputMemberNo, String inputGuestMemberName, String inputGuestMemberPassword,
+		long inputGuestPostDate, String inputGuestPostMemo) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("INSERT INTO pf_guestbook(pfMemberNo, pfGuestMemberName, pfGuestMemberPassword, pfGuestPostDate, pfGuestPostMemo) "
+				+ "VALUES (?, ?, password(?), ?, ?)");
+		
+			pstmt.setInt(1, inputMemberNo);
+			pstmt.setString(2, inputGuestMemberName);
+			pstmt.setString(3, inputGuestMemberPassword); 
+			pstmt.setLong(4, inputGuestPostDate); 
+			pstmt.setString(5, inputGuestPostMemo); 
+			pstmt.executeUpdate();
+			
+			System.out.println("BoardDAO - New Guestbook Post : " + inputGuestMemberName);
+
+			return true;
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			throw se;
+			
+		} finally {
+			try {
+				DBUtil.close(con, pstmt, rset);
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+		}
+	}
+
 	
 }

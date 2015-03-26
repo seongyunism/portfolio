@@ -1,3 +1,9 @@
+function initialize() {
+	titleImageInit();
+	$(window).resize(titleImageInit); // 리사이즈될때마다 타이틀 사이즈 재조정
+	loginCheck();
+}
+
 // 브라우저 가로 사이즈에 따른 타이틀 이미지 지정
 function titleImageInit() {
 	if($("html").width() > 1440) {
@@ -46,6 +52,7 @@ function loginCheck() {
 		success: function(response) {
 			if(response == "Checked") {
 				memberLoginCheck = true;
+				guestbookInit();
 			} else if(response == "Fail") {
 				memberLoginCheck = false;
 			}
@@ -57,7 +64,7 @@ function loginCheck() {
 	return false;
 }
 
-//[상단메뉴 영역] 로그인 버튼 클릭 시 이벤트 처리
+// [상단메뉴 영역] 로그인 버튼 클릭 시 이벤트 처리
 function loginTextClick() {
 	if(!topMenuClick) {
 		topMenuSlider(true);
@@ -97,7 +104,7 @@ function loginMember() {
 	return false;
 }
 
-//[상단메뉴 영역] 회원가입 모드 중 서버로 전송 버튼 클릭 시 이벤트 처리
+// [상단메뉴 영역] 회원가입 모드 중 서버로 전송 버튼 클릭 시 이벤트 처리
 function joinMember() {
 
 	var action = "member?action=joinMember";
@@ -134,7 +141,7 @@ function joinMember() {
 	return false;
 }
 
-// [로그인 영역] 새글작성 버튼 클릭 시 이벤트 처리
+// [상단메뉴 영역] 새글작성 버튼 클릭 시 이벤트 처리
 function writeTextClick() {
 	$("body").css("overflow-y", "hidden");
 	$("#writePlate").slideDown(500);
@@ -142,7 +149,7 @@ function writeTextClick() {
 	writeClick = true;
 }
 
-// [로그인 영역] 로그아웃 버튼 클릭 시 이벤트 처리
+// [상단메뉴 영역] 로그아웃 버튼 클릭 시 이벤트 처리
 function logoutMember() {
 	$.ajax({
 		type : "POST",
@@ -157,6 +164,64 @@ function logoutMember() {
 		}
 	});
 }
+
+// [상단메뉴 영역] 방명록 버튼 클릭 시 이벤트 처리
+function guestbookTextClick() {
+	$("#topMenu").fadeOut(500);
+	$("#rightGuestbook").animate({"right":"0px"}, 500);
+}
+
+// [방명록 영역] 초기화
+function guestbookInit() {
+	if(memberLoginCheck) {
+		$("#rightGuestbook div.form div.name, #rightGuestbook div.form div.password").hide();
+	}
+}
+
+// [방명록 영역] 닫기 버튼 클릭 시 이벤트 처리
+function guestbookClose() {
+	$("#topMenu").fadeIn(500);
+	$("#rightGuestbook").animate({"right":"-504px"}, 500);	
+}
+
+function guestbookWrite() {
+	
+	var action = "board?action=writeGuestPost";
+	var GuestMemberName = $("#rightGuestbook div.form div.name input.inputGuestMemberName").val();
+	var GuestMemberPassword = $("#rightGuestbook div.form div.password input.inputGuestMemberPassword").val();
+	var GuestPostMemo = $("#rightGuestbook div.form div.memo textarea.inputGuestPostMemo").val();
+	
+	var form_data = {
+		inputGuestMemberName : GuestMemberName,
+		inputGuestMemberPassword : GuestMemberPassword,
+		inputGuestPostMemo : GuestPostMemo
+	};
+	
+	$.ajax({
+		type : "POST",
+		url : action,
+		data : form_data,
+		dataType : "json",
+		success: function(response) {
+			if(response.pfRetrunValue == "WriteOK") {
+				$("#rightGuestbook div.list").prepend("<div class='guestPost'><div class='memo'>" + GuestPostMemo + "</div><div class='bottom'><span class='name'>" + response.pfGuestMemberName + "</span>&nbsp;<span class='at'>@</span>&nbsp;<span class='date'>" + response.pfGuestPostDate + "</span></div></div>");
+			} else if(response.pfRetrunValue == "EmptyName") {
+				alert("이름 혹은 별명을 입력하세요.");
+			} else if(response.pfRetrunValue == "EmptyPassword") {
+				alert("비밀번호를 입력하세요.");
+			} else if(response.pfRetrunValue == "EmptyMemo") {
+				alert("작성된 내용이 없습니다.");
+			} else {
+				alert("게시글 작성에 실패하였습니다.");
+			}
+		}, error: function(xhr,status,error) {
+			alert(error);
+		}
+	});
+		
+	return false;
+}
+
 
 // [쓰기판 영역] 닫기 버튼 클릭 시 이벤트 처리
 function writePlateClose() {
